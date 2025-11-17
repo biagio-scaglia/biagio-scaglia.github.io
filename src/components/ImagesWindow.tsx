@@ -1,5 +1,6 @@
 import { useState, useMemo, useEffect } from 'react'
 import Window from './Window'
+import Windows7Spinner from './Windows7Spinner'
 import defaultBackground from '../assets/sfondo.jpg'
 
 // Carica dinamicamente tutti i file jpg dalla cartella sfondo
@@ -12,6 +13,7 @@ interface ImagesWindowProps {
   isSlideshowEnabled?: boolean
   slideshowIntervalSeconds?: number
   onSlideshowChange?: (enabled: boolean, seconds: number) => void
+  onMinimize?: () => void
 }
 
 export default function ImagesWindow({ 
@@ -20,11 +22,13 @@ export default function ImagesWindow({
   currentBackground,
   isSlideshowEnabled = false,
   slideshowIntervalSeconds = 5,
-  onSlideshowChange
+  onSlideshowChange,
+  onMinimize
 }: ImagesWindowProps) {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth)
   const [localSlideshowEnabled, setLocalSlideshowEnabled] = useState(isSlideshowEnabled)
   const [localSlideshowSeconds, setLocalSlideshowSeconds] = useState(slideshowIntervalSeconds)
+  const [loadingImages, setLoadingImages] = useState<Record<string, boolean>>({})
 
   useEffect(() => {
     const handleResize = () => setWindowWidth(window.innerWidth)
@@ -100,6 +104,7 @@ export default function ImagesWindow({
       height={500}
       defaultPosition={{ x: 150, y: 100 }}
       onClose={onClose}
+      onMinimize={onMinimize}
     >
       <div style={{ padding: windowWidth <= 480 ? '15px' : '20px' }}>
         <h2 style={{ marginTop: 0, fontSize: windowWidth <= 480 ? '16px' : '18px', marginBottom: windowWidth <= 480 ? '15px' : '20px' }}>Scegli uno sfondo</h2>
@@ -127,6 +132,7 @@ export default function ImagesWindow({
                 cursor: 'pointer',
                 position: 'relative',
                 transition: 'all 0.2s',
+                overflow: 'hidden',
               }}
               onMouseEnter={(e) => {
                 if (selectedBackground !== index) {
@@ -139,6 +145,42 @@ export default function ImagesWindow({
                 }
               }}
             >
+              {loadingImages[bg.url] && !bg.url.startsWith('linear-gradient') && (
+                <div style={{
+                  position: 'absolute',
+                  top: '50%',
+                  left: '50%',
+                  transform: 'translate(-50%, -50%)',
+                  zIndex: 1,
+                }}>
+                  <Windows7Spinner size={32} />
+                </div>
+              )}
+              <img
+                src={bg.url.startsWith('linear-gradient') ? undefined : bg.url}
+                alt={bg.name}
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'cover',
+                  display: bg.url.startsWith('linear-gradient') ? 'none' : (loadingImages[bg.url] ? 'none' : 'block'),
+                }}
+                onLoadStart={() => {
+                  if (!bg.url.startsWith('linear-gradient')) {
+                    setLoadingImages(prev => ({ ...prev, [bg.url]: true }))
+                  }
+                }}
+                onLoad={() => {
+                  if (!bg.url.startsWith('linear-gradient')) {
+                    setLoadingImages(prev => ({ ...prev, [bg.url]: false }))
+                  }
+                }}
+                onError={() => {
+                  if (!bg.url.startsWith('linear-gradient')) {
+                    setLoadingImages(prev => ({ ...prev, [bg.url]: false }))
+                  }
+                }}
+              />
               <div style={{
                 position: 'absolute',
                 bottom: 0,

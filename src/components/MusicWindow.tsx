@@ -5,9 +5,10 @@ import musica1 from '../assets/sound/musica 1.mp3'
 
 interface MusicWindowProps {
   onClose: () => void
+  onMinimize?: () => void
 }
 
-export default function MusicWindow({ onClose }: MusicWindowProps) {
+export default function MusicWindow({ onClose, onMinimize }: MusicWindowProps) {
   const [isPlaying, setIsPlaying] = useState(false)
   const [currentTime, setCurrentTime] = useState(0)
   const [duration, setDuration] = useState(0)
@@ -113,6 +114,7 @@ export default function MusicWindow({ onClose }: MusicWindowProps) {
       height={400}
       defaultPosition={{ x: 200, y: 150 }}
       onClose={onClose}
+      onMinimize={onMinimize}
     >
       <div style={{ padding: windowWidth <= 480 ? '15px' : '20px', display: 'flex', flexDirection: 'column', gap: windowWidth <= 480 ? '15px' : '20px', height: '100%' }}>
         <div style={{ textAlign: 'center' }}>

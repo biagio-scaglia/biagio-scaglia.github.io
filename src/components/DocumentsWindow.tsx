@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import Window from './Window'
+import Windows7Spinner from './Windows7Spinner'
 import curriculumPDF from '../assets/Curriculum Vitae - Biagio Scaglia.pdf'
 import fiammaImg from '../assets/fiamma.jpg'
 import zoeImg from '../assets/zoe.jpg'
@@ -7,11 +8,13 @@ import bariImg from '../assets/Bari.jpg'
 
 interface DocumentsWindowProps {
   onClose: () => void
+  onMinimize?: () => void
 }
 
-export default function DocumentsWindow({ onClose }: DocumentsWindowProps) {
+export default function DocumentsWindow({ onClose, onMinimize }: DocumentsWindowProps) {
   const [selectedImage, setSelectedImage] = useState<string | null>(null)
   const [windowWidth, setWindowWidth] = useState(window.innerWidth)
+  const [loadingImages, setLoadingImages] = useState<Record<string, boolean>>({})
 
   useEffect(() => {
     const handleResize = () => setWindowWidth(window.innerWidth)
@@ -40,6 +43,7 @@ export default function DocumentsWindow({ onClose }: DocumentsWindowProps) {
       height={600}
       defaultPosition={{ x: 150, y: 100 }}
       onClose={onClose}
+      onMinimize={onMinimize}
     >
       <div style={{ padding: windowWidth <= 480 ? '15px' : '20px' }}>
         <h2 style={{ marginTop: 0, fontSize: windowWidth <= 480 ? '16px' : '18px', marginBottom: windowWidth <= 480 ? '15px' : '20px' }}>I miei documenti</h2>
@@ -112,6 +116,17 @@ export default function DocumentsWindow({ onClose }: DocumentsWindowProps) {
                     e.currentTarget.style.boxShadow = 'none'
                   }}
                 >
+                  {loadingImages[img.src] && (
+                    <div style={{
+                      position: 'absolute',
+                      top: '50%',
+                      left: '50%',
+                      transform: 'translate(-50%, -50%)',
+                      zIndex: 1,
+                    }}>
+                      <Windows7Spinner size={32} />
+                    </div>
+                  )}
                   <img
                     src={img.src}
                     alt={img.name}
@@ -119,7 +134,16 @@ export default function DocumentsWindow({ onClose }: DocumentsWindowProps) {
                       width: '100%',
                       height: windowWidth <= 480 ? '100px' : '120px',
                       objectFit: 'cover',
-                      display: 'block',
+                      display: loadingImages[img.src] ? 'none' : 'block',
+                    }}
+                    onLoadStart={() => {
+                      setLoadingImages(prev => ({ ...prev, [img.src]: true }))
+                    }}
+                    onLoad={() => {
+                      setLoadingImages(prev => ({ ...prev, [img.src]: false }))
+                    }}
+                    onError={() => {
+                      setLoadingImages(prev => ({ ...prev, [img.src]: false }))
                     }}
                   />
                   <div style={{
@@ -155,15 +179,40 @@ export default function DocumentsWindow({ onClose }: DocumentsWindowProps) {
             }}
             onClick={() => setSelectedImage(null)}
           >
-            <img
-              src={selectedImage}
-              alt="Preview"
-              style={{
-                maxWidth: '90%',
-                maxHeight: '90%',
-                objectFit: 'contain',
-              }}
-            />
+            {selectedImage && (
+              <>
+                {loadingImages[selectedImage] && (
+                  <div style={{
+                    position: 'absolute',
+                    top: '50%',
+                    left: '50%',
+                    transform: 'translate(-50%, -50%)',
+                    zIndex: 1,
+                  }}>
+                    <Windows7Spinner size={48} />
+                  </div>
+                )}
+                <img
+                  src={selectedImage}
+                  alt="Preview"
+                  style={{
+                    maxWidth: '90%',
+                    maxHeight: '90%',
+                    objectFit: 'contain',
+                    display: loadingImages[selectedImage] ? 'none' : 'block',
+                  }}
+                  onLoadStart={() => {
+                    setLoadingImages(prev => ({ ...prev, [selectedImage]: true }))
+                  }}
+                  onLoad={() => {
+                    setLoadingImages(prev => ({ ...prev, [selectedImage]: false }))
+                  }}
+                  onError={() => {
+                    setLoadingImages(prev => ({ ...prev, [selectedImage]: false }))
+                  }}
+                />
+              </>
+            )}
           </div>
         )}
       </div>

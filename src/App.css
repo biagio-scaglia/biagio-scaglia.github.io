@@ -80,6 +80,13 @@ button:hover:not(:active) {
   position: relative !important;
 }
 
+.taskbar-button i {
+  display: inline-block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  color: inherit !important;
+}
+
 .taskbar-button:hover:not(.is-active) {
   background: linear-gradient(to bottom, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0.15) 100%) !important;
   backdrop-filter: blur(25px) !important;

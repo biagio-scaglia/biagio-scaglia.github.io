@@ -571,10 +571,13 @@ function App() {
           <Note />
         </Window>
       )}
-      {openWindows.documents && (
-        <DocumentsWindow onClose={() => toggleWindow('documents')} />
+      {openWindows.documents && !minimizedWindows.has('documents') && (
+        <DocumentsWindow 
+          onClose={() => toggleWindow('documents')} 
+          onMinimize={() => handleMinimize('documents')}
+        />
       )}
-      {openWindows.images && (
+      {openWindows.images && !minimizedWindows.has('images') && (
         <ImagesWindow 
           onClose={() => toggleWindow('images')} 
           onBackgroundChange={setDesktopBackground}
@@ -582,15 +585,20 @@ function App() {
           isSlideshowEnabled={isSlideshowEnabled}
           slideshowIntervalSeconds={slideshowIntervalSeconds}
           onSlideshowChange={handleSlideshowChange}
+          onMinimize={() => handleMinimize('images')}
         />
       )}
-      {openWindows.computer && (
+      {openWindows.computer && !minimizedWindows.has('computer') && (
         <ComputerWindow 
           onClose={() => toggleWindow('computer')} 
+          onMinimize={() => handleMinimize('computer')}
         />
       )}
-      {openWindows.music && (
-        <MusicWindow onClose={() => toggleWindow('music')} />
+      {openWindows.music && !minimizedWindows.has('music') && (
+        <MusicWindow 
+          onClose={() => toggleWindow('music')} 
+          onMinimize={() => handleMinimize('music')}
+        />
       )}
 
       {/* Taskbar Windows 7 */}
@@ -659,7 +667,6 @@ function App() {
           />
         </button>
         <div style={{ width: '1px', background: 'rgba(0, 0, 0, 0.4)', height: '70%', margin: '0 3px' }} />
-        {openWindows.about && (
         <button
           className={`taskbar-button ${isWindowActive('about') ? 'is-active' : ''}`}
           onClick={() => toggleWindow('about')}
@@ -690,10 +697,8 @@ function App() {
             transition: 'all 0.2s',
           }}
         >
-          <i className="fas fa-file-alt" style={{ fontSize: '18px', filter: 'drop-shadow(0 1px 2px rgba(0,0,0,0.3))' }}></i>
+          <i className="fas fa-file-alt" style={{ fontSize: '18px', filter: 'drop-shadow(0 1px 2px rgba(0,0,0,0.3))', display: 'inline-block', visibility: 'visible', opacity: 1, color: '#fff' }}></i>
         </button>
-        )}
-        {openWindows.personalInfo && (
         <button
           className={`taskbar-button ${isWindowActive('personalInfo') ? 'is-active' : ''}`}
           onClick={() => toggleWindow('personalInfo')}
@@ -724,10 +729,8 @@ function App() {
             transition: 'all 0.2s',
           }}
         >
-          <i className="fas fa-user" style={{ fontSize: '18px', filter: 'drop-shadow(0 1px 2px rgba(0,0,0,0.3))' }}></i>
+          <i className="fas fa-user" style={{ fontSize: '18px', filter: 'drop-shadow(0 1px 2px rgba(0,0,0,0.3))', display: 'inline-block', visibility: 'visible', opacity: 1, color: '#fff' }}></i>
         </button>
-        )}
-        {openWindows.workExperience && (
         <button
           className={`taskbar-button ${isWindowActive('workExperience') ? 'is-active' : ''}`}
           onClick={() => toggleWindow('workExperience')}
@@ -758,10 +761,8 @@ function App() {
             transition: 'all 0.2s',
           }}
         >
-          <i className="fas fa-briefcase" style={{ fontSize: '18px', filter: 'drop-shadow(0 1px 2px rgba(0,0,0,0.3))' }}></i>
+          <i className="fas fa-briefcase" style={{ fontSize: '18px', filter: 'drop-shadow(0 1px 2px rgba(0,0,0,0.3))', display: 'inline-block', visibility: 'visible', opacity: 1, color: '#fff' }}></i>
         </button>
-        )}
-        {openWindows.skills && (
         <button
           className={`taskbar-button ${isWindowActive('skills') ? 'is-active' : ''}`}
           onClick={() => toggleWindow('skills')}
@@ -792,10 +793,8 @@ function App() {
             transition: 'all 0.2s',
           }}
         >
-          <i className="fas fa-bolt" style={{ fontSize: '18px', filter: 'drop-shadow(0 1px 2px rgba(0,0,0,0.3))' }}></i>
+          <i className="fas fa-bolt" style={{ fontSize: '18px', filter: 'drop-shadow(0 1px 2px rgba(0,0,0,0.3))', display: 'inline-block', visibility: 'visible', opacity: 1, color: '#fff' }}></i>
         </button>
-        )}
-        {openWindows.education && (
         <button
           className={`taskbar-button ${isWindowActive('education') ? 'is-active' : ''}`}
           onClick={() => toggleWindow('education')}
@@ -826,10 +825,8 @@ function App() {
             transition: 'all 0.2s',
           }}
         >
-          <i className="fas fa-graduation-cap" style={{ fontSize: '18px', filter: 'drop-shadow(0 1px 2px rgba(0,0,0,0.3))' }}></i>
+          <i className="fas fa-graduation-cap" style={{ fontSize: '18px', filter: 'drop-shadow(0 1px 2px rgba(0,0,0,0.3))', display: 'inline-block', visibility: 'visible', opacity: 1, color: '#fff' }}></i>
         </button>
-        )}
-        {openWindows.certifications && (
         <button
           className={`taskbar-button ${isWindowActive('certifications') ? 'is-active' : ''}`}
           onClick={() => toggleWindow('certifications')}
@@ -860,10 +857,8 @@ function App() {
             transition: 'all 0.2s',
           }}
         >
-          <i className="fas fa-trophy" style={{ fontSize: '18px', filter: 'drop-shadow(0 1px 2px rgba(0,0,0,0.3))' }}></i>
+          <i className="fas fa-trophy" style={{ fontSize: '18px', filter: 'drop-shadow(0 1px 2px rgba(0,0,0,0.3))', display: 'inline-block', visibility: 'visible', opacity: 1, color: '#fff' }}></i>
         </button>
-        )}
-        {openWindows.note && (
         <button
           className={`taskbar-button ${isWindowActive('note') ? 'is-active' : ''}`}
           onClick={() => toggleWindow('note')}
@@ -894,25 +889,23 @@ function App() {
             transition: 'all 0.2s',
           }}
         >
-          <i className="fas fa-sticky-note" style={{ fontSize: '18px', filter: 'drop-shadow(0 1px 2px rgba(0,0,0,0.3))' }}></i>
+          <i className="fas fa-sticky-note" style={{ fontSize: '18px', filter: 'drop-shadow(0 1px 2px rgba(0,0,0,0.3))', display: 'inline-block', visibility: 'visible', opacity: 1, color: '#fff' }}></i>
         </button>
-        )}
-        {openWindows.music && (
         <button
-          className={`taskbar-button ${openWindows.music ? 'is-active' : ''}`}
+          className={`taskbar-button ${isWindowActive('music') ? 'is-active' : ''}`}
           onClick={() => toggleWindow('music')}
           style={{
             padding: '4px 12px',
             fontSize: '11px',
             border: 'none',
-            background: openWindows.music 
+            background: isWindowActive('music')
               ? 'linear-gradient(to bottom, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.3) 100%)'
               : 'transparent',
-            backdropFilter: openWindows.music ? 'blur(25px)' : 'none',
-            WebkitBackdropFilter: openWindows.music ? 'blur(25px)' : 'none',
+            backdropFilter: isWindowActive('music') ? 'blur(25px)' : 'none',
+            WebkitBackdropFilter: isWindowActive('music') ? 'blur(25px)' : 'none',
             color: '#fff',
             cursor: 'pointer',
-            fontWeight: openWindows.music ? 'bold' : 'normal',
+            fontWeight: isWindowActive('music') ? 'bold' : 'normal',
             minWidth: 'auto',
             width: 'auto',
             height: '36px',
@@ -922,15 +915,110 @@ function App() {
             gap: '6px',
             borderRadius: '2px',
             margin: '2px',
-            boxShadow: openWindows.music 
+            boxShadow: isWindowActive('music')
               ? 'inset 0 1px 0 rgba(255, 255, 255, 0.4), inset 0 -1px 0 rgba(0, 0, 0, 0.2), 0 0 6px rgba(100, 150, 255, 0.3)'
               : 'none',
             transition: 'all 0.2s',
           }}
         >
-          <i className="fas fa-music" style={{ fontSize: '18px', filter: 'drop-shadow(0 1px 2px rgba(0,0,0,0.3))' }}></i>
+          <i className="fas fa-music" style={{ fontSize: '18px', filter: 'drop-shadow(0 1px 2px rgba(0,0,0,0.3))', display: 'inline-block', visibility: 'visible', opacity: 1, color: '#fff' }}></i>
         </button>
-        )}
+        <button
+          className={`taskbar-button ${isWindowActive('documents') ? 'is-active' : ''}`}
+          onClick={() => toggleWindow('documents')}
+          style={{
+            padding: '4px 12px',
+            fontSize: '11px',
+            border: 'none',
+            background: isWindowActive('documents')
+              ? 'linear-gradient(to bottom, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.3) 100%)'
+              : 'transparent',
+            backdropFilter: isWindowActive('documents') ? 'blur(25px)' : 'none',
+            WebkitBackdropFilter: isWindowActive('documents') ? 'blur(25px)' : 'none',
+            color: '#fff',
+            cursor: 'pointer',
+            fontWeight: isWindowActive('documents') ? 'bold' : 'normal',
+            minWidth: 'auto',
+            width: 'auto',
+            height: '36px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: '6px',
+            borderRadius: '2px',
+            margin: '2px',
+            boxShadow: isWindowActive('documents')
+              ? 'inset 0 1px 0 rgba(255, 255, 255, 0.4), inset 0 -1px 0 rgba(0, 0, 0, 0.2), 0 0 6px rgba(100, 150, 255, 0.3)'
+              : 'none',
+            transition: 'all 0.2s',
+          }}
+        >
+          <i className="fas fa-folder" style={{ fontSize: '18px', filter: 'drop-shadow(0 1px 2px rgba(0,0,0,0.3))', display: 'inline-block', visibility: 'visible', opacity: 1, color: '#fff' }}></i>
+        </button>
+        <button
+          className={`taskbar-button ${isWindowActive('images') ? 'is-active' : ''}`}
+          onClick={() => toggleWindow('images')}
+          style={{
+            padding: '4px 12px',
+            fontSize: '11px',
+            border: 'none',
+            background: isWindowActive('images')
+              ? 'linear-gradient(to bottom, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.3) 100%)'
+              : 'transparent',
+            backdropFilter: isWindowActive('images') ? 'blur(25px)' : 'none',
+            WebkitBackdropFilter: isWindowActive('images') ? 'blur(25px)' : 'none',
+            color: '#fff',
+            cursor: 'pointer',
+            fontWeight: isWindowActive('images') ? 'bold' : 'normal',
+            minWidth: 'auto',
+            width: 'auto',
+            height: '36px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: '6px',
+            borderRadius: '2px',
+            margin: '2px',
+            boxShadow: isWindowActive('images')
+              ? 'inset 0 1px 0 rgba(255, 255, 255, 0.4), inset 0 -1px 0 rgba(0, 0, 0, 0.2), 0 0 6px rgba(100, 150, 255, 0.3)'
+              : 'none',
+            transition: 'all 0.2s',
+          }}
+        >
+          <i className="fas fa-images" style={{ fontSize: '18px', filter: 'drop-shadow(0 1px 2px rgba(0,0,0,0.3))', display: 'inline-block', visibility: 'visible', opacity: 1, color: '#fff' }}></i>
+        </button>
+        <button
+          className={`taskbar-button ${isWindowActive('computer') ? 'is-active' : ''}`}
+          onClick={() => toggleWindow('computer')}
+          style={{
+            padding: '4px 12px',
+            fontSize: '11px',
+            border: 'none',
+            background: isWindowActive('computer')
+              ? 'linear-gradient(to bottom, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.3) 100%)'
+              : 'transparent',
+            backdropFilter: isWindowActive('computer') ? 'blur(25px)' : 'none',
+            WebkitBackdropFilter: isWindowActive('computer') ? 'blur(25px)' : 'none',
+            color: '#fff',
+            cursor: 'pointer',
+            fontWeight: isWindowActive('computer') ? 'bold' : 'normal',
+            minWidth: 'auto',
+            width: 'auto',
+            height: '36px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: '6px',
+            borderRadius: '2px',
+            margin: '2px',
+            boxShadow: isWindowActive('computer')
+              ? 'inset 0 1px 0 rgba(255, 255, 255, 0.4), inset 0 -1px 0 rgba(0, 0, 0, 0.2), 0 0 6px rgba(100, 150, 255, 0.3)'
+              : 'none',
+            transition: 'all 0.2s',
+          }}
+        >
+          <i className="fas fa-desktop" style={{ fontSize: '18px', filter: 'drop-shadow(0 1px 2px rgba(0,0,0,0.3))', display: 'inline-block', visibility: 'visible', opacity: 1, color: '#fff' }}></i>
+        </button>
         <div style={{ flex: 1 }} />
         <div
           className="taskbar-clock"

@@ -3,9 +3,10 @@ import Window from './Window'
 
 interface ComputerWindowProps {
   onClose: () => void
+  onMinimize?: () => void
 }
 
-export default function ComputerWindow({ onClose }: ComputerWindowProps) {
+export default function ComputerWindow({ onClose, onMinimize }: ComputerWindowProps) {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth)
 
   useEffect(() => {
@@ -21,6 +22,7 @@ export default function ComputerWindow({ onClose }: ComputerWindowProps) {
       height={550}
       defaultPosition={{ x: 150, y: 100 }}
       onClose={onClose}
+      onMinimize={onMinimize}
     >
       <div style={{ padding: windowWidth <= 480 ? '15px' : '20px' }}>
         <h2 style={{ marginTop: 0, fontSize: windowWidth <= 480 ? '16px' : '18px', marginBottom: windowWidth <= 480 ? '15px' : '20px' }}>Informazioni sul Portfolio</h2>

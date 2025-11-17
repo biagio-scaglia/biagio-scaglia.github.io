@@ -13,7 +13,6 @@ export default function PersonalInfo() {
         <legend>Contatti</legend>
         <p style={{ margin: '6px 0', fontSize: '13px' }}><strong>Telefono:</strong> (+39) 3513150134</p>
         <p style={{ margin: '6px 0', fontSize: '13px' }}><strong>Email:</strong> biagio.scaglia01@gmail.com</p>
-        <p style={{ margin: '6px 0', fontSize: '13px' }}><strong>Sito web:</strong> <a href="https://biagioscaglia.com/" target="_blank" rel="noopener noreferrer">biagioscaglia.com</a></p>
         <p style={{ margin: '6px 0', fontSize: '13px' }}><strong>LinkedIn:</strong> Biagio Scaglia</p>
         <p style={{ margin: '6px 0', fontSize: '13px' }}><strong>WhatsApp:</strong> +393513150134</p>
       </fieldset>

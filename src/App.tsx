@@ -804,12 +804,12 @@ function App() {
       <DesktopIcon
         icon={<img src={solitarioIcon} alt="Solitario" style={{ width: window.innerWidth <= 480 ? '44px' : window.innerWidth <= 768 ? '50px' : '48px', height: window.innerWidth <= 480 ? '44px' : window.innerWidth <= 768 ? '50px' : '48px', objectFit: 'contain', filter: 'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3))' }} />}
         label="Solitario"
-        onClick={() => toggleWindow('solitario')}
-        x={iconPositions.solitario?.x || (window.innerWidth <= 480 ? 100 : window.innerWidth <= 768 ? 130 : 360)}
-        y={iconPositions.solitario?.y || (window.innerWidth <= 480 ? 500 : window.innerWidth <= 768 ? 390 : 130)}
-        isSelected={selectedIcon === 'solitario'}
-        onSelect={() => setSelectedIcon('solitario')}
-        onPositionChange={(x, y) => handleIconPositionChange('solitario', x, y)}
+        onClick={() => toggleWindow('solitaire')}
+        x={iconPositions.solitaire.x}
+        y={iconPositions.solitaire.y}
+        isSelected={selectedIcon === 'solitaire'}
+        onSelect={() => setSelectedIcon('solitaire')}
+        onPositionChange={(x, y) => handleIconPositionChange('solitaire', x, y)}
       />
       <DesktopIcon
         icon={<img src={cestinoIcon} alt="Cestino" style={{ width: window.innerWidth <= 480 ? '44px' : window.innerWidth <= 768 ? '50px' : '48px', height: window.innerWidth <= 480 ? '44px' : window.innerWidth <= 768 ? '50px' : '48px', objectFit: 'contain', filter: 'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3))' }} />}
@@ -1042,11 +1042,11 @@ function App() {
           />
         </Suspense>
       )}
-      {openWindows.solitario && !minimizedWindows.has('solitario') && (
+      {openWindows.solitaire && !minimizedWindows.has('solitaire') && (
         <Suspense fallback={<LoadingFallback />}>
           <Solitaire 
-            onClose={() => handleClose('solitario')}
-            onMinimize={() => handleMinimize('solitario')}
+            onClose={() => handleClose('solitaire')}
+            onMinimize={() => handleMinimize('solitaire')}
             icon={<img src={solitarioIcon} alt="" style={{ width: '16px', height: '16px', objectFit: 'contain', display: 'block', visibility: 'visible', opacity: 1 }} />}
           />
         </Suspense>
@@ -1129,7 +1129,7 @@ function App() {
             width: '45px',
             height: '40px',
             borderRadius: '0',
-            boxShadow: showStartMenu || openWindows.about || openWindows.personalInfo || openWindows.workExperience || openWindows.skills || openWindows.education || openWindows.certifications || openWindows.note || openWindows.documents || openWindows.images || openWindows.computer || openWindows.music || openWindows.settings || openWindows.paint || openWindows.browser || openWindows.calculator || openWindows.portfolio || openWindows.solitario || openWindows.cestino || openWindows.antivirus || openWindows.calendar
+            boxShadow: showStartMenu || openWindows.about || openWindows.personalInfo || openWindows.workExperience || openWindows.skills || openWindows.education || openWindows.certifications || openWindows.note || openWindows.documents || openWindows.images || openWindows.computer || openWindows.music || openWindows.settings || openWindows.paint || openWindows.browser || openWindows.calculator || openWindows.portfolio || openWindows.solitaire || openWindows.cestino || openWindows.antivirus || openWindows.calendar
               ? 'inset 0 2px 4px rgba(0, 0, 0, 0.3), 0 0 8px rgba(100, 150, 255, 0.4)'
               : 'inset 0 1px 0 rgba(255, 255, 255, 0.3), inset 0 -1px 0 rgba(0, 0, 0, 0.2)',
             transition: 'all 0.2s',
@@ -1857,24 +1857,24 @@ function App() {
             />
           </button>
         )}
-        {openWindows.solitario && (
+        {openWindows.solitaire && (
           <button
-            className={`taskbar-button ${isWindowActive('solitario') ? 'is-active' : ''}`}
-            onClick={() => handleTaskbarClick('solitario')}
-            onMouseEnter={(e) => handleTaskbarButtonHover('solitario', e)}
+            className={`taskbar-button ${isWindowActive('solitaire') ? 'is-active' : ''}`}
+            onClick={() => handleTaskbarClick('solitaire')}
+            onMouseEnter={(e) => handleTaskbarButtonHover('solitaire', e)}
             onMouseLeave={handleTaskbarButtonLeave}
             style={{
               padding: '4px 12px',
               fontSize: '11px',
               border: 'none',
-              background: isWindowActive('solitario')
+              background: isWindowActive('solitaire')
                 ? 'linear-gradient(to bottom, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.3) 100%)'
                 : 'transparent',
-              backdropFilter: isWindowActive('solitario') ? 'blur(25px)' : 'none',
-              WebkitBackdropFilter: isWindowActive('solitario') ? 'blur(25px)' : 'none',
+              backdropFilter: isWindowActive('solitaire') ? 'blur(25px)' : 'none',
+              WebkitBackdropFilter: isWindowActive('solitaire') ? 'blur(25px)' : 'none',
               color: '#fff',
               cursor: 'pointer',
-              fontWeight: isWindowActive('solitario') ? 'bold' : 'normal',
+              fontWeight: isWindowActive('solitaire') ? 'bold' : 'normal',
               minWidth: 'auto',
               width: 'auto',
               height: '36px',
@@ -1884,7 +1884,7 @@ function App() {
               gap: '6px',
               borderRadius: '2px',
               margin: '2px',
-              boxShadow: isWindowActive('solitario')
+              boxShadow: isWindowActive('solitaire')
                 ? 'inset 0 1px 0 rgba(255, 255, 255, 0.4), inset 0 -1px 0 rgba(0, 0, 0, 0.2), 0 0 6px rgba(100, 150, 255, 0.3)'
                 : 'none',
               transition: 'all 0.2s',

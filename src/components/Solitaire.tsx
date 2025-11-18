@@ -20,7 +20,6 @@ const valueNames = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q',
 
 export default function Solitaire({ onClose, onMinimize, icon }: SolitaireProps) {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth)
-  const [deck, setDeck] = useState<Card[]>([])
   const [columns, setColumns] = useState<Card[][]>([[], [], [], [], [], [], []])
   const [foundations, setFoundations] = useState<Card[][]>([[], [], [], []])
   const [waste, setWaste] = useState<Card[]>([])
@@ -78,7 +77,6 @@ export default function Solitaire({ onClose, onMinimize, icon }: SolitaireProps)
       newStock.push(newDeck[i])
     }
 
-    setDeck(newDeck)
     setColumns(newColumns)
     setStock(newStock)
     setWaste(newWaste)

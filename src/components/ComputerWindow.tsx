@@ -105,7 +105,7 @@ export default function ComputerWindow({ onClose, onMinimize, icon }: ComputerWi
           <div style={{ marginBottom: windowWidth <= 480 ? '10px' : '12px' }}>
             <div style={{ fontWeight: 'bold', marginBottom: '6px', fontSize: windowWidth <= 480 ? '12px' : '14px' }}>Caratteristiche Principali:</div>
             <div style={{ fontSize: windowWidth <= 480 ? '11px' : '12px', color: '#333', marginLeft: '12px' }}>
-              • Design completamente responsive (Mobile ≤480px, Tablet 481-768px, Desktop >768px)<br/>
+              • Design completamente responsive (Mobile ≤480px, Tablet 481-768px, Desktop &gt;768px)<br/>
               • Effetti Aero Glass per taskbar e menu<br/>
               • Sistema di finestre draggable e resizable con 8 punti di ridimensionamento<br/>
               • Boot screen animato con progress bar e suoni<br/>

@@ -5,12 +5,12 @@
         xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
   <url>
-    <loc>https://biagio-scaglia.github.io/</loc>
+    <loc>https://biagioscaglia.com/</loc>
     <lastmod>2025-01-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <image:image>
-      <image:loc>https://biagio-scaglia.github.io/src/assets/icone/portfolio.png</image:loc>
+      <image:loc>https://biagioscaglia.com/src/assets/icone/portfolio.png</image:loc>
       <image:title>Biagio Scaglia Portfolio</image:title>
       <image:caption>Portfolio CV di Biagio Scaglia - Sviluppatore Software e UX/UI Designer</image:caption>
     </image:image>

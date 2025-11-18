@@ -656,7 +656,6 @@ function App() {
           backgroundRepeat: 'no-repeat',
           position: 'relative',
           overflow: 'hidden',
-          paddingBottom: '60px',
         }}
         onClick={handleDesktopClick}
       >
@@ -1083,26 +1082,11 @@ function App() {
       <div
         className="taskbar"
         style={{
-          position: window.innerWidth <= 480 ? 'fixed' : 'absolute',
-          bottom: '0',
-          left: '0',
-          right: '0',
           background: 'linear-gradient(to bottom, rgba(30, 50, 90, 0.75) 0%, rgba(15, 30, 70, 0.85) 100%)',
           backdropFilter: 'blur(30px)',
           WebkitBackdropFilter: 'blur(30px)',
           borderTop: '1px solid rgba(255, 255, 255, 0.4)',
           boxShadow: '0 -2px 20px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.3)',
-          padding: '0',
-          display: 'flex',
-          gap: '2px',
-          zIndex: 10000,
-          height: window.innerWidth <= 480 ? '50px' : '40px',
-          alignItems: 'center',
-          width: '100%',
-          overflowX: window.innerWidth <= 480 ? 'auto' : 'visible',
-          overflowY: 'hidden',
-          scrollbarWidth: window.innerWidth <= 480 ? 'thin' : 'none',
-          WebkitOverflowScrolling: 'touch',
         }}
       >
         {/* Start Button Windows 7 - Circolare */}

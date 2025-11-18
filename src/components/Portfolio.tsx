@@ -1,5 +1,12 @@
 import { useState, useEffect } from 'react'
 import Window from './Window'
+import catsImage from '../assets/screen progetti/cats.png'
+import personaImage from '../assets/screen progetti/persona.png'
+import pizzadexImage from '../assets/screen progetti/pizzadex.jpeg'
+import ps2Image from '../assets/screen progetti/ps2.png'
+import raidouImage from '../assets/screen progetti/raidou.png'
+import smashImage from '../assets/screen progetti/smash.jpeg'
+import swipeImage from '../assets/screen progetti/swipe.png'
 
 interface CalculatorProps {
   onClose: () => void
@@ -48,6 +55,7 @@ export default function Portfolio({ onClose, onMinimize, icon }: CalculatorProps
       description: 'Applicazione mobile per la community di giocatori di Super Smash Bros. Include sistema CRUD completo, backend in Express, gestione utenti e funzionalità social per i giocatori.',
       technologies: ['React Native', 'Expo', 'Express', 'Node.js', 'CRUD'],
       github: 'https://github.com/biagio-scaglia/smash-expo',
+      image: smashImage,
     },
     {
       id: 4,
@@ -55,6 +63,7 @@ export default function Portfolio({ onClose, onMinimize, icon }: CalculatorProps
       description: 'App mobile ispirata al mondo Pokémon per la gestione di una pizzeria. Sviluppata con React Native, combina il gameplay dei Pokédex con funzionalità per ordinare e gestire pizze.',
       technologies: ['React Native', 'TypeScript', 'Mobile App'],
       github: 'https://github.com/biagio-scaglia/pizzadex',
+      image: pizzadexImage,
     },
     {
       id: 5,
@@ -62,6 +71,7 @@ export default function Portfolio({ onClose, onMinimize, icon }: CalculatorProps
       description: 'Applicazione web ispirata a Tinder ma dedicata agli sviluppatori. Permette di scoprire e matchare con linguaggi di programmazione, framework e tecnologie. Sviluppata con Angular e TypeScript.',
       technologies: ['Angular', 'TypeScript', 'Web App'],
       github: 'https://github.com/biagio-scaglia/dev-swipe',
+      image: swipeImage,
     },
     {
       id: 6,
@@ -69,6 +79,7 @@ export default function Portfolio({ onClose, onMinimize, icon }: CalculatorProps
       description: 'Sito web per un centro di adozione felini sviluppato con Angular. Include galleria di gatti disponibili, informazioni sulle adozioni e sistema di gestione per il centro.',
       technologies: ['Angular', 'TypeScript', 'Web Design'],
       github: 'https://github.com/biagio-scaglia/cats-angular',
+      image: catsImage,
     },
     {
       id: 7,
@@ -76,6 +87,7 @@ export default function Portfolio({ onClose, onMinimize, icon }: CalculatorProps
       description: 'Sito web tematico dedicato alla serie Devil Summoner: Raidou Kuzunoha. Sviluppato con Angular per esplorare lo styling e il design ispirato alla serie.',
       technologies: ['Angular', 'TypeScript', 'Web Design'],
       github: 'https://github.com/biagio-scaglia/raidou-angular',
+      image: raidouImage,
     },
     {
       id: 8,
@@ -83,6 +95,7 @@ export default function Portfolio({ onClose, onMinimize, icon }: CalculatorProps
       description: 'Sito web tematico dedicato alla PlayStation 2. Progetto Angular focalizzato sullo styling e il design ispirato alla console e ai suoi giochi iconici.',
       technologies: ['Angular', 'TypeScript', 'Web Design'],
       github: 'https://github.com/biagio-scaglia/angular-ps2',
+      image: ps2Image,
     },
     {
       id: 9,
@@ -90,6 +103,7 @@ export default function Portfolio({ onClose, onMinimize, icon }: CalculatorProps
       description: 'Sito web tematico dedicato alla serie Persona. Sviluppato con Angular per esplorare lo styling e creare un\'esperienza visiva ispirata al mondo di Persona.',
       technologies: ['Angular', 'TypeScript', 'Web Design'],
       github: 'https://github.com/biagio-scaglia/persona-angular',
+      image: personaImage,
     },
   ]
 
@@ -145,6 +159,21 @@ export default function Portfolio({ onClose, onMinimize, icon }: CalculatorProps
                     cursor: 'pointer',
                   }}
                 >
+                  {project.image && (
+                    <img 
+                      src={project.image} 
+                      alt={project.name}
+                      style={{
+                        width: '100%',
+                        height: 'auto',
+                        maxHeight: '150px',
+                        objectFit: 'cover',
+                        borderRadius: '4px',
+                        marginBottom: '10px',
+                        border: '1px solid #ddd'
+                      }}
+                    />
+                  )}
                   <h3 style={{ 
                     marginTop: 0, 
                     marginBottom: '10px',
@@ -205,6 +234,23 @@ export default function Portfolio({ onClose, onMinimize, icon }: CalculatorProps
               }}>
                 {selectedProject.name}
               </h2>
+              
+              {selectedProject.image && (
+                <img 
+                  src={selectedProject.image} 
+                  alt={selectedProject.name}
+                  style={{
+                    width: '100%',
+                    height: 'auto',
+                    maxHeight: '300px',
+                    objectFit: 'contain',
+                    borderRadius: '4px',
+                    marginBottom: '20px',
+                    border: '1px solid #ddd',
+                    backgroundColor: '#f5f5f5'
+                  }}
+                />
+              )}
               
               <p style={{ 
                 fontSize: windowWidth <= 480 ? '13px' : '14px',

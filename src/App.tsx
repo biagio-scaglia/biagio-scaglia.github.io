@@ -63,6 +63,8 @@ function App() {
   const [userName, setUserName] = useState('Guest')
   const [showStartMenu, setShowStartMenu] = useState(false)
   const [showShutdownScreen, setShowShutdownScreen] = useState(false)
+  const [showFloatingMenu, setShowFloatingMenu] = useState(false)
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth)
   const [openWindows, setOpenWindows] = useState({
     about: false,
     personalInfo: false,
@@ -247,6 +249,7 @@ function App() {
       clearTimeout(resizeTimeout)
       resizeTimeout = window.setTimeout(() => {
         setIconPositions(getInitialIconPositions())
+        setWindowWidth(window.innerWidth)
       }, 200)
     }
 
@@ -1078,7 +1081,8 @@ function App() {
         </Suspense>
       )}
 
-      {/* Taskbar Windows 7 */}
+      {/* Taskbar Windows 7 - Desktop only */}
+      {windowWidth > 768 && (
       <div
         className="taskbar"
         style={{
@@ -1749,282 +1753,270 @@ function App() {
             }} 
           />
         </button>
-        {openWindows.calculator && (
-          <button
-            className={`taskbar-button ${isWindowActive('calculator') ? 'is-active' : ''}`}
-            onClick={() => handleTaskbarClick('calculator')}
-            onMouseEnter={(e) => handleTaskbarButtonHover('calculator', e)}
-            onMouseLeave={handleTaskbarButtonLeave}
-            style={{
-              padding: '4px 12px',
-              fontSize: '11px',
-              border: 'none',
-              background: isWindowActive('calculator')
-                ? 'linear-gradient(to bottom, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.3) 100%)'
-                : 'transparent',
-              backdropFilter: isWindowActive('calculator') ? 'blur(25px)' : 'none',
-              WebkitBackdropFilter: isWindowActive('calculator') ? 'blur(25px)' : 'none',
-              color: '#fff',
-              cursor: 'pointer',
-              fontWeight: isWindowActive('calculator') ? 'bold' : 'normal',
-              minWidth: 'auto',
-              width: 'auto',
-              height: '36px',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              gap: '6px',
-              borderRadius: '2px',
-              margin: '2px',
-              boxShadow: isWindowActive('calculator')
-                ? 'inset 0 1px 0 rgba(255, 255, 255, 0.4), inset 0 -1px 0 rgba(0, 0, 0, 0.2), 0 0 6px rgba(100, 150, 255, 0.3)'
-                : 'none',
-              transition: 'all 0.2s',
-            }}
-          >
-            <img 
-              src={calculatorIcon} 
-              alt="Calcolatrice" 
-              style={{ 
-                width: '18px', 
-                height: '18px',
-                objectFit: 'contain',
-                display: 'block',
-                filter: 'drop-shadow(0 1px 2px rgba(0,0,0,0.3))'
-              }} 
-            />
-          </button>
-        )}
-        {openWindows.portfolio && (
-          <button
-            className={`taskbar-button ${isWindowActive('portfolio') ? 'is-active' : ''}`}
-            onClick={() => handleTaskbarClick('portfolio')}
-            onMouseEnter={(e) => handleTaskbarButtonHover('portfolio', e)}
-            onMouseLeave={handleTaskbarButtonLeave}
-            style={{
-              padding: '4px 12px',
-              fontSize: '11px',
-              border: 'none',
-              background: isWindowActive('portfolio')
-                ? 'linear-gradient(to bottom, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.3) 100%)'
-                : 'transparent',
-              backdropFilter: isWindowActive('portfolio') ? 'blur(25px)' : 'none',
-              WebkitBackdropFilter: isWindowActive('portfolio') ? 'blur(25px)' : 'none',
-              color: '#fff',
-              cursor: 'pointer',
-              fontWeight: isWindowActive('portfolio') ? 'bold' : 'normal',
-              minWidth: 'auto',
-              width: 'auto',
-              height: '36px',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              gap: '6px',
-              borderRadius: '2px',
-              margin: '2px',
-              boxShadow: isWindowActive('portfolio')
-                ? 'inset 0 1px 0 rgba(255, 255, 255, 0.4), inset 0 -1px 0 rgba(0, 0, 0, 0.2), 0 0 6px rgba(100, 150, 255, 0.3)'
-                : 'none',
-              transition: 'all 0.2s',
-            }}
-          >
-            <img 
-              src={portfolioIcon} 
-              alt="Portfolio" 
-              style={{ 
-                width: '18px', 
-                height: '18px',
-                objectFit: 'contain',
-                display: 'block',
-                filter: 'drop-shadow(0 1px 2px rgba(0,0,0,0.3))'
-              }} 
-            />
-          </button>
-        )}
-        {openWindows.solitaire && (
-          <button
-            className={`taskbar-button ${isWindowActive('solitaire') ? 'is-active' : ''}`}
-            onClick={() => handleTaskbarClick('solitaire')}
-            onMouseEnter={(e) => handleTaskbarButtonHover('solitaire', e)}
-            onMouseLeave={handleTaskbarButtonLeave}
-            style={{
-              padding: '4px 12px',
-              fontSize: '11px',
-              border: 'none',
-              background: isWindowActive('solitaire')
-                ? 'linear-gradient(to bottom, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.3) 100%)'
-                : 'transparent',
-              backdropFilter: isWindowActive('solitaire') ? 'blur(25px)' : 'none',
-              WebkitBackdropFilter: isWindowActive('solitaire') ? 'blur(25px)' : 'none',
-              color: '#fff',
-              cursor: 'pointer',
-              fontWeight: isWindowActive('solitaire') ? 'bold' : 'normal',
-              minWidth: 'auto',
-              width: 'auto',
-              height: '36px',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              gap: '6px',
-              borderRadius: '2px',
-              margin: '2px',
-              boxShadow: isWindowActive('solitaire')
-                ? 'inset 0 1px 0 rgba(255, 255, 255, 0.4), inset 0 -1px 0 rgba(0, 0, 0, 0.2), 0 0 6px rgba(100, 150, 255, 0.3)'
-                : 'none',
-              transition: 'all 0.2s',
-            }}
-          >
-            <img 
-              src={solitarioIcon} 
-              alt="Solitario" 
-              style={{ 
-                width: '18px', 
-                height: '18px',
-                objectFit: 'contain',
-                display: 'block',
-                filter: 'drop-shadow(0 1px 2px rgba(0,0,0,0.3))'
-              }} 
-            />
-          </button>
-        )}
-        {openWindows.cestino && (
-          <button
-            className={`taskbar-button ${isWindowActive('cestino') ? 'is-active' : ''}`}
-            onClick={() => handleTaskbarClick('cestino')}
-            onMouseEnter={(e) => handleTaskbarButtonHover('cestino', e)}
-            onMouseLeave={handleTaskbarButtonLeave}
-            style={{
-              padding: '4px 12px',
-              fontSize: '11px',
-              border: 'none',
-              background: isWindowActive('cestino')
-                ? 'linear-gradient(to bottom, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.3) 100%)'
-                : 'transparent',
-              backdropFilter: isWindowActive('cestino') ? 'blur(25px)' : 'none',
-              WebkitBackdropFilter: isWindowActive('cestino') ? 'blur(25px)' : 'none',
-              color: '#fff',
-              cursor: 'pointer',
-              fontWeight: isWindowActive('cestino') ? 'bold' : 'normal',
-              minWidth: 'auto',
-              width: 'auto',
-              height: '36px',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              gap: '6px',
-              borderRadius: '2px',
-              margin: '2px',
-              boxShadow: isWindowActive('cestino')
-                ? 'inset 0 1px 0 rgba(255, 255, 255, 0.4), inset 0 -1px 0 rgba(0, 0, 0, 0.2), 0 0 6px rgba(100, 150, 255, 0.3)'
-                : 'none',
-              transition: 'all 0.2s',
-            }}
-          >
-            <img 
-              src={cestinoIcon} 
-              alt="Cestino" 
-              style={{ 
-                width: '18px', 
-                height: '18px',
-                objectFit: 'contain',
-                display: 'block',
-                filter: 'drop-shadow(0 1px 2px rgba(0,0,0,0.3))'
-              }} 
-            />
-          </button>
-        )}
-        {openWindows.antivirus && (
-          <button
-            className={`taskbar-button ${isWindowActive('antivirus') ? 'is-active' : ''}`}
-            onClick={() => handleTaskbarClick('antivirus')}
-            onMouseEnter={(e) => handleTaskbarButtonHover('antivirus', e)}
-            onMouseLeave={handleTaskbarButtonLeave}
-            style={{
-              padding: '4px 12px',
-              fontSize: '11px',
-              border: 'none',
-              background: isWindowActive('antivirus')
-                ? 'linear-gradient(to bottom, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.3) 100%)'
-                : 'transparent',
-              backdropFilter: isWindowActive('antivirus') ? 'blur(25px)' : 'none',
-              WebkitBackdropFilter: isWindowActive('antivirus') ? 'blur(25px)' : 'none',
-              color: '#fff',
-              cursor: 'pointer',
-              fontWeight: isWindowActive('antivirus') ? 'bold' : 'normal',
-              minWidth: 'auto',
-              width: 'auto',
-              height: '36px',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              gap: '6px',
-              borderRadius: '2px',
-              margin: '2px',
-              boxShadow: isWindowActive('antivirus')
-                ? 'inset 0 1px 0 rgba(255, 255, 255, 0.4), inset 0 -1px 0 rgba(0, 0, 0, 0.2), 0 0 6px rgba(100, 150, 255, 0.3)'
-                : 'none',
-              transition: 'all 0.2s',
-            }}
-          >
-            <img 
-              src={antivirusIcon} 
-              alt="Anti-Virus" 
-              style={{ 
-                width: '18px', 
-                height: '18px',
-                objectFit: 'contain',
-                display: 'block',
-                filter: 'drop-shadow(0 1px 2px rgba(0,0,0,0.3))'
-              }} 
-            />
-          </button>
-        )}
-        {openWindows.calendar && (
-          <button
-            className={`taskbar-button ${isWindowActive('calendar') ? 'is-active' : ''}`}
-            onClick={() => handleTaskbarClick('calendar')}
-            onMouseEnter={(e) => handleTaskbarButtonHover('calendar', e)}
-            onMouseLeave={handleTaskbarButtonLeave}
-            style={{
-              padding: '4px 12px',
-              fontSize: '11px',
-              border: 'none',
-              background: isWindowActive('calendar')
-                ? 'linear-gradient(to bottom, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.3) 100%)'
-                : 'transparent',
-              backdropFilter: isWindowActive('calendar') ? 'blur(25px)' : 'none',
-              WebkitBackdropFilter: isWindowActive('calendar') ? 'blur(25px)' : 'none',
-              color: '#fff',
-              cursor: 'pointer',
-              fontWeight: isWindowActive('calendar') ? 'bold' : 'normal',
-              minWidth: 'auto',
-              width: 'auto',
-              height: '36px',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              gap: '6px',
-              borderRadius: '2px',
-              margin: '2px',
-              boxShadow: isWindowActive('calendar')
-                ? 'inset 0 1px 0 rgba(255, 255, 255, 0.4), inset 0 -1px 0 rgba(0, 0, 0, 0.2), 0 0 6px rgba(100, 150, 255, 0.3)'
-                : 'none',
-              transition: 'all 0.2s',
-            }}
-          >
-            <img 
-              src={calendarIcon} 
-              alt="Calendario" 
-              style={{ 
-                width: '18px', 
-                height: '18px',
-                objectFit: 'contain',
-                display: 'block',
-                filter: 'drop-shadow(0 1px 2px rgba(0,0,0,0.3))'
-              }} 
-            />
-          </button>
-        )}
+        <button
+          className={`taskbar-button ${isWindowActive('calculator') ? 'is-active' : ''}`}
+          onClick={() => handleTaskbarClick('calculator')}
+          onMouseEnter={(e) => handleTaskbarButtonHover('calculator', e)}
+          onMouseLeave={handleTaskbarButtonLeave}
+          style={{
+            padding: '4px 12px',
+            fontSize: '11px',
+            border: 'none',
+            background: isWindowActive('calculator')
+              ? 'linear-gradient(to bottom, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.3) 100%)'
+              : 'transparent',
+            backdropFilter: isWindowActive('calculator') ? 'blur(25px)' : 'none',
+            WebkitBackdropFilter: isWindowActive('calculator') ? 'blur(25px)' : 'none',
+            color: '#fff',
+            cursor: 'pointer',
+            fontWeight: isWindowActive('calculator') ? 'bold' : 'normal',
+            minWidth: 'auto',
+            width: 'auto',
+            height: '36px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: '6px',
+            borderRadius: '2px',
+            margin: '2px',
+            boxShadow: isWindowActive('calculator')
+              ? 'inset 0 1px 0 rgba(255, 255, 255, 0.4), inset 0 -1px 0 rgba(0, 0, 0, 0.2), 0 0 6px rgba(100, 150, 255, 0.3)'
+              : 'none',
+            transition: 'all 0.2s',
+          }}
+        >
+          <img 
+            src={calculatorIcon} 
+            alt="Calcolatrice" 
+            style={{ 
+              width: '18px', 
+              height: '18px',
+              objectFit: 'contain',
+              display: 'block',
+              filter: 'drop-shadow(0 1px 2px rgba(0,0,0,0.3))'
+            }} 
+          />
+        </button>
+        <button
+          className={`taskbar-button ${isWindowActive('portfolio') ? 'is-active' : ''}`}
+          onClick={() => handleTaskbarClick('portfolio')}
+          onMouseEnter={(e) => handleTaskbarButtonHover('portfolio', e)}
+          onMouseLeave={handleTaskbarButtonLeave}
+          style={{
+            padding: '4px 12px',
+            fontSize: '11px',
+            border: 'none',
+            background: isWindowActive('portfolio')
+              ? 'linear-gradient(to bottom, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.3) 100%)'
+              : 'transparent',
+            backdropFilter: isWindowActive('portfolio') ? 'blur(25px)' : 'none',
+            WebkitBackdropFilter: isWindowActive('portfolio') ? 'blur(25px)' : 'none',
+            color: '#fff',
+            cursor: 'pointer',
+            fontWeight: isWindowActive('portfolio') ? 'bold' : 'normal',
+            minWidth: 'auto',
+            width: 'auto',
+            height: '36px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: '6px',
+            borderRadius: '2px',
+            margin: '2px',
+            boxShadow: isWindowActive('portfolio')
+              ? 'inset 0 1px 0 rgba(255, 255, 255, 0.4), inset 0 -1px 0 rgba(0, 0, 0, 0.2), 0 0 6px rgba(100, 150, 255, 0.3)'
+              : 'none',
+            transition: 'all 0.2s',
+          }}
+        >
+          <img 
+            src={portfolioIcon} 
+            alt="Portfolio" 
+            style={{ 
+              width: '18px', 
+              height: '18px',
+              objectFit: 'contain',
+              display: 'block',
+              filter: 'drop-shadow(0 1px 2px rgba(0,0,0,0.3))'
+            }} 
+          />
+        </button>
+        <button
+          className={`taskbar-button ${isWindowActive('solitaire') ? 'is-active' : ''}`}
+          onClick={() => handleTaskbarClick('solitaire')}
+          onMouseEnter={(e) => handleTaskbarButtonHover('solitaire', e)}
+          onMouseLeave={handleTaskbarButtonLeave}
+          style={{
+            padding: '4px 12px',
+            fontSize: '11px',
+            border: 'none',
+            background: isWindowActive('solitaire')
+              ? 'linear-gradient(to bottom, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.3) 100%)'
+              : 'transparent',
+            backdropFilter: isWindowActive('solitaire') ? 'blur(25px)' : 'none',
+            WebkitBackdropFilter: isWindowActive('solitaire') ? 'blur(25px)' : 'none',
+            color: '#fff',
+            cursor: 'pointer',
+            fontWeight: isWindowActive('solitaire') ? 'bold' : 'normal',
+            minWidth: 'auto',
+            width: 'auto',
+            height: '36px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: '6px',
+            borderRadius: '2px',
+            margin: '2px',
+            boxShadow: isWindowActive('solitaire')
+              ? 'inset 0 1px 0 rgba(255, 255, 255, 0.4), inset 0 -1px 0 rgba(0, 0, 0, 0.2), 0 0 6px rgba(100, 150, 255, 0.3)'
+              : 'none',
+            transition: 'all 0.2s',
+          }}
+        >
+          <img 
+            src={solitarioIcon} 
+            alt="Solitario" 
+            style={{ 
+              width: '18px', 
+              height: '18px',
+              objectFit: 'contain',
+              display: 'block',
+              filter: 'drop-shadow(0 1px 2px rgba(0,0,0,0.3))'
+            }} 
+          />
+        </button>
+        <button
+          className={`taskbar-button ${isWindowActive('cestino') ? 'is-active' : ''}`}
+          onClick={() => handleTaskbarClick('cestino')}
+          onMouseEnter={(e) => handleTaskbarButtonHover('cestino', e)}
+          onMouseLeave={handleTaskbarButtonLeave}
+          style={{
+            padding: '4px 12px',
+            fontSize: '11px',
+            border: 'none',
+            background: isWindowActive('cestino')
+              ? 'linear-gradient(to bottom, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.3) 100%)'
+              : 'transparent',
+            backdropFilter: isWindowActive('cestino') ? 'blur(25px)' : 'none',
+            WebkitBackdropFilter: isWindowActive('cestino') ? 'blur(25px)' : 'none',
+            color: '#fff',
+            cursor: 'pointer',
+            fontWeight: isWindowActive('cestino') ? 'bold' : 'normal',
+            minWidth: 'auto',
+            width: 'auto',
+            height: '36px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: '6px',
+            borderRadius: '2px',
+            margin: '2px',
+            boxShadow: isWindowActive('cestino')
+              ? 'inset 0 1px 0 rgba(255, 255, 255, 0.4), inset 0 -1px 0 rgba(0, 0, 0, 0.2), 0 0 6px rgba(100, 150, 255, 0.3)'
+              : 'none',
+            transition: 'all 0.2s',
+          }}
+        >
+          <img 
+            src={cestinoIcon} 
+            alt="Cestino" 
+            style={{ 
+              width: '18px', 
+              height: '18px',
+              objectFit: 'contain',
+              display: 'block',
+              filter: 'drop-shadow(0 1px 2px rgba(0,0,0,0.3))'
+            }} 
+          />
+        </button>
+        <button
+          className={`taskbar-button ${isWindowActive('antivirus') ? 'is-active' : ''}`}
+          onClick={() => handleTaskbarClick('antivirus')}
+          onMouseEnter={(e) => handleTaskbarButtonHover('antivirus', e)}
+          onMouseLeave={handleTaskbarButtonLeave}
+          style={{
+            padding: '4px 12px',
+            fontSize: '11px',
+            border: 'none',
+            background: isWindowActive('antivirus')
+              ? 'linear-gradient(to bottom, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.3) 100%)'
+              : 'transparent',
+            backdropFilter: isWindowActive('antivirus') ? 'blur(25px)' : 'none',
+            WebkitBackdropFilter: isWindowActive('antivirus') ? 'blur(25px)' : 'none',
+            color: '#fff',
+            cursor: 'pointer',
+            fontWeight: isWindowActive('antivirus') ? 'bold' : 'normal',
+            minWidth: 'auto',
+            width: 'auto',
+            height: '36px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: '6px',
+            borderRadius: '2px',
+            margin: '2px',
+            boxShadow: isWindowActive('antivirus')
+              ? 'inset 0 1px 0 rgba(255, 255, 255, 0.4), inset 0 -1px 0 rgba(0, 0, 0, 0.2), 0 0 6px rgba(100, 150, 255, 0.3)'
+              : 'none',
+            transition: 'all 0.2s',
+          }}
+        >
+          <img 
+            src={antivirusIcon} 
+            alt="Anti-Virus" 
+            style={{ 
+              width: '18px', 
+              height: '18px',
+              objectFit: 'contain',
+              display: 'block',
+              filter: 'drop-shadow(0 1px 2px rgba(0,0,0,0.3))'
+            }} 
+          />
+        </button>
+        <button
+          className={`taskbar-button ${isWindowActive('calendar') ? 'is-active' : ''}`}
+          onClick={() => handleTaskbarClick('calendar')}
+          onMouseEnter={(e) => handleTaskbarButtonHover('calendar', e)}
+          onMouseLeave={handleTaskbarButtonLeave}
+          style={{
+            padding: '4px 12px',
+            fontSize: '11px',
+            border: 'none',
+            background: isWindowActive('calendar')
+              ? 'linear-gradient(to bottom, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.3) 100%)'
+              : 'transparent',
+            backdropFilter: isWindowActive('calendar') ? 'blur(25px)' : 'none',
+            WebkitBackdropFilter: isWindowActive('calendar') ? 'blur(25px)' : 'none',
+            color: '#fff',
+            cursor: 'pointer',
+            fontWeight: isWindowActive('calendar') ? 'bold' : 'normal',
+            minWidth: 'auto',
+            width: 'auto',
+            height: '36px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: '6px',
+            borderRadius: '2px',
+            margin: '2px',
+            boxShadow: isWindowActive('calendar')
+              ? 'inset 0 1px 0 rgba(255, 255, 255, 0.4), inset 0 -1px 0 rgba(0, 0, 0, 0.2), 0 0 6px rgba(100, 150, 255, 0.3)'
+              : 'none',
+            transition: 'all 0.2s',
+          }}
+        >
+          <img 
+            src={calendarIcon} 
+            alt="Calendario" 
+            style={{ 
+              width: '18px', 
+              height: '18px',
+              objectFit: 'contain',
+              display: 'block',
+              filter: 'drop-shadow(0 1px 2px rgba(0,0,0,0.3))'
+            }} 
+          />
+        </button>
         <div style={{ flex: 1 }} />
         <div
           className="taskbar-clock"
@@ -2046,6 +2038,514 @@ function App() {
           {currentTime.toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' })}
         </div>
       </div>
+      )}
+      
+      {/* Floating Button per Mobile/Tablet */}
+      {windowWidth <= 768 && (
+        <>
+          <button
+            onClick={() => setShowFloatingMenu(!showFloatingMenu)}
+            style={{
+              position: 'fixed',
+              bottom: '20px',
+              right: '20px',
+              width: '60px',
+              height: '60px',
+              borderRadius: '50%',
+              background: showFloatingMenu
+                ? 'linear-gradient(to bottom, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.3) 100%)'
+                : 'linear-gradient(to bottom, rgba(30, 50, 90, 0.9) 0%, rgba(15, 30, 70, 0.95) 100%)',
+              backdropFilter: 'blur(30px)',
+              WebkitBackdropFilter: 'blur(30px)',
+              border: '2px solid rgba(255, 255, 255, 0.4)',
+              boxShadow: showFloatingMenu
+                ? '0 0 20px rgba(100, 150, 255, 0.6), inset 0 2px 4px rgba(0, 0, 0, 0.3)'
+                : '0 4px 20px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.3)',
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              zIndex: 10001,
+              transition: 'all 0.3s',
+            }}
+          >
+            <img 
+              src={taskbarIcon} 
+              alt="Menu" 
+              style={{ 
+                width: '32px', 
+                height: '32px',
+                objectFit: 'contain',
+                display: 'block',
+                filter: 'drop-shadow(0 1px 2px rgba(0,0,0,0.3))'
+              }} 
+            />
+          </button>
+          
+          {/* Floating Menu */}
+          {showFloatingMenu && (
+            <div
+              onClick={() => setShowFloatingMenu(false)}
+              style={{
+                position: 'fixed',
+                top: 0,
+                left: 0,
+                right: 0,
+                bottom: 0,
+                background: 'rgba(0, 0, 0, 0.3)',
+                zIndex: 10000,
+                backdropFilter: 'blur(5px)',
+                WebkitBackdropFilter: 'blur(5px)',
+              }}
+            >
+              <div
+                onClick={(e) => e.stopPropagation()}
+                style={{
+                  position: 'fixed',
+                  bottom: '90px',
+                  right: '20px',
+                  width: windowWidth <= 480 ? 'calc(100vw - 40px)' : '320px',
+                  maxHeight: 'calc(100vh - 120px)',
+                  background: 'linear-gradient(to bottom, rgba(30, 50, 90, 0.95) 0%, rgba(15, 30, 70, 0.98) 100%)',
+                  backdropFilter: 'blur(35px)',
+                  WebkitBackdropFilter: 'blur(35px)',
+                  border: '1px solid rgba(255, 255, 255, 0.4)',
+                  borderRadius: '12px',
+                  boxShadow: '0 -4px 30px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.35)',
+                  padding: '15px',
+                  overflowY: 'auto',
+                  display: 'grid',
+                  gridTemplateColumns: windowWidth <= 480 ? 'repeat(3, 1fr)' : 'repeat(4, 1fr)',
+                  gap: '10px',
+                  zIndex: 10001,
+                }}
+              >
+                <button
+                  onClick={() => { toggleWindow('about'); setShowFloatingMenu(false); }}
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    gap: '5px',
+                    padding: '10px',
+                    background: isWindowActive('about')
+                      ? 'linear-gradient(to bottom, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.2) 100%)'
+                      : 'transparent',
+                    border: 'none',
+                    borderRadius: '8px',
+                    cursor: 'pointer',
+                    transition: 'all 0.2s',
+                  }}
+                >
+                  <img src={infoIcon} alt="Presentazione" style={{ width: '32px', height: '32px', objectFit: 'contain' }} />
+                  <span style={{ fontSize: '10px', color: '#fff' }}>Presentazione</span>
+                </button>
+                <button
+                  onClick={() => { toggleWindow('personalInfo'); setShowFloatingMenu(false); }}
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    gap: '5px',
+                    padding: '10px',
+                    background: isWindowActive('personalInfo')
+                      ? 'linear-gradient(to bottom, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.2) 100%)'
+                      : 'transparent',
+                    border: 'none',
+                    borderRadius: '8px',
+                    cursor: 'pointer',
+                    transition: 'all 0.2s',
+                  }}
+                >
+                  <img src={userIcon} alt="Info Personali" style={{ width: '32px', height: '32px', objectFit: 'contain' }} />
+                  <span style={{ fontSize: '10px', color: '#fff' }}>Info Personali</span>
+                </button>
+                <button
+                  onClick={() => { toggleWindow('workExperience'); setShowFloatingMenu(false); }}
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    gap: '5px',
+                    padding: '10px',
+                    background: isWindowActive('workExperience')
+                      ? 'linear-gradient(to bottom, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.2) 100%)'
+                      : 'transparent',
+                    border: 'none',
+                    borderRadius: '8px',
+                    cursor: 'pointer',
+                    transition: 'all 0.2s',
+                  }}
+                >
+                  <img src={workExperienceIcon} alt="Esperienze" style={{ width: '32px', height: '32px', objectFit: 'contain' }} />
+                  <span style={{ fontSize: '10px', color: '#fff' }}>Esperienze</span>
+                </button>
+                <button
+                  onClick={() => { toggleWindow('skills'); setShowFloatingMenu(false); }}
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    gap: '5px',
+                    padding: '10px',
+                    background: isWindowActive('skills')
+                      ? 'linear-gradient(to bottom, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.2) 100%)'
+                      : 'transparent',
+                    border: 'none',
+                    borderRadius: '8px',
+                    cursor: 'pointer',
+                    transition: 'all 0.2s',
+                  }}
+                >
+                  <img src={skillsIcon} alt="Competenze" style={{ width: '32px', height: '32px', objectFit: 'contain' }} />
+                  <span style={{ fontSize: '10px', color: '#fff' }}>Competenze</span>
+                </button>
+                <button
+                  onClick={() => { toggleWindow('education'); setShowFloatingMenu(false); }}
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    gap: '5px',
+                    padding: '10px',
+                    background: isWindowActive('education')
+                      ? 'linear-gradient(to bottom, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.2) 100%)'
+                      : 'transparent',
+                    border: 'none',
+                    borderRadius: '8px',
+                    cursor: 'pointer',
+                    transition: 'all 0.2s',
+                  }}
+                >
+                  <img src={educationIcon} alt="Formazione" style={{ width: '32px', height: '32px', objectFit: 'contain' }} />
+                  <span style={{ fontSize: '10px', color: '#fff' }}>Formazione</span>
+                </button>
+                <button
+                  onClick={() => { toggleWindow('certifications'); setShowFloatingMenu(false); }}
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    gap: '5px',
+                    padding: '10px',
+                    background: isWindowActive('certifications')
+                      ? 'linear-gradient(to bottom, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.2) 100%)'
+                      : 'transparent',
+                    border: 'none',
+                    borderRadius: '8px',
+                    cursor: 'pointer',
+                    transition: 'all 0.2s',
+                  }}
+                >
+                  <img src={certificationsIcon} alt="Certificazioni" style={{ width: '32px', height: '32px', objectFit: 'contain' }} />
+                  <span style={{ fontSize: '10px', color: '#fff' }}>Certificazioni</span>
+                </button>
+                <button
+                  onClick={() => { toggleWindow('note'); setShowFloatingMenu(false); }}
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    gap: '5px',
+                    padding: '10px',
+                    background: isWindowActive('note')
+                      ? 'linear-gradient(to bottom, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.2) 100%)'
+                      : 'transparent',
+                    border: 'none',
+                    borderRadius: '8px',
+                    cursor: 'pointer',
+                    transition: 'all 0.2s',
+                  }}
+                >
+                  <img src={noteIcon} alt="Note" style={{ width: '32px', height: '32px', objectFit: 'contain' }} />
+                  <span style={{ fontSize: '10px', color: '#fff' }}>Note</span>
+                </button>
+                <button
+                  onClick={() => { toggleWindow('documents'); setShowFloatingMenu(false); }}
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    gap: '5px',
+                    padding: '10px',
+                    background: isWindowActive('documents')
+                      ? 'linear-gradient(to bottom, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.2) 100%)'
+                      : 'transparent',
+                    border: 'none',
+                    borderRadius: '8px',
+                    cursor: 'pointer',
+                    transition: 'all 0.2s',
+                  }}
+                >
+                  <img src={folderIcon} alt="Documenti" style={{ width: '32px', height: '32px', objectFit: 'contain' }} />
+                  <span style={{ fontSize: '10px', color: '#fff' }}>Documenti</span>
+                </button>
+                <button
+                  onClick={() => { toggleWindow('images'); setShowFloatingMenu(false); }}
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    gap: '5px',
+                    padding: '10px',
+                    background: isWindowActive('images')
+                      ? 'linear-gradient(to bottom, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.2) 100%)'
+                      : 'transparent',
+                    border: 'none',
+                    borderRadius: '8px',
+                    cursor: 'pointer',
+                    transition: 'all 0.2s',
+                  }}
+                >
+                  <img src={immaginiIcon} alt="Immagini" style={{ width: '32px', height: '32px', objectFit: 'contain' }} />
+                  <span style={{ fontSize: '10px', color: '#fff' }}>Immagini</span>
+                </button>
+                <button
+                  onClick={() => { toggleWindow('computer'); setShowFloatingMenu(false); }}
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    gap: '5px',
+                    padding: '10px',
+                    background: isWindowActive('computer')
+                      ? 'linear-gradient(to bottom, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.2) 100%)'
+                      : 'transparent',
+                    border: 'none',
+                    borderRadius: '8px',
+                    cursor: 'pointer',
+                    transition: 'all 0.2s',
+                  }}
+                >
+                  <img src={computerIcon} alt="Computer" style={{ width: '32px', height: '32px', objectFit: 'contain' }} />
+                  <span style={{ fontSize: '10px', color: '#fff' }}>Computer</span>
+                </button>
+                <button
+                  onClick={() => { toggleWindow('music'); setShowFloatingMenu(false); }}
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    gap: '5px',
+                    padding: '10px',
+                    background: isWindowActive('music')
+                      ? 'linear-gradient(to bottom, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.2) 100%)'
+                      : 'transparent',
+                    border: 'none',
+                    borderRadius: '8px',
+                    cursor: 'pointer',
+                    transition: 'all 0.2s',
+                  }}
+                >
+                  <img src={musicIcon} alt="Musica" style={{ width: '32px', height: '32px', objectFit: 'contain' }} />
+                  <span style={{ fontSize: '10px', color: '#fff' }}>Musica</span>
+                </button>
+                <button
+                  onClick={() => { toggleWindow('settings'); setShowFloatingMenu(false); }}
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    gap: '5px',
+                    padding: '10px',
+                    background: isWindowActive('settings')
+                      ? 'linear-gradient(to bottom, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.2) 100%)'
+                      : 'transparent',
+                    border: 'none',
+                    borderRadius: '8px',
+                    cursor: 'pointer',
+                    transition: 'all 0.2s',
+                  }}
+                >
+                  <img src={settingsIcon} alt="Impostazioni" style={{ width: '32px', height: '32px', objectFit: 'contain' }} />
+                  <span style={{ fontSize: '10px', color: '#fff' }}>Impostazioni</span>
+                </button>
+                <button
+                  onClick={() => { toggleWindow('paint'); setShowFloatingMenu(false); }}
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    gap: '5px',
+                    padding: '10px',
+                    background: isWindowActive('paint')
+                      ? 'linear-gradient(to bottom, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.2) 100%)'
+                      : 'transparent',
+                    border: 'none',
+                    borderRadius: '8px',
+                    cursor: 'pointer',
+                    transition: 'all 0.2s',
+                  }}
+                >
+                  <img src={paintIcon} alt="Paint" style={{ width: '32px', height: '32px', objectFit: 'contain' }} />
+                  <span style={{ fontSize: '10px', color: '#fff' }}>Paint</span>
+                </button>
+                <button
+                  onClick={() => { toggleWindow('browser'); setShowFloatingMenu(false); }}
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    gap: '5px',
+                    padding: '10px',
+                    background: isWindowActive('browser')
+                      ? 'linear-gradient(to bottom, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.2) 100%)'
+                      : 'transparent',
+                    border: 'none',
+                    borderRadius: '8px',
+                    cursor: 'pointer',
+                    transition: 'all 0.2s',
+                  }}
+                >
+                  <img src={firefoxIcon} alt="Firefox" style={{ width: '32px', height: '32px', objectFit: 'contain' }} />
+                  <span style={{ fontSize: '10px', color: '#fff' }}>Firefox</span>
+                </button>
+                <button
+                  onClick={() => { toggleWindow('calculator'); setShowFloatingMenu(false); }}
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    gap: '5px',
+                    padding: '10px',
+                    background: isWindowActive('calculator')
+                      ? 'linear-gradient(to bottom, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.2) 100%)'
+                      : 'transparent',
+                    border: 'none',
+                    borderRadius: '8px',
+                    cursor: 'pointer',
+                    transition: 'all 0.2s',
+                  }}
+                >
+                  <img src={calculatorIcon} alt="Calcolatrice" style={{ width: '32px', height: '32px', objectFit: 'contain' }} />
+                  <span style={{ fontSize: '10px', color: '#fff' }}>Calcolatrice</span>
+                </button>
+                <button
+                  onClick={() => { toggleWindow('portfolio'); setShowFloatingMenu(false); }}
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    gap: '5px',
+                    padding: '10px',
+                    background: isWindowActive('portfolio')
+                      ? 'linear-gradient(to bottom, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.2) 100%)'
+                      : 'transparent',
+                    border: 'none',
+                    borderRadius: '8px',
+                    cursor: 'pointer',
+                    transition: 'all 0.2s',
+                  }}
+                >
+                  <img src={portfolioIcon} alt="Portfolio" style={{ width: '32px', height: '32px', objectFit: 'contain' }} />
+                  <span style={{ fontSize: '10px', color: '#fff' }}>Portfolio</span>
+                </button>
+                <button
+                  onClick={() => { toggleWindow('solitaire'); setShowFloatingMenu(false); }}
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    gap: '5px',
+                    padding: '10px',
+                    background: isWindowActive('solitaire')
+                      ? 'linear-gradient(to bottom, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.2) 100%)'
+                      : 'transparent',
+                    border: 'none',
+                    borderRadius: '8px',
+                    cursor: 'pointer',
+                    transition: 'all 0.2s',
+                  }}
+                >
+                  <img src={solitarioIcon} alt="Solitario" style={{ width: '32px', height: '32px', objectFit: 'contain' }} />
+                  <span style={{ fontSize: '10px', color: '#fff' }}>Solitario</span>
+                </button>
+                <button
+                  onClick={() => { toggleWindow('cestino'); setShowFloatingMenu(false); }}
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    gap: '5px',
+                    padding: '10px',
+                    background: isWindowActive('cestino')
+                      ? 'linear-gradient(to bottom, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.2) 100%)'
+                      : 'transparent',
+                    border: 'none',
+                    borderRadius: '8px',
+                    cursor: 'pointer',
+                    transition: 'all 0.2s',
+                  }}
+                >
+                  <img src={cestinoIcon} alt="Cestino" style={{ width: '32px', height: '32px', objectFit: 'contain' }} />
+                  <span style={{ fontSize: '10px', color: '#fff' }}>Cestino</span>
+                </button>
+                <button
+                  onClick={() => { toggleWindow('antivirus'); setShowFloatingMenu(false); }}
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    gap: '5px',
+                    padding: '10px',
+                    background: isWindowActive('antivirus')
+                      ? 'linear-gradient(to bottom, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.2) 100%)'
+                      : 'transparent',
+                    border: 'none',
+                    borderRadius: '8px',
+                    cursor: 'pointer',
+                    transition: 'all 0.2s',
+                  }}
+                >
+                  <img src={antivirusIcon} alt="Anti-Virus" style={{ width: '32px', height: '32px', objectFit: 'contain' }} />
+                  <span style={{ fontSize: '10px', color: '#fff' }}>Anti-Virus</span>
+                </button>
+                <button
+                  onClick={() => { toggleWindow('calendar'); setShowFloatingMenu(false); }}
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    gap: '5px',
+                    padding: '10px',
+                    background: isWindowActive('calendar')
+                      ? 'linear-gradient(to bottom, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.2) 100%)'
+                      : 'transparent',
+                    border: 'none',
+                    borderRadius: '8px',
+                    cursor: 'pointer',
+                    transition: 'all 0.2s',
+                  }}
+                >
+                  <img src={calendarIcon} alt="Calendario" style={{ width: '32px', height: '32px', objectFit: 'contain' }} />
+                  <span style={{ fontSize: '10px', color: '#fff' }}>Calendario</span>
+                </button>
+                <button
+                  onClick={() => { setShowStartMenu(true); setShowFloatingMenu(false); }}
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    gap: '5px',
+                    padding: '10px',
+                    background: showStartMenu
+                      ? 'linear-gradient(to bottom, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.2) 100%)'
+                      : 'transparent',
+                    border: 'none',
+                    borderRadius: '8px',
+                    cursor: 'pointer',
+                    transition: 'all 0.2s',
+                  }}
+                >
+                  <img src={taskbarIcon} alt="Start Menu" style={{ width: '32px', height: '32px', objectFit: 'contain' }} />
+                  <span style={{ fontSize: '10px', color: '#fff' }}>Start Menu</span>
+                </button>
+              </div>
+            </div>
+          )}
+        </>
+      )}
+      
       {/* Taskbar Thumbnail */}
       {hoveredTaskbarButton && (
         <TaskbarThumbnail

@@ -2047,19 +2047,19 @@ function App() {
             onClick={() => setShowFloatingMenu(!showFloatingMenu)}
             style={{
               position: 'fixed',
-              bottom: '20px',
+              bottom: '100px',
               right: '20px',
-              width: '60px',
-              height: '60px',
+              width: '80px',
+              height: '80px',
               borderRadius: '50%',
               background: showFloatingMenu
-                ? 'linear-gradient(to bottom, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.3) 100%)'
+                ? 'linear-gradient(to bottom, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.9) 100%)'
                 : 'linear-gradient(to bottom, rgba(30, 50, 90, 0.9) 0%, rgba(15, 30, 70, 0.95) 100%)',
               backdropFilter: 'blur(30px)',
               WebkitBackdropFilter: 'blur(30px)',
-              border: '2px solid rgba(255, 255, 255, 0.4)',
+              border: showFloatingMenu ? '3px solid rgba(255, 255, 255, 0.8)' : '2px solid rgba(255, 255, 255, 0.4)',
               boxShadow: showFloatingMenu
-                ? '0 0 20px rgba(100, 150, 255, 0.6), inset 0 2px 4px rgba(0, 0, 0, 0.3)'
+                ? '0 0 30px rgba(100, 150, 255, 0.8), inset 0 2px 4px rgba(0, 0, 0, 0.2)'
                 : '0 4px 20px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.3)',
               cursor: 'pointer',
               display: 'flex',
@@ -2073,11 +2073,12 @@ function App() {
               src={taskbarIcon} 
               alt="Menu" 
               style={{ 
-                width: '32px', 
-                height: '32px',
+                width: showFloatingMenu ? '40px' : '42px', 
+                height: showFloatingMenu ? '40px' : '42px',
                 objectFit: 'contain',
                 display: 'block',
-                filter: 'drop-shadow(0 1px 2px rgba(0,0,0,0.3))'
+                filter: showFloatingMenu ? 'drop-shadow(0 2px 4px rgba(0,0,0,0.2))' : 'drop-shadow(0 1px 2px rgba(0,0,0,0.3))',
+                transition: 'all 0.3s',
               }} 
             />
           </button>
@@ -2102,21 +2103,20 @@ function App() {
                 onClick={(e) => e.stopPropagation()}
                 style={{
                   position: 'fixed',
-                  bottom: '90px',
+                  bottom: '200px',
                   right: '20px',
-                  width: windowWidth <= 480 ? 'calc(100vw - 40px)' : '320px',
-                  maxHeight: 'calc(100vh - 120px)',
-                  background: 'linear-gradient(to bottom, rgba(30, 50, 90, 0.95) 0%, rgba(15, 30, 70, 0.98) 100%)',
-                  backdropFilter: 'blur(35px)',
-                  WebkitBackdropFilter: 'blur(35px)',
-                  border: '1px solid rgba(255, 255, 255, 0.4)',
-                  borderRadius: '12px',
-                  boxShadow: '0 -4px 30px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.35)',
-                  padding: '15px',
+                  width: windowWidth <= 480 ? 'calc(100vw - 40px)' : '400px',
+                  height: windowWidth <= 480 ? 'calc(100vw - 40px)' : '400px',
+                  maxHeight: 'calc(100vh - 220px)',
+                  background: '#ffffff',
+                  border: '2px solid rgba(0, 0, 0, 0.1)',
+                  borderRadius: '0',
+                  boxShadow: '0 8px 40px rgba(0, 0, 0, 0.3)',
+                  padding: '20px',
                   overflowY: 'auto',
                   display: 'grid',
                   gridTemplateColumns: windowWidth <= 480 ? 'repeat(3, 1fr)' : 'repeat(4, 1fr)',
-                  gap: '10px',
+                  gap: '12px',
                   zIndex: 10001,
                 }}
               >
@@ -2129,7 +2129,7 @@ function App() {
                     gap: '5px',
                     padding: '10px',
                     background: isWindowActive('about')
-                      ? 'linear-gradient(to bottom, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.2) 100%)'
+                      ? 'rgba(100, 150, 255, 0.2)'
                       : 'transparent',
                     border: 'none',
                     borderRadius: '8px',
@@ -2138,7 +2138,7 @@ function App() {
                   }}
                 >
                   <img src={infoIcon} alt="Presentazione" style={{ width: '32px', height: '32px', objectFit: 'contain' }} />
-                  <span style={{ fontSize: '10px', color: '#fff' }}>Presentazione</span>
+                  <span style={{ fontSize: '10px', color: '#333', fontWeight: isWindowActive('about') ? 'bold' : 'normal' }}>Presentazione</span>
                 </button>
                 <button
                   onClick={() => { toggleWindow('personalInfo'); setShowFloatingMenu(false); }}
@@ -2149,7 +2149,7 @@ function App() {
                     gap: '5px',
                     padding: '10px',
                     background: isWindowActive('personalInfo')
-                      ? 'linear-gradient(to bottom, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.2) 100%)'
+                      ? 'rgba(100, 150, 255, 0.2)'
                       : 'transparent',
                     border: 'none',
                     borderRadius: '8px',
@@ -2158,7 +2158,7 @@ function App() {
                   }}
                 >
                   <img src={userIcon} alt="Info Personali" style={{ width: '32px', height: '32px', objectFit: 'contain' }} />
-                  <span style={{ fontSize: '10px', color: '#fff' }}>Info Personali</span>
+                  <span style={{ fontSize: '10px', color: '#333', fontWeight: isWindowActive('personalInfo') ? 'bold' : 'normal' }}>Info Personali</span>
                 </button>
                 <button
                   onClick={() => { toggleWindow('workExperience'); setShowFloatingMenu(false); }}
@@ -2169,7 +2169,7 @@ function App() {
                     gap: '5px',
                     padding: '10px',
                     background: isWindowActive('workExperience')
-                      ? 'linear-gradient(to bottom, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.2) 100%)'
+                      ? 'rgba(100, 150, 255, 0.2)'
                       : 'transparent',
                     border: 'none',
                     borderRadius: '8px',
@@ -2178,7 +2178,7 @@ function App() {
                   }}
                 >
                   <img src={workExperienceIcon} alt="Esperienze" style={{ width: '32px', height: '32px', objectFit: 'contain' }} />
-                  <span style={{ fontSize: '10px', color: '#fff' }}>Esperienze</span>
+                  <span style={{ fontSize: '10px', color: '#333', fontWeight: isWindowActive('workExperience') ? 'bold' : 'normal' }}>Esperienze</span>
                 </button>
                 <button
                   onClick={() => { toggleWindow('skills'); setShowFloatingMenu(false); }}
@@ -2189,7 +2189,7 @@ function App() {
                     gap: '5px',
                     padding: '10px',
                     background: isWindowActive('skills')
-                      ? 'linear-gradient(to bottom, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.2) 100%)'
+                      ? 'rgba(100, 150, 255, 0.2)'
                       : 'transparent',
                     border: 'none',
                     borderRadius: '8px',
@@ -2198,7 +2198,7 @@ function App() {
                   }}
                 >
                   <img src={skillsIcon} alt="Competenze" style={{ width: '32px', height: '32px', objectFit: 'contain' }} />
-                  <span style={{ fontSize: '10px', color: '#fff' }}>Competenze</span>
+                  <span style={{ fontSize: '10px', color: '#333', fontWeight: isWindowActive('skills') ? 'bold' : 'normal' }}>Competenze</span>
                 </button>
                 <button
                   onClick={() => { toggleWindow('education'); setShowFloatingMenu(false); }}
@@ -2209,7 +2209,7 @@ function App() {
                     gap: '5px',
                     padding: '10px',
                     background: isWindowActive('education')
-                      ? 'linear-gradient(to bottom, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.2) 100%)'
+                      ? 'rgba(100, 150, 255, 0.2)'
                       : 'transparent',
                     border: 'none',
                     borderRadius: '8px',
@@ -2218,7 +2218,7 @@ function App() {
                   }}
                 >
                   <img src={educationIcon} alt="Formazione" style={{ width: '32px', height: '32px', objectFit: 'contain' }} />
-                  <span style={{ fontSize: '10px', color: '#fff' }}>Formazione</span>
+                  <span style={{ fontSize: '10px', color: '#333', fontWeight: isWindowActive('education') ? 'bold' : 'normal' }}>Formazione</span>
                 </button>
                 <button
                   onClick={() => { toggleWindow('certifications'); setShowFloatingMenu(false); }}
@@ -2229,7 +2229,7 @@ function App() {
                     gap: '5px',
                     padding: '10px',
                     background: isWindowActive('certifications')
-                      ? 'linear-gradient(to bottom, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.2) 100%)'
+                      ? 'rgba(100, 150, 255, 0.2)'
                       : 'transparent',
                     border: 'none',
                     borderRadius: '8px',
@@ -2238,7 +2238,7 @@ function App() {
                   }}
                 >
                   <img src={certificationsIcon} alt="Certificazioni" style={{ width: '32px', height: '32px', objectFit: 'contain' }} />
-                  <span style={{ fontSize: '10px', color: '#fff' }}>Certificazioni</span>
+                  <span style={{ fontSize: '10px', color: '#333', fontWeight: isWindowActive('certifications') ? 'bold' : 'normal' }}>Certificazioni</span>
                 </button>
                 <button
                   onClick={() => { toggleWindow('note'); setShowFloatingMenu(false); }}
@@ -2249,7 +2249,7 @@ function App() {
                     gap: '5px',
                     padding: '10px',
                     background: isWindowActive('note')
-                      ? 'linear-gradient(to bottom, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.2) 100%)'
+                      ? 'rgba(100, 150, 255, 0.2)'
                       : 'transparent',
                     border: 'none',
                     borderRadius: '8px',
@@ -2258,7 +2258,7 @@ function App() {
                   }}
                 >
                   <img src={noteIcon} alt="Note" style={{ width: '32px', height: '32px', objectFit: 'contain' }} />
-                  <span style={{ fontSize: '10px', color: '#fff' }}>Note</span>
+                  <span style={{ fontSize: '10px', color: '#333', fontWeight: isWindowActive('note') ? 'bold' : 'normal' }}>Note</span>
                 </button>
                 <button
                   onClick={() => { toggleWindow('documents'); setShowFloatingMenu(false); }}
@@ -2269,7 +2269,7 @@ function App() {
                     gap: '5px',
                     padding: '10px',
                     background: isWindowActive('documents')
-                      ? 'linear-gradient(to bottom, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.2) 100%)'
+                      ? 'rgba(100, 150, 255, 0.2)'
                       : 'transparent',
                     border: 'none',
                     borderRadius: '8px',
@@ -2278,7 +2278,7 @@ function App() {
                   }}
                 >
                   <img src={folderIcon} alt="Documenti" style={{ width: '32px', height: '32px', objectFit: 'contain' }} />
-                  <span style={{ fontSize: '10px', color: '#fff' }}>Documenti</span>
+                  <span style={{ fontSize: '10px', color: '#333', fontWeight: isWindowActive('documents') ? 'bold' : 'normal' }}>Documenti</span>
                 </button>
                 <button
                   onClick={() => { toggleWindow('images'); setShowFloatingMenu(false); }}
@@ -2289,7 +2289,7 @@ function App() {
                     gap: '5px',
                     padding: '10px',
                     background: isWindowActive('images')
-                      ? 'linear-gradient(to bottom, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.2) 100%)'
+                      ? 'rgba(100, 150, 255, 0.2)'
                       : 'transparent',
                     border: 'none',
                     borderRadius: '8px',
@@ -2298,7 +2298,7 @@ function App() {
                   }}
                 >
                   <img src={immaginiIcon} alt="Immagini" style={{ width: '32px', height: '32px', objectFit: 'contain' }} />
-                  <span style={{ fontSize: '10px', color: '#fff' }}>Immagini</span>
+                  <span style={{ fontSize: '10px', color: '#333', fontWeight: isWindowActive('images') ? 'bold' : 'normal' }}>Immagini</span>
                 </button>
                 <button
                   onClick={() => { toggleWindow('computer'); setShowFloatingMenu(false); }}
@@ -2309,7 +2309,7 @@ function App() {
                     gap: '5px',
                     padding: '10px',
                     background: isWindowActive('computer')
-                      ? 'linear-gradient(to bottom, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.2) 100%)'
+                      ? 'rgba(100, 150, 255, 0.2)'
                       : 'transparent',
                     border: 'none',
                     borderRadius: '8px',
@@ -2318,7 +2318,7 @@ function App() {
                   }}
                 >
                   <img src={computerIcon} alt="Computer" style={{ width: '32px', height: '32px', objectFit: 'contain' }} />
-                  <span style={{ fontSize: '10px', color: '#fff' }}>Computer</span>
+                  <span style={{ fontSize: '10px', color: '#333', fontWeight: isWindowActive('computer') ? 'bold' : 'normal' }}>Computer</span>
                 </button>
                 <button
                   onClick={() => { toggleWindow('music'); setShowFloatingMenu(false); }}
@@ -2329,7 +2329,7 @@ function App() {
                     gap: '5px',
                     padding: '10px',
                     background: isWindowActive('music')
-                      ? 'linear-gradient(to bottom, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.2) 100%)'
+                      ? 'rgba(100, 150, 255, 0.2)'
                       : 'transparent',
                     border: 'none',
                     borderRadius: '8px',
@@ -2338,7 +2338,7 @@ function App() {
                   }}
                 >
                   <img src={musicIcon} alt="Musica" style={{ width: '32px', height: '32px', objectFit: 'contain' }} />
-                  <span style={{ fontSize: '10px', color: '#fff' }}>Musica</span>
+                  <span style={{ fontSize: '10px', color: '#333', fontWeight: isWindowActive('music') ? 'bold' : 'normal' }}>Musica</span>
                 </button>
                 <button
                   onClick={() => { toggleWindow('settings'); setShowFloatingMenu(false); }}
@@ -2349,7 +2349,7 @@ function App() {
                     gap: '5px',
                     padding: '10px',
                     background: isWindowActive('settings')
-                      ? 'linear-gradient(to bottom, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.2) 100%)'
+                      ? 'rgba(100, 150, 255, 0.2)'
                       : 'transparent',
                     border: 'none',
                     borderRadius: '8px',
@@ -2358,7 +2358,7 @@ function App() {
                   }}
                 >
                   <img src={settingsIcon} alt="Impostazioni" style={{ width: '32px', height: '32px', objectFit: 'contain' }} />
-                  <span style={{ fontSize: '10px', color: '#fff' }}>Impostazioni</span>
+                  <span style={{ fontSize: '10px', color: '#333', fontWeight: isWindowActive('settings') ? 'bold' : 'normal' }}>Impostazioni</span>
                 </button>
                 <button
                   onClick={() => { toggleWindow('paint'); setShowFloatingMenu(false); }}
@@ -2369,7 +2369,7 @@ function App() {
                     gap: '5px',
                     padding: '10px',
                     background: isWindowActive('paint')
-                      ? 'linear-gradient(to bottom, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.2) 100%)'
+                      ? 'rgba(100, 150, 255, 0.2)'
                       : 'transparent',
                     border: 'none',
                     borderRadius: '8px',
@@ -2378,7 +2378,7 @@ function App() {
                   }}
                 >
                   <img src={paintIcon} alt="Paint" style={{ width: '32px', height: '32px', objectFit: 'contain' }} />
-                  <span style={{ fontSize: '10px', color: '#fff' }}>Paint</span>
+                  <span style={{ fontSize: '10px', color: '#333', fontWeight: isWindowActive('paint') ? 'bold' : 'normal' }}>Paint</span>
                 </button>
                 <button
                   onClick={() => { toggleWindow('browser'); setShowFloatingMenu(false); }}
@@ -2389,7 +2389,7 @@ function App() {
                     gap: '5px',
                     padding: '10px',
                     background: isWindowActive('browser')
-                      ? 'linear-gradient(to bottom, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.2) 100%)'
+                      ? 'rgba(100, 150, 255, 0.2)'
                       : 'transparent',
                     border: 'none',
                     borderRadius: '8px',
@@ -2398,7 +2398,7 @@ function App() {
                   }}
                 >
                   <img src={firefoxIcon} alt="Firefox" style={{ width: '32px', height: '32px', objectFit: 'contain' }} />
-                  <span style={{ fontSize: '10px', color: '#fff' }}>Firefox</span>
+                  <span style={{ fontSize: '10px', color: '#333', fontWeight: isWindowActive('browser') ? 'bold' : 'normal' }}>Firefox</span>
                 </button>
                 <button
                   onClick={() => { toggleWindow('calculator'); setShowFloatingMenu(false); }}
@@ -2409,7 +2409,7 @@ function App() {
                     gap: '5px',
                     padding: '10px',
                     background: isWindowActive('calculator')
-                      ? 'linear-gradient(to bottom, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.2) 100%)'
+                      ? 'rgba(100, 150, 255, 0.2)'
                       : 'transparent',
                     border: 'none',
                     borderRadius: '8px',
@@ -2418,7 +2418,7 @@ function App() {
                   }}
                 >
                   <img src={calculatorIcon} alt="Calcolatrice" style={{ width: '32px', height: '32px', objectFit: 'contain' }} />
-                  <span style={{ fontSize: '10px', color: '#fff' }}>Calcolatrice</span>
+                  <span style={{ fontSize: '10px', color: '#333', fontWeight: isWindowActive('calculator') ? 'bold' : 'normal' }}>Calcolatrice</span>
                 </button>
                 <button
                   onClick={() => { toggleWindow('portfolio'); setShowFloatingMenu(false); }}
@@ -2429,7 +2429,7 @@ function App() {
                     gap: '5px',
                     padding: '10px',
                     background: isWindowActive('portfolio')
-                      ? 'linear-gradient(to bottom, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.2) 100%)'
+                      ? 'rgba(100, 150, 255, 0.2)'
                       : 'transparent',
                     border: 'none',
                     borderRadius: '8px',
@@ -2438,7 +2438,7 @@ function App() {
                   }}
                 >
                   <img src={portfolioIcon} alt="Portfolio" style={{ width: '32px', height: '32px', objectFit: 'contain' }} />
-                  <span style={{ fontSize: '10px', color: '#fff' }}>Portfolio</span>
+                  <span style={{ fontSize: '10px', color: '#333', fontWeight: isWindowActive('portfolio') ? 'bold' : 'normal' }}>Portfolio</span>
                 </button>
                 <button
                   onClick={() => { toggleWindow('solitaire'); setShowFloatingMenu(false); }}
@@ -2449,7 +2449,7 @@ function App() {
                     gap: '5px',
                     padding: '10px',
                     background: isWindowActive('solitaire')
-                      ? 'linear-gradient(to bottom, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.2) 100%)'
+                      ? 'rgba(100, 150, 255, 0.2)'
                       : 'transparent',
                     border: 'none',
                     borderRadius: '8px',
@@ -2458,7 +2458,7 @@ function App() {
                   }}
                 >
                   <img src={solitarioIcon} alt="Solitario" style={{ width: '32px', height: '32px', objectFit: 'contain' }} />
-                  <span style={{ fontSize: '10px', color: '#fff' }}>Solitario</span>
+                  <span style={{ fontSize: '10px', color: '#333', fontWeight: isWindowActive('solitaire') ? 'bold' : 'normal' }}>Solitario</span>
                 </button>
                 <button
                   onClick={() => { toggleWindow('cestino'); setShowFloatingMenu(false); }}
@@ -2469,7 +2469,7 @@ function App() {
                     gap: '5px',
                     padding: '10px',
                     background: isWindowActive('cestino')
-                      ? 'linear-gradient(to bottom, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.2) 100%)'
+                      ? 'rgba(100, 150, 255, 0.2)'
                       : 'transparent',
                     border: 'none',
                     borderRadius: '8px',
@@ -2478,7 +2478,7 @@ function App() {
                   }}
                 >
                   <img src={cestinoIcon} alt="Cestino" style={{ width: '32px', height: '32px', objectFit: 'contain' }} />
-                  <span style={{ fontSize: '10px', color: '#fff' }}>Cestino</span>
+                  <span style={{ fontSize: '10px', color: '#333', fontWeight: isWindowActive('cestino') ? 'bold' : 'normal' }}>Cestino</span>
                 </button>
                 <button
                   onClick={() => { toggleWindow('antivirus'); setShowFloatingMenu(false); }}
@@ -2489,7 +2489,7 @@ function App() {
                     gap: '5px',
                     padding: '10px',
                     background: isWindowActive('antivirus')
-                      ? 'linear-gradient(to bottom, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.2) 100%)'
+                      ? 'rgba(100, 150, 255, 0.2)'
                       : 'transparent',
                     border: 'none',
                     borderRadius: '8px',
@@ -2498,7 +2498,7 @@ function App() {
                   }}
                 >
                   <img src={antivirusIcon} alt="Anti-Virus" style={{ width: '32px', height: '32px', objectFit: 'contain' }} />
-                  <span style={{ fontSize: '10px', color: '#fff' }}>Anti-Virus</span>
+                  <span style={{ fontSize: '10px', color: '#333', fontWeight: isWindowActive('antivirus') ? 'bold' : 'normal' }}>Anti-Virus</span>
                 </button>
                 <button
                   onClick={() => { toggleWindow('calendar'); setShowFloatingMenu(false); }}
@@ -2509,7 +2509,7 @@ function App() {
                     gap: '5px',
                     padding: '10px',
                     background: isWindowActive('calendar')
-                      ? 'linear-gradient(to bottom, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.2) 100%)'
+                      ? 'rgba(100, 150, 255, 0.2)'
                       : 'transparent',
                     border: 'none',
                     borderRadius: '8px',
@@ -2518,7 +2518,7 @@ function App() {
                   }}
                 >
                   <img src={calendarIcon} alt="Calendario" style={{ width: '32px', height: '32px', objectFit: 'contain' }} />
-                  <span style={{ fontSize: '10px', color: '#fff' }}>Calendario</span>
+                  <span style={{ fontSize: '10px', color: '#333', fontWeight: isWindowActive('calendar') ? 'bold' : 'normal' }}>Calendario</span>
                 </button>
                 <button
                   onClick={() => { setShowStartMenu(true); setShowFloatingMenu(false); }}
@@ -2529,7 +2529,7 @@ function App() {
                     gap: '5px',
                     padding: '10px',
                     background: showStartMenu
-                      ? 'linear-gradient(to bottom, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.2) 100%)'
+                      ? 'rgba(100, 150, 255, 0.2)'
                       : 'transparent',
                     border: 'none',
                     borderRadius: '8px',
@@ -2538,7 +2538,7 @@ function App() {
                   }}
                 >
                   <img src={taskbarIcon} alt="Start Menu" style={{ width: '32px', height: '32px', objectFit: 'contain' }} />
-                  <span style={{ fontSize: '10px', color: '#fff' }}>Start Menu</span>
+                  <span style={{ fontSize: '10px', color: '#333', fontWeight: showStartMenu ? 'bold' : 'normal' }}>Start Menu</span>
                 </button>
               </div>
             </div>

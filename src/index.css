@@ -1,5 +1,6 @@
 * {
   box-sizing: border-box;
+  cursor: url('/src/assets/cursor.png'), auto;
 }
 
 body {
@@ -10,11 +11,29 @@ body {
   overflow: hidden;
   user-select: none;
   transition: font-size 0.3s ease;
+  cursor: url('/src/assets/cursor.png'), auto;
 }
 
 body.no-animations * {
   transition: none !important;
   animation: none !important;
+}
+
+/* Cursore personalizzato per elementi interattivi */
+a, button, input, textarea, select {
+  cursor: url('/src/assets/cursor.png'), pointer;
+}
+
+a:hover, button:hover {
+  cursor: url('/src/assets/cursor.png'), pointer;
+}
+
+/* Cursore per elementi di testo selezionabili */
+input[type="text"], 
+input[type="email"], 
+input[type="password"], 
+textarea {
+  cursor: url('/src/assets/cursor.png'), text;
 }
 
 #root {

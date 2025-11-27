@@ -41,21 +41,32 @@ textarea {
   height: 100vh;
   position: relative;
   overflow: hidden;
-  /* Ottimizzazioni performance */
+  /* Ottimizzazioni performance - Cross-browser */
   transform: translateZ(0);
   -webkit-transform: translateZ(0);
+  -moz-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  -o-transform: translateZ(0);
   will-change: scroll-position;
+  -webkit-will-change: scroll-position;
+  -moz-will-change: scroll-position;
+  -ms-will-change: scroll-position;
 }
 
-/* Desktop Windows 7 */
+/* Desktop Windows 7 - Cross-browser compatibility */
 .desktop-pattern {
   background-color: #1e3a5f;
   /* Lo sfondo viene gestito dinamicamente da App.tsx */
   /* Ottimizzazioni performance */
   transform: translateZ(0);
   -webkit-transform: translateZ(0);
+  -moz-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  -o-transform: translateZ(0);
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  -ms-backface-visibility: hidden;
 }
 
 /* Responsive */
@@ -92,9 +103,11 @@ textarea {
     font-size: clamp(10px, 3vw, 12px) !important;
   }
   
-  /* Migliora la leggibilità su mobile */
+  /* Migliora la leggibilità su mobile - Cross-browser */
   * {
     -webkit-text-size-adjust: 100%;
+    -moz-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
     text-size-adjust: 100%;
   }
   

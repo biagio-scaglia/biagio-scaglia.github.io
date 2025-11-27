@@ -12,31 +12,48 @@ button {
   font-size: inherit !important;
 }
 
-/* Glass frame effect */
+/* Glass frame effect - Cross-browser compatibility */
 .window.glass {
   background: rgba(255, 255, 255, 0.1) !important;
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
+  -moz-backdrop-filter: blur(10px);
+  -ms-backdrop-filter: blur(10px);
+  -o-backdrop-filter: blur(10px);
 }
 
 .window.glass .title-bar {
   background: rgba(255, 255, 255, 0.15) !important;
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
+  -moz-backdrop-filter: blur(10px);
+  -ms-backdrop-filter: blur(10px);
+  -o-backdrop-filter: blur(10px);
 }
 
 .window.glass .window-body {
   background: rgba(255, 255, 255, 0.95) !important;
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
+  -moz-backdrop-filter: blur(5px);
+  -ms-backdrop-filter: blur(5px);
+  -o-backdrop-filter: blur(5px);
 }
 
 button:active {
   transform: translate(0.5px, 0.5px);
+  -webkit-transform: translate(0.5px, 0.5px);
+  -moz-transform: translate(0.5px, 0.5px);
+  -ms-transform: translate(0.5px, 0.5px);
+  -o-transform: translate(0.5px, 0.5px);
 }
 
 button:hover:not(:active) {
   filter: brightness(1.05);
+  -webkit-filter: brightness(1.05);
+  -moz-filter: brightness(1.05);
+  -ms-filter: brightness(1.05);
+  -o-filter: brightness(1.05);
 }
 
 /* I pulsanti di controllo non devono avere questi effetti */
@@ -75,24 +92,48 @@ button:hover:not(:active) {
   min-height: 0;
 }
 
-/* Start Button Windows 7 */
+/* Start Button Windows 7 - Cross-browser compatibility */
 .start-button:hover {
   background: linear-gradient(to bottom, rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0.25) 100%) !important;
+  background: -webkit-linear-gradient(to bottom, rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0.25) 100%) !important;
+  background: -moz-linear-gradient(to bottom, rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0.25) 100%) !important;
+  background: -ms-linear-gradient(to bottom, rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0.25) 100%) !important;
+  background: -o-linear-gradient(to bottom, rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0.25) 100%) !important;
   backdrop-filter: blur(30px) !important;
   -webkit-backdrop-filter: blur(30px) !important;
+  -moz-backdrop-filter: blur(30px) !important;
+  -ms-backdrop-filter: blur(30px) !important;
+  -o-backdrop-filter: blur(30px) !important;
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 0 10px rgba(100, 150, 255, 0.3) !important;
+  -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 0 10px rgba(100, 150, 255, 0.3) !important;
+  -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 0 10px rgba(100, 150, 255, 0.3) !important;
+  -ms-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 0 10px rgba(100, 150, 255, 0.3) !important;
 }
 
 .start-button:active {
   background: linear-gradient(to bottom, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.2) 100%) !important;
+  background: -webkit-linear-gradient(to bottom, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.2) 100%) !important;
+  background: -moz-linear-gradient(to bottom, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.2) 100%) !important;
+  background: -ms-linear-gradient(to bottom, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.2) 100%) !important;
+  background: -o-linear-gradient(to bottom, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.2) 100%) !important;
   backdrop-filter: blur(25px) !important;
   -webkit-backdrop-filter: blur(25px) !important;
+  -moz-backdrop-filter: blur(25px) !important;
+  -ms-backdrop-filter: blur(25px) !important;
+  -o-backdrop-filter: blur(25px) !important;
   box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2) !important;
+  -webkit-box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2) !important;
+  -moz-box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2) !important;
+  -ms-box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2) !important;
 }
 
-/* Taskbar buttons Windows 7 */
+/* Taskbar buttons Windows 7 - Cross-browser compatibility */
 .taskbar-button {
   transition: all 0.2s ease !important;
+  -webkit-transition: all 0.2s ease !important;
+  -moz-transition: all 0.2s ease !important;
+  -ms-transition: all 0.2s ease !important;
+  -o-transition: all 0.2s ease !important;
   position: relative !important;
 }
 
@@ -142,17 +183,37 @@ button:hover:not(:active) {
 
 .taskbar-button:hover:not(.is-active) {
   background: linear-gradient(to bottom, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0.15) 100%) !important;
+  background: -webkit-linear-gradient(to bottom, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0.15) 100%) !important;
+  background: -moz-linear-gradient(to bottom, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0.15) 100%) !important;
+  background: -ms-linear-gradient(to bottom, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0.15) 100%) !important;
+  background: -o-linear-gradient(to bottom, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0.15) 100%) !important;
   backdrop-filter: blur(25px) !important;
   -webkit-backdrop-filter: blur(25px) !important;
+  -moz-backdrop-filter: blur(25px) !important;
+  -ms-backdrop-filter: blur(25px) !important;
+  -o-backdrop-filter: blur(25px) !important;
   box-shadow: 0 0 8px rgba(100, 150, 255, 0.2) !important;
+  -webkit-box-shadow: 0 0 8px rgba(100, 150, 255, 0.2) !important;
+  -moz-box-shadow: 0 0 8px rgba(100, 150, 255, 0.2) !important;
+  -ms-box-shadow: 0 0 8px rgba(100, 150, 255, 0.2) !important;
 }
 
 /* Hover quando il bottone è attivo */
 .taskbar-button.is-active:hover {
   background: linear-gradient(to bottom, rgba(255, 255, 255, 0.45) 0%, rgba(255, 255, 255, 0.35) 100%) !important;
+  background: -webkit-linear-gradient(to bottom, rgba(255, 255, 255, 0.45) 0%, rgba(255, 255, 255, 0.35) 100%) !important;
+  background: -moz-linear-gradient(to bottom, rgba(255, 255, 255, 0.45) 0%, rgba(255, 255, 255, 0.35) 100%) !important;
+  background: -ms-linear-gradient(to bottom, rgba(255, 255, 255, 0.45) 0%, rgba(255, 255, 255, 0.35) 100%) !important;
+  background: -o-linear-gradient(to bottom, rgba(255, 255, 255, 0.45) 0%, rgba(255, 255, 255, 0.35) 100%) !important;
   backdrop-filter: blur(30px) !important;
   -webkit-backdrop-filter: blur(30px) !important;
+  -moz-backdrop-filter: blur(30px) !important;
+  -ms-backdrop-filter: blur(30px) !important;
+  -o-backdrop-filter: blur(30px) !important;
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5), 0 0 10px rgba(100, 150, 255, 0.4) !important;
+  -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5), 0 0 10px rgba(100, 150, 255, 0.4) !important;
+  -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5), 0 0 10px rgba(100, 150, 255, 0.4) !important;
+  -ms-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5), 0 0 10px rgba(100, 150, 255, 0.4) !important;
 }
 
 .taskbar-button:active {

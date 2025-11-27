@@ -1,0 +1,46 @@
+{
+  "name": "Biagio Scaglia - Portfolio CV",
+  "short_name": "Portfolio BS",
+  "description": "Portfolio interattivo di Biagio Scaglia, sviluppatore software e UX/UI designer",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#1e3a5f",
+  "theme_color": "#1e3a5f",
+  "orientation": "any",
+  "scope": "/",
+  "lang": "it",
+  "dir": "ltr",
+  "icons": [
+    {
+      "src": "/src/assets/icone/portfolio.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/src/assets/icone/portfolio.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["portfolio", "developer", "cv", "business"],
+  "screenshots": [],
+  "shortcuts": [
+    {
+      "name": "Portfolio",
+      "short_name": "Portfolio",
+      "description": "Visualizza i progetti",
+      "url": "/#portfolio",
+      "icons": [{ "src": "/src/assets/icone/portfolio.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "Contatti",
+      "short_name": "Contatti",
+      "description": "Informazioni di contatto",
+      "url": "/#about",
+      "icons": [{ "src": "/src/assets/icone/info.png", "sizes": "96x96" }]
+    }
+  ]
+}
+

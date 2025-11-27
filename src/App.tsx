@@ -89,9 +89,11 @@ function App() {
   })
   const [minimizedWindows, setMinimizedWindows] = useState<Set<keyof typeof openWindows>>(new Set())
   const [desktopBackground, setDesktopBackground] = useState(defaultBackground)
+  const [desktopBackgroundType, setDesktopBackgroundType] = useState<'image' | 'video'>('image')
   const [isSlideshowEnabled, setIsSlideshowEnabled] = useState(false)
   const [slideshowIntervalSeconds, setSlideshowIntervalSeconds] = useState(5)
   const [, setCurrentSlideshowIndex] = useState(0)
+  const desktopVideoRef = useRef<HTMLVideoElement | null>(null)
 
   // Ottieni lista di tutti gli sfondi disponibili (escluso Starter) - lazy loading
   const [allBackgrounds, setAllBackgrounds] = useState<string[]>([defaultBackground])
@@ -651,9 +653,9 @@ function App() {
         style={{
           width: '100vw',
           height: '100vh',
-          backgroundImage: desktopBackground.startsWith('linear-gradient') 
+          backgroundImage: desktopBackgroundType === 'image' && desktopBackground.startsWith('linear-gradient') 
             ? desktopBackground 
-            : `url(${desktopBackground})`,
+            : desktopBackgroundType === 'image' ? `url(${desktopBackground})` : 'none',
           backgroundSize: desktopBackground.startsWith('linear-gradient') ? 'auto' : 'cover',
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat',
@@ -662,6 +664,26 @@ function App() {
         }}
         onClick={handleDesktopClick}
       >
+        {desktopBackgroundType === 'video' && (
+          <video
+            ref={desktopVideoRef}
+            src={desktopBackground}
+            autoPlay
+            loop
+            muted
+            playsInline
+            style={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+              zIndex: 0,
+            }}
+          />
+        )}
+        <div style={{ position: 'relative', zIndex: 1, width: '100%', height: '100%' }}>
       {/* Desktop Icons */}
       <DesktopIcon
         icon={<img src={infoIcon} alt="Presentazione" style={{ width: window.innerWidth <= 480 ? '44px' : window.innerWidth <= 768 ? '50px' : '48px', height: window.innerWidth <= 480 ? '44px' : window.innerWidth <= 768 ? '50px' : '48px', objectFit: 'contain', filter: 'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3))' }} />}
@@ -969,7 +991,15 @@ function App() {
         <Suspense fallback={<LoadingFallback />}>
         <ImagesWindow 
             onClose={() => handleClose('images')}
-          onBackgroundChange={setDesktopBackground}
+          onBackgroundChange={(background: string, type?: 'image' | 'video') => {
+            setDesktopBackground(background)
+            setDesktopBackgroundType(type || (background.endsWith('.mp4') ? 'video' : 'image'))
+            // Se è un video, assicurati che riparta
+            if ((type || (background.endsWith('.mp4') ? 'video' : 'image')) === 'video' && desktopVideoRef.current) {
+              desktopVideoRef.current.load()
+              desktopVideoRef.current.play().catch(() => {})
+            }
+          }}
           currentBackground={desktopBackground}
           isSlideshowEnabled={isSlideshowEnabled}
           slideshowIntervalSeconds={slideshowIntervalSeconds}
@@ -1080,6 +1110,7 @@ function App() {
           />
         </Suspense>
       )}
+        </div>
 
       {/* Taskbar Windows 7 - Desktop only */}
       {windowWidth > 768 && (

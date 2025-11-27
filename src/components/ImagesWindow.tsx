@@ -1,14 +1,21 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import Window from './Window'
 import Windows7Spinner from './Windows7Spinner'
 import defaultBackground from '../assets/sfondo.jpg'
+import sfondoVideo from '../assets/sfondo/sfondo video.mp4'
 
 // Carica dinamicamente tutti i file jpg dalla cartella sfondo (lazy loading)
 const backgroundImages = import.meta.glob('../assets/sfondo/*.jpg', { eager: false }) as Record<string, () => Promise<{ default: string }>>
 
+interface BackgroundItem {
+  name: string
+  url: string
+  type: 'image' | 'video'
+}
+
 interface ImagesWindowProps {
   onClose: () => void
-  onBackgroundChange: (background: string) => void
+  onBackgroundChange: (background: string, type?: 'image' | 'video') => void
   currentBackground: string
   isSlideshowEnabled?: boolean
   slideshowIntervalSeconds?: number
@@ -38,9 +45,11 @@ export default function ImagesWindow({
     return () => window.removeEventListener('resize', handleResize)
   }, [])
 
-  const [loadedBackgrounds, setLoadedBackgrounds] = useState<Array<{ name: string; url: string }>>([
-    { name: 'Sfondo Default', url: defaultBackground }
+  const [loadedBackgrounds, setLoadedBackgrounds] = useState<BackgroundItem[]>([
+    { name: 'Sfondo Default', url: defaultBackground, type: 'image' },
+    { name: 'Sfondo Video Animato', url: sfondoVideo, type: 'video' }
   ])
+  const videoRefs = useRef<Record<number, HTMLVideoElement | null>>({})
 
   // Carica le prime 5 immagini immediatamente, le altre on-demand
   useEffect(() => {
@@ -66,12 +75,12 @@ export default function ImagesWindow({
         return a.name.localeCompare(b.name)
       })
     
-    sortedFiles.slice(0, 5).forEach(async (file) => {
+        sortedFiles.slice(0, 5).forEach(async (file) => {
       try {
         const module = await file.loader()
         setLoadedBackgrounds((prev) => {
           if (!prev.find(bg => bg.name === `Sfondo ${file.name}`)) {
-            return [...prev, { name: `Sfondo ${file.name}`, url: module.default }]
+            return [...prev, { name: `Sfondo ${file.name}`, url: module.default, type: 'image' as const }]
           }
           return prev
         })
@@ -103,7 +112,7 @@ export default function ImagesWindow({
           const module = await file.loader()
           setLoadedBackgrounds((prev) => {
             if (!prev.find(bg => bg.name === `Sfondo ${file.name}`)) {
-              return [...prev, { name: `Sfondo ${file.name}`, url: module.default }]
+              return [...prev, { name: `Sfondo ${file.name}`, url: module.default, type: 'image' as const }]
             }
             return prev
           })
@@ -130,7 +139,8 @@ export default function ImagesWindow({
 
   const handleApply = () => {
     if (selectedBackground >= 0 && selectedBackground < loadedBackgrounds.length) {
-      onBackgroundChange(loadedBackgrounds[selectedBackground].url)
+      const selectedBg = loadedBackgrounds[selectedBackground]
+      onBackgroundChange(selectedBg.url, selectedBg.type)
     }
     if (onSlideshowChange) {
       onSlideshowChange(localSlideshowEnabled, localSlideshowSeconds)
@@ -172,7 +182,7 @@ export default function ImagesWindow({
               onClick={() => setSelectedBackground(index)}
               style={{
                 aspectRatio: '4/3',
-                background: bg.url.startsWith('linear-gradient') ? bg.url : `url(${bg.url})`,
+                background: bg.type === 'image' && !bg.url.startsWith('linear-gradient') ? `url(${bg.url})` : bg.url.startsWith('linear-gradient') ? bg.url : '#000',
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
                 border: selectedBackground === index ? '3px solid #0078d4' : '2px solid #c0c0c0',
@@ -185,50 +195,96 @@ export default function ImagesWindow({
                 if (selectedBackground !== index) {
                   e.currentTarget.style.borderColor = '#0078d4'
                 }
+                // Avvia la preview del video quando si passa sopra
+                if (bg.type === 'video' && videoRefs.current[index]) {
+                  const video = videoRefs.current[index]
+                  if (video) {
+                    video.currentTime = 0
+                    video.play().catch(() => {})
+                  }
+                }
               }}
               onMouseLeave={(e) => {
                 if (selectedBackground !== index) {
                   e.currentTarget.style.borderColor = '#c0c0c0'
                 }
+                // Ferma la preview del video quando si esce
+                if (bg.type === 'video' && videoRefs.current[index]) {
+                  const video = videoRefs.current[index]
+                  if (video) {
+                    video.pause()
+                    video.currentTime = 0
+                  }
+                }
               }}
             >
-              {loadingImages[bg.url] && !bg.url.startsWith('linear-gradient') && (
-                <div style={{
-                  position: 'absolute',
-                  top: '50%',
-                  left: '50%',
-                  transform: 'translate(-50%, -50%)',
-                  zIndex: 1,
-                }}>
-                  <Windows7Spinner size={32} />
-                </div>
+              {bg.type === 'video' ? (
+                <video
+                  ref={(el) => {
+                    if (el) videoRefs.current[index] = el
+                  }}
+                  src={bg.url}
+                  muted
+                  loop
+                  playsInline
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover',
+                    display: 'block',
+                  }}
+                  onMouseEnter={(e) => {
+                    const video = e.currentTarget
+                    video.currentTime = 0
+                    video.play().catch(() => {})
+                  }}
+                  onMouseLeave={(e) => {
+                    const video = e.currentTarget
+                    video.pause()
+                    video.currentTime = 0
+                  }}
+                />
+              ) : (
+                <>
+                  {loadingImages[bg.url] && !bg.url.startsWith('linear-gradient') && (
+                    <div style={{
+                      position: 'absolute',
+                      top: '50%',
+                      left: '50%',
+                      transform: 'translate(-50%, -50%)',
+                      zIndex: 1,
+                    }}>
+                      <Windows7Spinner size={32} />
+                    </div>
+                  )}
+                  <img
+                    src={bg.url.startsWith('linear-gradient') ? undefined : bg.url}
+                    alt={bg.name}
+                    loading="lazy"
+                    style={{
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'cover',
+                      display: bg.url.startsWith('linear-gradient') ? 'none' : (loadingImages[bg.url] ? 'none' : 'block'),
+                    }}
+                    onLoadStart={() => {
+                      if (!bg.url.startsWith('linear-gradient')) {
+                        setLoadingImages(prev => ({ ...prev, [bg.url]: true }))
+                      }
+                    }}
+                    onLoad={() => {
+                      if (!bg.url.startsWith('linear-gradient')) {
+                        setLoadingImages(prev => ({ ...prev, [bg.url]: false }))
+                      }
+                    }}
+                    onError={() => {
+                      if (!bg.url.startsWith('linear-gradient')) {
+                        setLoadingImages(prev => ({ ...prev, [bg.url]: false }))
+                      }
+                    }}
+                  />
+                </>
               )}
-              <img
-                src={bg.url.startsWith('linear-gradient') ? undefined : bg.url}
-                alt={bg.name}
-                loading="lazy"
-                style={{
-                  width: '100%',
-                  height: '100%',
-                  objectFit: 'cover',
-                  display: bg.url.startsWith('linear-gradient') ? 'none' : (loadingImages[bg.url] ? 'none' : 'block'),
-                }}
-                onLoadStart={() => {
-                  if (!bg.url.startsWith('linear-gradient')) {
-                    setLoadingImages(prev => ({ ...prev, [bg.url]: true }))
-                  }
-                }}
-                onLoad={() => {
-                  if (!bg.url.startsWith('linear-gradient')) {
-                    setLoadingImages(prev => ({ ...prev, [bg.url]: false }))
-                  }
-                }}
-                onError={() => {
-                  if (!bg.url.startsWith('linear-gradient')) {
-                    setLoadingImages(prev => ({ ...prev, [bg.url]: false }))
-                  }
-                }}
-              />
               <div style={{
                 position: 'absolute',
                 bottom: 0,
@@ -239,8 +295,15 @@ export default function ImagesWindow({
                 padding: windowWidth <= 480 ? '4px' : '6px',
                 fontSize: windowWidth <= 480 ? '10px' : '11px',
                 textAlign: 'center',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '6px',
               }}>
-                {bg.name}
+                {bg.type === 'video' && (
+                  <i className="fas fa-video" style={{ fontSize: windowWidth <= 480 ? '9px' : '10px' }}></i>
+                )}
+                <span>{bg.name}</span>
               </div>
               {selectedBackground === index && (
                 <div style={{

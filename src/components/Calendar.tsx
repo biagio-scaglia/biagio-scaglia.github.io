@@ -7,6 +7,41 @@ interface CalendarProps {
   icon?: React.ReactNode
 }
 
+interface ImportantDate {
+  date: Date
+  title: string
+  description: string
+  type: 'work' | 'education' | 'certification' | 'personal'
+}
+
+const importantDates: ImportantDate[] = [
+  // Formazione
+  { date: new Date(2024, 10, 1), title: 'Inizio ITS Academy APULIA DIGITAL', description: 'Diploma Specialistico in Sviluppo e Analisi di Software', type: 'education' },
+  { date: new Date(2023, 10, 1), title: 'Inizio Master UX/UI Design', description: 'Meridia Formazione, Talent Garden, Università degli Studi Aldo Moro', type: 'education' },
+  { date: new Date(2024, 5, 30), title: 'Fine Master UX/UI Design', description: 'Voto: 30/30', type: 'education' },
+  { date: new Date(2018, 8, 1), title: 'Inizio I.I.S.S. Tommaso Fiore', description: 'Diploma di Scuola Superiore', type: 'education' },
+  { date: new Date(2023, 5, 30), title: 'Fine I.I.S.S. Tommaso Fiore', description: 'Voto: 85/100', type: 'education' },
+  
+  // Lavoro
+  { date: new Date(2025, 7, 1), title: 'Inizio PASSBARI', description: 'Sviluppatore di Software', type: 'work' },
+  { date: new Date(2025, 7, 31), title: 'Fine PASSBARI', description: 'Sviluppatore di Software', type: 'work' },
+  { date: new Date(2024, 5, 3), title: 'Inizio Consorzio Artemide', description: 'Consulente AI', type: 'work' },
+  { date: new Date(2024, 11, 3), title: 'Fine Consorzio Artemide', description: 'Consulente AI', type: 'work' },
+  { date: new Date(2018, 5, 6), title: 'Inizio Freelance', description: 'Esperto di Contenuti Digitali', type: 'work' },
+  
+  // Certificazioni
+  { date: new Date(2022, 0, 6), title: 'Cybersecurity Essential', description: 'Cisco', type: 'certification' },
+  { date: new Date(2023, 11, 18), title: 'WordPress Development', description: 'Programming Hub', type: 'certification' },
+  { date: new Date(2023, 10, 23), title: 'SEO', description: 'Programming Hub', type: 'certification' },
+  { date: new Date(2023, 10, 26), title: 'JavaScript', description: 'Programming Hub', type: 'certification' },
+  { date: new Date(2023, 10, 21), title: 'HTML & CSS', description: 'Programming Hub', type: 'certification' },
+  { date: new Date(2024, 1, 6), title: 'Web Development Professional', description: 'Institute of Management, Technology & Finance', type: 'certification' },
+  { date: new Date(2024, 0, 30), title: 'Python Development Professional', description: 'Institute of Management, Technology & Finance', type: 'certification' },
+  
+  // Personali
+  { date: new Date(2024, 1, 19), title: 'Patente di Guida', description: 'Categoria B', type: 'personal' },
+]
+
 export default function Calendar({ onClose, onMinimize, icon }: CalendarProps) {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth)
   const [currentDate, setCurrentDate] = useState(new Date())
@@ -67,6 +102,42 @@ export default function Calendar({ onClose, onMinimize, icon }: CalendarProps) {
       currentDate.getMonth() === selectedDate.getMonth() &&
       currentDate.getFullYear() === selectedDate.getFullYear()
     )
+  }
+
+  const getImportantDate = (day: number): ImportantDate | null => {
+    const checkDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), day)
+    return importantDates.find(d => 
+      d.date.getDate() === checkDate.getDate() &&
+      d.date.getMonth() === checkDate.getMonth() &&
+      d.date.getFullYear() === checkDate.getFullYear()
+    ) || null
+  }
+
+  const getImportantDatesForMonth = (): ImportantDate[] => {
+    return importantDates.filter(d => 
+      d.date.getMonth() === currentDate.getMonth() &&
+      d.date.getFullYear() === currentDate.getFullYear()
+    )
+  }
+
+  const getTypeColor = (type: string) => {
+    switch (type) {
+      case 'work': return '#0078d4'
+      case 'education': return '#107c10'
+      case 'certification': return '#ff8c00'
+      case 'personal': return '#e81123'
+      default: return '#666'
+    }
+  }
+
+  const getTypeIcon = (type: string) => {
+    switch (type) {
+      case 'work': return '💼'
+      case 'education': return '🎓'
+      case 'certification': return '🏆'
+      case 'personal': return '⭐'
+      default: return '📅'
+    }
   }
 
   const daysInMonth = getDaysInMonth(currentDate)
@@ -161,70 +232,188 @@ export default function Calendar({ onClose, onMinimize, icon }: CalendarProps) {
             gap: '4px',
             flex: 1
           }}>
-            {days.map((day, index) => (
-              <div
-                key={index}
-                onClick={() => day !== null && handleDateClick(day)}
-                style={{
-                  aspectRatio: '1',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  background: day === null 
-                    ? 'transparent' 
-                    : isSelected(day!)
-                      ? '#4a90e2'
+            {days.map((day, index) => {
+              const importantDate = day !== null ? getImportantDate(day!) : null
+              const hasImportantDate = importantDate !== null
+              
+              return (
+                <div
+                  key={index}
+                  onClick={() => day !== null && handleDateClick(day)}
+                  style={{
+                    aspectRatio: '1',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    background: day === null 
+                      ? 'transparent' 
+                      : isSelected(day!)
+                        ? '#4a90e2'
+                        : isToday(day!)
+                          ? '#e8f4f8'
+                          : hasImportantDate
+                            ? '#fff3cd'
+                            : '#f9f9f9',
+                    border: day !== null && isToday(day!)
+                      ? '2px solid #4a90e2'
+                      : day !== null && isSelected(day!)
+                        ? '2px solid #357abd'
+                        : day !== null && hasImportantDate
+                          ? `2px solid ${getTypeColor(importantDate!.type)}`
+                          : '1px solid #e0e0e0',
+                    borderRadius: '4px',
+                    cursor: day !== null ? 'pointer' : 'default',
+                    fontSize: windowWidth <= 480 ? '11px' : '13px',
+                    fontWeight: isToday(day!) || isSelected(day!) || hasImportantDate ? 'bold' : 'normal',
+                    color: day !== null && isSelected(day!)
+                      ? '#fff'
                       : isToday(day!)
-                        ? '#e8f4f8'
-                        : '#f9f9f9',
-                  border: day !== null && isToday(day!)
-                    ? '2px solid #4a90e2'
-                    : day !== null && isSelected(day!)
-                      ? '2px solid #357abd'
-                      : '1px solid #e0e0e0',
-                  borderRadius: '4px',
-                  cursor: day !== null ? 'pointer' : 'default',
-                  fontSize: windowWidth <= 480 ? '12px' : '14px',
-                  fontWeight: isToday(day!) || isSelected(day!) ? 'bold' : 'normal',
-                  color: day !== null && isSelected(day!)
-                    ? '#fff'
-                    : isToday(day!)
-                      ? '#4a90e2'
-                      : '#333',
-                  transition: 'all 0.2s'
-                }}
-                onMouseEnter={(e) => {
-                  if (day !== null && !isSelected(day!) && !isToday(day!)) {
-                    e.currentTarget.style.background = '#f0f0f0'
-                  }
-                }}
-                onMouseLeave={(e) => {
-                  if (day !== null && !isSelected(day!) && !isToday(day!)) {
-                    e.currentTarget.style.background = '#f9f9f9'
-                  }
-                }}
-              >
-                {day}
-              </div>
-            ))}
+                        ? '#4a90e2'
+                        : hasImportantDate
+                          ? getTypeColor(importantDate!.type)
+                          : '#333',
+                    transition: 'all 0.2s',
+                    position: 'relative',
+                    padding: '2px',
+                  }}
+                  onMouseEnter={(e) => {
+                    if (day !== null && !isSelected(day!) && !isToday(day!)) {
+                      e.currentTarget.style.background = hasImportantDate ? '#ffe69c' : '#f0f0f0'
+                    }
+                  }}
+                  onMouseLeave={(e) => {
+                    if (day !== null && !isSelected(day!) && !isToday(day!)) {
+                      e.currentTarget.style.background = hasImportantDate ? '#fff3cd' : '#f9f9f9'
+                    }
+                  }}
+                >
+                  <div style={{ fontSize: windowWidth <= 480 ? '10px' : '12px' }}>
+                    {day}
+                  </div>
+                  {hasImportantDate && (
+                    <div style={{ 
+                      fontSize: windowWidth <= 480 ? '8px' : '10px',
+                      marginTop: '2px',
+                      lineHeight: '1'
+                    }}>
+                      {getTypeIcon(importantDate!.type)}
+                    </div>
+                  )}
+                </div>
+              )
+            })}
           </div>
         </div>
 
         {/* Info data selezionata */}
-        {selectedDate && (
+        {selectedDate && (() => {
+          const importantDate = importantDates.find(d => 
+            d.date.getDate() === selectedDate.getDate() &&
+            d.date.getMonth() === selectedDate.getMonth() &&
+            d.date.getFullYear() === selectedDate.getFullYear()
+          )
+          
+          return (
+            <div style={{
+              padding: '12px',
+              background: importantDate ? '#f0f0f0' : '#f0f0f0',
+              borderRadius: '4px',
+              fontSize: windowWidth <= 480 ? '11px' : '12px',
+            }}>
+              <div style={{ marginBottom: '8px', textAlign: 'center' }}>
+                <strong>Data selezionata:</strong> {selectedDate.toLocaleDateString('it-IT', { 
+                  weekday: 'long', 
+                  year: 'numeric', 
+                  month: 'long', 
+                  day: 'numeric' 
+                })}
+              </div>
+              {importantDate && (
+                <div style={{
+                  padding: '10px',
+                  background: '#fff',
+                  borderRadius: '4px',
+                  borderLeft: `4px solid ${getTypeColor(importantDate.type)}`,
+                  marginTop: '8px'
+                }}>
+                  <div style={{ 
+                    display: 'flex', 
+                    alignItems: 'center', 
+                    gap: '8px',
+                    marginBottom: '6px',
+                    fontSize: windowWidth <= 480 ? '12px' : '13px',
+                    fontWeight: 'bold',
+                    color: getTypeColor(importantDate.type)
+                  }}>
+                    <span>{getTypeIcon(importantDate.type)}</span>
+                    <span>{importantDate.title}</span>
+                  </div>
+                  <div style={{ 
+                    fontSize: windowWidth <= 480 ? '10px' : '11px',
+                    color: '#666',
+                    paddingLeft: '24px'
+                  }}>
+                    {importantDate.description}
+                  </div>
+                </div>
+              )}
+            </div>
+          )
+        })()}
+
+        {/* Lista eventi del mese */}
+        {getImportantDatesForMonth().length > 0 && (
           <div style={{
-            padding: '10px',
-            background: '#f0f0f0',
+            padding: '12px',
+            background: '#f9f9f9',
             borderRadius: '4px',
-            fontSize: windowWidth <= 480 ? '11px' : '12px',
-            textAlign: 'center'
+            border: '1px solid #e0e0e0',
+            maxHeight: '150px',
+            overflowY: 'auto'
           }}>
-            <strong>Data selezionata:</strong> {selectedDate.toLocaleDateString('it-IT', { 
-              weekday: 'long', 
-              year: 'numeric', 
-              month: 'long', 
-              day: 'numeric' 
-            })}
+            <div style={{ 
+              fontWeight: 'bold', 
+              marginBottom: '8px',
+              fontSize: windowWidth <= 480 ? '11px' : '12px'
+            }}>
+              Eventi di {monthNames[currentDate.getMonth()]}:
+            </div>
+            {getImportantDatesForMonth()
+              .sort((a, b) => a.date.getDate() - b.date.getDate())
+              .map((event, index) => (
+                <div 
+                  key={index}
+                  onClick={() => {
+                    setCurrentDate(new Date(event.date.getFullYear(), event.date.getMonth(), 1))
+                    setSelectedDate(event.date)
+                  }}
+                  style={{
+                    padding: '6px 8px',
+                    marginBottom: '4px',
+                    background: '#fff',
+                    borderRadius: '3px',
+                    borderLeft: `3px solid ${getTypeColor(event.type)}`,
+                    cursor: 'pointer',
+                    fontSize: windowWidth <= 480 ? '10px' : '11px',
+                    transition: 'all 0.2s'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.background = '#f0f0f0'
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.background = '#fff'
+                  }}
+                >
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                    <span>{getTypeIcon(event.type)}</span>
+                    <span style={{ fontWeight: 'bold' }}>
+                      {event.date.getDate()} {monthNames[event.date.getMonth()]}:
+                    </span>
+                    <span>{event.title}</span>
+                  </div>
+                </div>
+              ))}
           </div>
         )}
       </div>

@@ -105,6 +105,20 @@ export default function Portfolio({ onClose, onMinimize, icon }: CalculatorProps
       github: 'https://github.com/biagio-scaglia/persona-angular',
       image: personaImage,
     },
+    {
+      id: 10,
+      name: 'FakeNews Check',
+      description: 'Sistema di verifica notizie che utilizza Qwen 3 8B (tramite Ollama) e web scraping per verificare l\'autenticità delle notizie confrontandole con fonti affidabili italiane. Include verifica automatica, analisi intelligente con estrazione automatica di parole chiave e confronto multi-fonte per maggiore affidabilità.',
+      technologies: ['Python', 'Flask', 'React', 'Ollama', 'Qwen 3 8B', 'BeautifulSoup', 'Web Scraping', 'AI'],
+      github: 'https://github.com/biagio-scaglia/fakenews-check',
+    },
+    {
+      id: 11,
+      name: 'Nintendo AI Game Advisor',
+      description: 'Sistema intelligente di raccomandazione giochi Nintendo basato su AI, con API REST e app Flutter mobile. Include AI-powered recommendations, chat interattiva, ricerca intelligente con sistema RAG, integrazione Fandom per scraping completo, estrazione automatica immagini personaggi, sintesi AI e supporto per 42 giochi Nintendo con database completo.',
+      technologies: ['Python', 'Flask', 'Flutter', 'Dart', 'Ollama', 'RAG', 'Web Scraping', 'AI', 'REST API', 'Mobile App'],
+      github: 'https://github.com/biagio-scaglia/Nintendo-AI',
+    },
   ]
 
   const handleProjectClick = (project: Project) => {

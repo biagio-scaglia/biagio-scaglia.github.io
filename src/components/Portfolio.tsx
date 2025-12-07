@@ -119,6 +119,13 @@ export default function Portfolio({ onClose, onMinimize, icon }: CalculatorProps
       technologies: ['Python', 'Flask', 'Flutter', 'Dart', 'Ollama', 'RAG', 'Web Scraping', 'AI', 'REST API', 'Mobile App'],
       github: 'https://github.com/biagio-scaglia/Nintendo-AI',
     },
+    {
+      id: 12,
+      name: 'Istiocitosi a Cellule di Langerhans - Guida Educativa',
+      description: 'Sito web educativo in React/TypeScript sull\'Istiocitosi a Cellule di Langerhans (ICL), malattia rara che colpisce principalmente i bambini. Include 8 sezioni informative (Home, Proteine Coinvolte, Sintomi, Diagnostica, Trattamenti, Statistiche, Prevenzione, Fonti) con design responsive, animazioni Framer Motion, effetti glassmorphism e icone SVG mediche. Tutti i contenuti sono organizzati in JSON per facilità di gestione.',
+      technologies: ['React', 'TypeScript', 'Vite', 'Framer Motion', 'React Router', 'Radix UI Icons', 'GitHub Pages'],
+      github: 'https://github.com/biagio-scaglia/biologia',
+    },
   ]
 
   const handleProjectClick = (project: Project) => {

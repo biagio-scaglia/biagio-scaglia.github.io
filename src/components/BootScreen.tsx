@@ -35,7 +35,7 @@ export default function BootScreen({ onComplete }: BootScreenProps) {
 
   // Gestione progresso e riproduzione audio
   useEffect(() => {
-    const duration = 15000 // 15 secondi
+    const duration = 8000 // 8 secondi
     const interval = 50 // Aggiorna ogni 50ms per animazione fluida
     const increment = 100 / (duration / interval)
 
@@ -52,7 +52,7 @@ export default function BootScreen({ onComplete }: BootScreenProps) {
       })
     }, interval)
 
-    // Fallback: dopo 15 secondi completa comunque
+    // Fallback: dopo 8 secondi completa comunque
     const timeout = setTimeout(() => {
       clearInterval(progressInterval)
       setProgress(100)

@@ -126,6 +126,20 @@ export default function Portfolio({ onClose, onMinimize, icon }: CalculatorProps
       technologies: ['React', 'TypeScript', 'Vite', 'Framer Motion', 'React Router', 'Radix UI Icons', 'GitHub Pages'],
       github: 'https://github.com/biagio-scaglia/biologia',
     },
+    {
+      id: 13,
+      name: 'biag-interest',
+      description: 'Un\'app Flutter moderna ispirata a Pinterest per esplorare e salvare immagini da Safebooru. Include design Pinterest-style con UI moderna, gestione immagini avanzata con caricamento progressivo (Preview → Sample → Full quality), ricerca potente con autocomplete intelligente, sistema di salvataggio con drag & drop, organizzazione in bacheche personalizzate, profilo utente completo con CRUD, infinite scroll ottimizzato e proxy server Node.js per risolvere problemi CORS e caching.',
+      technologies: ['Flutter', 'Dart', 'Riverpod', 'Dio', 'SharedPreferences', 'Node.js', 'Express', 'Mobile App'],
+      github: 'https://github.com/biagio-scaglia/biag-interest',
+    },
+    {
+      id: 14,
+      name: 'Monster Hunter Compendium',
+      description: 'Applicazione Flutter modulare e scalabile per esplorare il database completo di Monster Hunter World. Include informazioni su mostri, armi, armature, oggetti, skill, location, eventi e molto altro utilizzando l\'API mhw-db.com. Architettura feature-based con componenti modulari (GradientCard, ShimmerLoader, RareBadge), design system completo con palette Monster Hunter, supporto dark/light mode, animazioni fluide, caching intelligente e navigazione intuitiva con hub centrale.',
+      technologies: ['Flutter', 'Dart', 'Provider', 'HTTP', 'Google Fonts', 'Shimmer', 'Cached Network Image', 'Mobile App'],
+      github: 'https://github.com/biagio-scaglia/monster-hunter-compendium',
+    },
   ]
 
   const handleProjectClick = (project: Project) => {

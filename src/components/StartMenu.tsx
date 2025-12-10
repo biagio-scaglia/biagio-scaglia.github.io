@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import { useWindowSize } from '../hooks/useWindowSize'
 import infoIcon from '../assets/icone/info.png'
 import userIcon from '../assets/icone/user.png'
 import certificationsIcon from '../assets/icone/certificazioni.png'
@@ -30,14 +31,8 @@ interface StartMenuProps {
 
 export default function StartMenu({ isOpen, onClose, onOpenWindow, onShutdown }: StartMenuProps) {
   const menuRef = useRef<HTMLDivElement>(null)
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth)
+  const windowSize = useWindowSize()
   const [searchQuery, setSearchQuery] = useState('')
-
-  useEffect(() => {
-    const handleResize = () => setWindowWidth(window.innerWidth)
-    window.addEventListener('resize', handleResize)
-    return () => window.removeEventListener('resize', handleResize)
-  }, [])
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -117,10 +112,10 @@ export default function StartMenu({ isOpen, onClose, onOpenWindow, onShutdown }:
       ref={menuRef}
       style={{
         position: 'fixed',
-        bottom: windowWidth <= 480 ? '50px' : '40px',
+        bottom: windowSize.isMobile ? '50px' : '40px',
         left: '0',
-        width: windowWidth <= 480 ? '100vw' : windowWidth <= 768 ? '280px' : '300px',
-        maxHeight: windowWidth <= 480 ? 'calc(100vh - 50px)' : 'calc(100vh - 40px)',
+        width: windowSize.isMobile ? '100vw' : windowSize.isTablet ? '280px' : '300px',
+        maxHeight: windowSize.isMobile ? 'calc(100vh - 50px)' : 'calc(100vh - 40px)',
         background: 'linear-gradient(to bottom, rgba(30, 50, 90, 0.85) 0%, rgba(20, 40, 80, 0.9) 100%)',
         backdropFilter: 'blur(35px)',
         WebkitBackdropFilter: 'blur(35px)',
@@ -162,7 +157,7 @@ export default function StartMenu({ isOpen, onClose, onOpenWindow, onShutdown }:
             style={{
               width: '100%',
               padding: '8px 10px 8px 32px',
-              fontSize: windowWidth <= 480 ? '13px' : '12px',
+              fontSize: windowSize.isMobile ? '13px' : '12px',
               background: 'rgba(255, 255, 255, 0.15)',
               border: '1px solid rgba(255, 255, 255, 0.3)',
               borderRadius: '4px',
@@ -269,12 +264,12 @@ export default function StartMenu({ isOpen, onClose, onOpenWindow, onShutdown }:
                 onClose()
               }}
               style={{
-                padding: windowWidth <= 480 ? '12px 16px' : '10px 16px',
+                padding: windowSize.isMobile ? '12px 16px' : '10px 16px',
                 cursor: 'pointer',
                 display: 'flex',
                 alignItems: 'center',
-                gap: windowWidth <= 480 ? '10px' : '12px',
-                fontSize: windowWidth <= 480 ? '14px' : '13px',
+                gap: windowSize.isMobile ? '10px' : '12px',
+                fontSize: windowSize.isMobile ? '14px' : '13px',
                 transition: 'all 0.15s',
                 background: 'transparent',
                 borderRadius: '0',
@@ -295,14 +290,14 @@ export default function StartMenu({ isOpen, onClose, onOpenWindow, onShutdown }:
                   src={item.iconSrc} 
                   alt={item.label} 
                   style={{ 
-                    width: windowWidth <= 480 ? '20px' : '18px', 
-                    height: windowWidth <= 480 ? '20px' : '18px',
+                    width: windowSize.isMobile ? '20px' : '18px', 
+                    height: windowSize.isMobile ? '20px' : '18px',
                     objectFit: 'contain',
                     display: 'block'
                   }} 
                 />
               ) : (
-                <i className={item.icon} style={{ fontSize: windowWidth <= 480 ? '20px' : '18px', width: windowWidth <= 480 ? '30px' : '28px', textAlign: 'center', display: 'flex', alignItems: 'center', justifyContent: 'center' }}></i>
+                <i className={item.icon} style={{ fontSize: windowSize.isMobile ? '20px' : '18px', width: windowSize.isMobile ? '30px' : '28px', textAlign: 'center', display: 'flex', alignItems: 'center', justifyContent: 'center' }}></i>
               )}
               <span style={{ fontWeight: '400' }}>{item.label}</span>
             </div>

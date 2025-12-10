@@ -1,4 +1,5 @@
-import { type ReactNode, useState, useRef, useEffect } from 'react'
+import { type ReactNode, useState, useRef, useEffect, useCallback } from 'react'
+import { useWindowSize } from '../hooks/useWindowSize'
 
 interface WindowProps {
   title: string
@@ -30,7 +31,7 @@ export default function Window({
   const [position, setPosition] = useState(defaultPosition)
   const [isDragging, setIsDragging] = useState(false)
   const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 })
-  const [windowSize, setWindowSize] = useState({ width: window.innerWidth, height: window.innerHeight })
+  const windowSize = useWindowSize()
   const [currentWidth, setCurrentWidth] = useState(width)
   const [currentHeight, setCurrentHeight] = useState(height)
   const [isResizing, setIsResizing] = useState(false)
@@ -46,32 +47,34 @@ export default function Window({
     setCurrentHeight(height)
   }, [width, height])
 
+  // Aggiorna dimensioni quando la finestra è maximized e cambia la dimensione dello schermo
   useEffect(() => {
-    const handleResize = () => {
-      setWindowSize({ width: window.innerWidth, height: window.innerHeight })
-      // Aggiorna dimensioni se la finestra è maximized
-      if (isMaximized) {
-        setCurrentWidth(window.innerWidth - 4)
-        setCurrentHeight(window.innerHeight - 60)
-      }
+    if (isMaximized) {
+      setCurrentWidth(windowSize.width - 4)
+      setCurrentHeight(windowSize.height - (windowSize.isMobile ? 50 : 60))
     }
-    window.addEventListener('resize', handleResize)
-    return () => window.removeEventListener('resize', handleResize)
-  }, [isMaximized])
+  }, [isMaximized, windowSize.width, windowSize.height, windowSize.isMobile])
 
   useEffect(() => {
     if (!isDragging || isMaximized) return
 
     let animationFrameId: number
-    const handleMouseMove = (e: MouseEvent) => {
+    const handleMouseMove = (e: MouseEvent | TouchEvent) => {
       if (animationFrameId) {
         cancelAnimationFrame(animationFrameId)
       }
       
+      const clientX = 'touches' in e ? e.touches[0].clientX : e.clientX
+      const clientY = 'touches' in e ? e.touches[0].clientY : e.clientY
+      
       animationFrameId = requestAnimationFrame(() => {
+        // Limita la posizione entro i bordi dello schermo
+        const maxX = windowSize.width - currentWidth
+        const maxY = windowSize.height - (windowSize.isMobile ? 50 : 60) - currentHeight
+        
         setPosition({
-          x: e.clientX - dragOffset.x,
-          y: e.clientY - dragOffset.y,
+          x: Math.max(0, Math.min(maxX, clientX - dragOffset.x)),
+          y: Math.max(0, Math.min(maxY, clientY - dragOffset.y)),
         })
       })
     }
@@ -85,6 +88,8 @@ export default function Window({
 
     window.addEventListener('mousemove', handleMouseMove, { passive: true })
     window.addEventListener('mouseup', handleMouseUp, { passive: true })
+    window.addEventListener('touchmove', handleMouseMove, { passive: true })
+    window.addEventListener('touchend', handleMouseUp, { passive: true })
 
     return () => {
       if (animationFrameId) {
@@ -92,8 +97,10 @@ export default function Window({
       }
       window.removeEventListener('mousemove', handleMouseMove)
       window.removeEventListener('mouseup', handleMouseUp)
+      window.removeEventListener('touchmove', handleMouseMove)
+      window.removeEventListener('touchend', handleMouseUp)
     }
-  }, [isDragging, dragOffset, isMaximized])
+  }, [isDragging, dragOffset, isMaximized, windowSize, currentWidth, currentHeight])
 
   // Gestione resize
   useEffect(() => {
@@ -176,7 +183,7 @@ export default function Window({
     }
   }, [isResizing, resizeType, resizeStart])
 
-  const handleMouseDown = (e: React.MouseEvent) => {
+  const handleMouseDown = useCallback((e: React.MouseEvent | React.TouchEvent) => {
     const target = e.target as HTMLElement
     if (target.closest('.title-bar-controls')) {
       return
@@ -186,13 +193,15 @@ export default function Window({
     }
     if (windowRef.current) {
       const rect = windowRef.current.getBoundingClientRect()
+      const clientX = 'touches' in e ? e.touches[0].clientX : e.clientX
+      const clientY = 'touches' in e ? e.touches[0].clientY : e.clientY
       setDragOffset({
-        x: e.clientX - rect.left,
-        y: e.clientY - rect.top,
+        x: clientX - rect.left,
+        y: clientY - rect.top,
       })
       setIsDragging(true)
     }
-  }
+  }, [])
 
   const handleResizeStart = (e: React.MouseEvent, type: string) => {
     e.stopPropagation()
@@ -211,9 +220,7 @@ export default function Window({
     }
   }
 
-  const isMobile = windowSize.width <= 768
-  
-  const handleMaximize = () => {
+  const handleMaximize = useCallback(() => {
     if (isMaximized) {
       // Restore
       if (savedState) {
@@ -231,18 +238,24 @@ export default function Window({
         x: position.x,
         y: position.y
       })
-      setCurrentWidth(window.innerWidth - 4)
-      setCurrentHeight(window.innerHeight - 60) // Lascia spazio per la taskbar
+      const taskbarHeight = windowSize.isMobile ? 50 : 60
+      setCurrentWidth(windowSize.width - 4)
+      setCurrentHeight(windowSize.height - taskbarHeight)
       setPosition({ x: 2, y: 2 })
       setIsMaximized(true)
     }
     if (onMaximize) {
       onMaximize()
     }
-  }
+  }, [isMaximized, savedState, currentWidth, currentHeight, position, windowSize, onMaximize])
 
-  const displayWidth = isMaximized ? window.innerWidth - 4 : (isMobile ? '95vw' : currentWidth)
-  const displayHeight = isMaximized ? window.innerHeight - 60 : (isMobile ? '85vh' : currentHeight)
+  // Calcola dimensioni responsive
+  const displayWidth = isMaximized 
+    ? windowSize.width - 4 
+    : (windowSize.isMobile ? '95vw' : windowSize.isTablet ? '90vw' : currentWidth)
+  const displayHeight = isMaximized 
+    ? windowSize.height - (windowSize.isMobile ? 50 : 60)
+    : (windowSize.isMobile ? '85vh' : windowSize.isTablet ? '80vh' : currentHeight)
 
   return (
     <div
@@ -251,20 +264,22 @@ export default function Window({
       style={{
         width: displayWidth,
         height: displayHeight,
-        maxWidth: isMaximized ? 'none' : (isMobile ? '95vw' : 'none'),
-        maxHeight: isMaximized ? 'none' : (isMobile ? '85vh' : 'none'),
+        maxWidth: isMaximized ? 'none' : (windowSize.isMobile ? '95vw' : windowSize.isTablet ? '90vw' : 'none'),
+        maxHeight: isMaximized ? 'none' : (windowSize.isMobile ? '85vh' : windowSize.isTablet ? '80vh' : 'none'),
         position: 'absolute',
-        left: isMaximized ? '2px' : (isMobile ? '2.5vw' : `${position.x}px`),
-        top: isMaximized ? '2px' : (isMobile ? '5vh' : `${position.y}px`),
+        left: isMaximized ? '2px' : (windowSize.isMobile ? '2.5vw' : `${position.x}px`),
+        top: isMaximized ? '2px' : (windowSize.isMobile ? '5vh' : `${position.y}px`),
         cursor: isDragging ? 'grabbing' : 'default',
         zIndex: isDragging || isResizing ? 1000 : 100,
+        touchAction: 'none',
         ...(glassColor && { '--w7-w-bg': glassColor } as React.CSSProperties),
       }}
     >
       <div
         className={`title-bar active ${glassFrame ? 'glass' : ''}`}
         onMouseDown={isMaximized ? undefined : handleMouseDown}
-        style={{ cursor: isMaximized ? 'default' : 'grab' }}
+        onTouchStart={isMaximized ? undefined : handleMouseDown}
+        style={{ cursor: isMaximized ? 'default' : 'grab', touchAction: 'none' }}
         role="banner"
         aria-label={`Finestra ${title}`}
       >
@@ -294,15 +309,19 @@ export default function Window({
         className="window-body has-space" 
         style={{ 
           overflow: 'auto', 
-          maxHeight: isMobile ? 'calc(85vh - 50px)' : `${currentHeight - 50}px`,
-          fontSize: windowSize.width <= 480 ? '12px' : 'inherit'
+          maxHeight: windowSize.isMobile 
+            ? 'calc(85vh - 50px)' 
+            : windowSize.isTablet 
+              ? 'calc(80vh - 50px)' 
+              : `${currentHeight - 50}px`,
+          fontSize: windowSize.isMobile ? '12px' : windowSize.isTablet ? '13px' : 'inherit'
         }}
       >
         {children}
       </div>
 
       {/* Resize handles - solo su desktop e quando non è maximized */}
-      {!isMobile && !isMaximized && (
+      {windowSize.isDesktop && !isMaximized && (
         <>
           {/* Nord (alto) */}
           <div

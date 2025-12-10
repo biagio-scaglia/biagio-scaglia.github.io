@@ -69,10 +69,16 @@ textarea {
   -ms-backface-visibility: hidden;
 }
 
-/* Responsive */
+/* Responsive - Breakpoint fluidi */
+@media (max-width: 1024px) {
+  body {
+    font-size: clamp(11px, 1.2vw, 13px);
+  }
+}
+
 @media (max-width: 768px) {
   body {
-    font-size: 12px;
+    font-size: clamp(11px, 2vw, 12px);
   }
   
   h1, h2, h3 {
@@ -92,7 +98,7 @@ textarea {
 
 @media (max-width: 480px) {
   body {
-    font-size: 11px;
+    font-size: clamp(10px, 2.5vw, 11px);
   }
   
   h1, h2, h3 {
@@ -132,5 +138,28 @@ textarea {
   ::-webkit-scrollbar-thumb {
     background: rgba(255, 255, 255, 0.3);
     border-radius: 4px;
+  }
+}
+
+/* Ottimizzazioni touch globali */
+button, a, .desktop-icon, .window {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Migliora le performance su mobile */
+@media (max-width: 768px) {
+  * {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  /* Riduce le animazioni su dispositivi lenti */
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
   }
 }

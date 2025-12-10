@@ -1,5 +1,6 @@
-import { useState, useEffect } from 'react'
+import { useState, useMemo } from 'react'
 import Window from './Window'
+import { useWindowSize } from '../hooks/useWindowSize'
 import catsImage from '../assets/screen progetti/cats.png'
 import personaImage from '../assets/screen progetti/persona.png'
 import pizzadexImage from '../assets/screen progetti/pizzadex.jpeg'
@@ -25,14 +26,8 @@ interface Project {
 }
 
 export default function Portfolio({ onClose, onMinimize, icon }: CalculatorProps) {
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth)
+  const windowSize = useWindowSize()
   const [selectedProject, setSelectedProject] = useState<Project | null>(null)
-
-  useEffect(() => {
-    const handleResize = () => setWindowWidth(window.innerWidth)
-    window.addEventListener('resize', handleResize)
-    return () => window.removeEventListener('resize', handleResize)
-  }, [])
 
   const projects: Project[] = [
     {
@@ -150,28 +145,50 @@ export default function Portfolio({ onClose, onMinimize, icon }: CalculatorProps
     setSelectedProject(null)
   }
 
+  // Calcola dimensioni responsive
+  const windowDimensions = useMemo(() => {
+    if (windowSize.isMobile) {
+      return {
+        width: Math.min(400, windowSize.width - 20),
+        height: Math.min(500, windowSize.height - 100),
+        position: { x: 10, y: 10 }
+      }
+    } else if (windowSize.isTablet) {
+      return {
+        width: Math.min(700, windowSize.width - 40),
+        height: Math.min(600, windowSize.height - 80),
+        position: { x: 20, y: 20 }
+      }
+    }
+    return {
+      width: 800,
+      height: 600,
+      position: { x: 100, y: 50 }
+    }
+  }, [windowSize])
+
   return (
     <Window
       title="Portfolio - Progetti"
-      width={windowWidth <= 480 ? Math.min(400, window.innerWidth - 20) : windowWidth <= 768 ? Math.min(700, window.innerWidth - 40) : 800}
-      height={windowWidth <= 480 ? Math.min(500, window.innerHeight - 100) : windowWidth <= 768 ? Math.min(600, window.innerHeight - 80) : 600}
-      defaultPosition={{ x: windowWidth <= 480 ? 10 : windowWidth <= 768 ? 20 : 100, y: windowWidth <= 480 ? 10 : windowWidth <= 768 ? 20 : 50 }}
+      width={windowDimensions.width}
+      height={windowDimensions.height}
+      defaultPosition={windowDimensions.position}
       onClose={onClose}
       onMinimize={onMinimize}
       icon={icon}
     >
       <div style={{ 
-        padding: windowWidth <= 480 ? '10px' : '15px', 
+        padding: windowSize.isMobile ? '10px' : '15px', 
         display: 'flex', 
         flexDirection: 'column',
         height: '100%',
-        gap: '15px'
+        gap: windowSize.isMobile ? '10px' : '15px'
       }}>
         {!selectedProject ? (
           <>
             <h2 style={{ 
               marginTop: 0, 
-              fontSize: windowWidth <= 480 ? '18px' : '20px',
+              fontSize: windowSize.isMobile ? '18px' : windowSize.isTablet ? '19px' : '20px',
               marginBottom: '10px'
             }}>
               I Miei Progetti
@@ -179,10 +196,11 @@ export default function Portfolio({ onClose, onMinimize, icon }: CalculatorProps
             
             <div style={{
               display: 'grid',
-              gridTemplateColumns: windowWidth <= 480 ? '1fr' : windowWidth <= 768 ? 'repeat(2, 1fr)' : 'repeat(2, 1fr)',
-              gap: '15px',
+              gridTemplateColumns: windowSize.isMobile ? '1fr' : 'repeat(2, 1fr)',
+              gap: windowSize.isMobile ? '10px' : '15px',
               overflowY: 'auto',
-              flex: 1
+              flex: 1,
+              paddingRight: windowSize.isMobile ? '5px' : '0'
             }}>
               {projects.map((project) => (
                 <div
@@ -198,10 +216,11 @@ export default function Portfolio({ onClose, onMinimize, icon }: CalculatorProps
                     <img 
                       src={project.image} 
                       alt={project.name}
+                      loading="lazy"
                       style={{
                         width: '100%',
                         height: 'auto',
-                        maxHeight: '150px',
+                        maxHeight: windowSize.isMobile ? '120px' : '150px',
                         objectFit: 'cover',
                         borderRadius: '4px',
                         marginBottom: '10px',
@@ -212,13 +231,13 @@ export default function Portfolio({ onClose, onMinimize, icon }: CalculatorProps
                   <h3 style={{ 
                     marginTop: 0, 
                     marginBottom: '10px',
-                    fontSize: windowWidth <= 480 ? '16px' : '18px',
+                    fontSize: windowSize.isMobile ? '16px' : windowSize.isTablet ? '17px' : '18px',
                     color: '#333'
                   }}>
                     {project.name}
                   </h3>
                   <p style={{ 
-                    fontSize: windowWidth <= 480 ? '11px' : '12px',
+                    fontSize: windowSize.isMobile ? '11px' : windowSize.isTablet ? '11.5px' : '12px',
                     color: '#666',
                     marginBottom: '10px',
                     lineHeight: '1.5'
@@ -228,7 +247,7 @@ export default function Portfolio({ onClose, onMinimize, icon }: CalculatorProps
                   <div style={{ 
                     display: 'flex', 
                     flexWrap: 'wrap', 
-                    gap: '5px',
+                    gap: windowSize.isMobile ? '4px' : '5px',
                     marginTop: '10px'
                   }}>
                     {project.technologies.map((tech, index) => (
@@ -236,8 +255,8 @@ export default function Portfolio({ onClose, onMinimize, icon }: CalculatorProps
                         key={index}
                         type="button"
                         style={{
-                          padding: '4px 8px',
-                          fontSize: windowWidth <= 480 ? '10px' : '11px',
+                          padding: windowSize.isMobile ? '3px 6px' : '4px 8px',
+                          fontSize: windowSize.isMobile ? '10px' : '11px',
                         }}
                         disabled
                       >
@@ -261,10 +280,10 @@ export default function Portfolio({ onClose, onMinimize, icon }: CalculatorProps
               ← Torna ai progetti
             </button>
 
-            <div style={{ flex: 1, overflowY: 'auto' }}>
+            <div style={{ flex: 1, overflowY: 'auto', paddingRight: windowSize.isMobile ? '5px' : '0' }}>
               <h2 style={{ 
                 marginTop: 0, 
-                fontSize: windowWidth <= 480 ? '20px' : '24px',
+                fontSize: windowSize.isMobile ? '20px' : windowSize.isTablet ? '22px' : '24px',
                 marginBottom: '15px'
               }}>
                 {selectedProject.name}
@@ -274,10 +293,11 @@ export default function Portfolio({ onClose, onMinimize, icon }: CalculatorProps
                 <img 
                   src={selectedProject.image} 
                   alt={selectedProject.name}
+                  loading="lazy"
                   style={{
                     width: '100%',
                     height: 'auto',
-                    maxHeight: '300px',
+                    maxHeight: windowSize.isMobile ? '200px' : windowSize.isTablet ? '250px' : '300px',
                     objectFit: 'contain',
                     borderRadius: '4px',
                     marginBottom: '20px',
@@ -288,7 +308,7 @@ export default function Portfolio({ onClose, onMinimize, icon }: CalculatorProps
               )}
               
               <p style={{ 
-                fontSize: windowWidth <= 480 ? '13px' : '14px',
+                fontSize: windowSize.isMobile ? '13px' : windowSize.isTablet ? '13.5px' : '14px',
                 color: '#333',
                 lineHeight: '1.6',
                 marginBottom: '20px'
@@ -297,7 +317,7 @@ export default function Portfolio({ onClose, onMinimize, icon }: CalculatorProps
               </p>
 
               <h3 style={{ 
-                fontSize: windowWidth <= 480 ? '16px' : '18px',
+                fontSize: windowSize.isMobile ? '16px' : windowSize.isTablet ? '17px' : '18px',
                 marginBottom: '10px'
               }}>
                 Tecnologie Utilizzate:
@@ -306,7 +326,7 @@ export default function Portfolio({ onClose, onMinimize, icon }: CalculatorProps
               <div style={{ 
                 display: 'flex', 
                 flexWrap: 'wrap', 
-                gap: '8px',
+                gap: windowSize.isMobile ? '6px' : '8px',
                 marginBottom: '20px'
               }}>
                 {selectedProject.technologies.map((tech, index) => (
@@ -314,8 +334,8 @@ export default function Portfolio({ onClose, onMinimize, icon }: CalculatorProps
                     key={index}
                     type="button"
                     style={{
-                      padding: '6px 12px',
-                      fontSize: windowWidth <= 480 ? '11px' : '12px',
+                      padding: windowSize.isMobile ? '5px 10px' : '6px 12px',
+                      fontSize: windowSize.isMobile ? '11px' : '12px',
                     }}
                     disabled
                   >
@@ -327,7 +347,7 @@ export default function Portfolio({ onClose, onMinimize, icon }: CalculatorProps
               {(selectedProject.link || selectedProject.github) && (
                 <div style={{ 
                   display: 'flex', 
-                  gap: '10px',
+                  gap: windowSize.isMobile ? '8px' : '10px',
                   flexWrap: 'wrap'
                 }}>
                   {selectedProject.link && (
@@ -336,7 +356,7 @@ export default function Portfolio({ onClose, onMinimize, icon }: CalculatorProps
                       target="_blank"
                       rel="noopener noreferrer"
                       style={{
-                        fontSize: windowWidth <= 480 ? '12px' : '14px',
+                        fontSize: windowSize.isMobile ? '12px' : windowSize.isTablet ? '13px' : '14px',
                         display: 'inline-block',
                       }}
                     >
@@ -349,7 +369,7 @@ export default function Portfolio({ onClose, onMinimize, icon }: CalculatorProps
                       target="_blank"
                       rel="noopener noreferrer"
                       style={{
-                        fontSize: windowWidth <= 480 ? '12px' : '14px',
+                        fontSize: windowSize.isMobile ? '12px' : windowSize.isTablet ? '13px' : '14px',
                         display: 'inline-block',
                       }}
                     >

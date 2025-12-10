@@ -1,4 +1,5 @@
 import { type ReactNode, useState, useEffect, useRef, memo } from 'react'
+import { useWindowSize } from '../hooks/useWindowSize'
 
 interface DesktopIconProps {
   icon: ReactNode
@@ -18,6 +19,7 @@ const DesktopIcon = memo(function DesktopIcon({ icon, label, onClick, x = 0, y =
   const [isDragging, setIsDragging] = useState(false)
   const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 })
   const iconRef = useRef<HTMLDivElement>(null)
+  const windowSize = useWindowSize()
   const isSelected = externalSelected !== undefined ? externalSelected : internalSelected
 
   useEffect(() => {
@@ -33,16 +35,18 @@ const DesktopIcon = memo(function DesktopIcon({ icon, label, onClick, x = 0, y =
   useEffect(() => {
     if (!isDragging) return
 
-    const handleMouseMove = (e: MouseEvent) => {
-      const newX = e.clientX - dragOffset.x
-      let newY = e.clientY - dragOffset.y
+    const handleMouseMove = (e: MouseEvent | TouchEvent) => {
+      const clientX = 'touches' in e ? e.touches[0].clientX : e.clientX
+      const clientY = 'touches' in e ? e.touches[0].clientY : e.clientY
+      const newX = clientX - dragOffset.x
+      let newY = clientY - dragOffset.y
       
       // Taskbar height responsive
-      const taskbarHeight = window.innerWidth <= 480 ? 50 : 48
-      const iconHeight = window.innerWidth <= 480 ? 80 : 100
+      const taskbarHeight = windowSize.isMobile ? 50 : 48
+      const iconHeight = windowSize.isMobile ? 80 : 100
       
       // Evita che l'icona vada sotto la taskbar
-      const maxY = window.innerHeight - taskbarHeight - iconHeight
+      const maxY = windowSize.height - taskbarHeight - iconHeight
       if (newY > maxY) {
         newY = maxY
       }
@@ -57,8 +61,8 @@ const DesktopIcon = memo(function DesktopIcon({ icon, label, onClick, x = 0, y =
       if (constrainedX < 0) {
         constrainedX = 0
       }
-      const iconWidth = window.innerWidth <= 480 ? 65 : 90
-      const maxX = window.innerWidth - iconWidth
+      const iconWidth = windowSize.isMobile ? 65 : 90
+      const maxX = windowSize.width - iconWidth
       if (constrainedX > maxX) {
         constrainedX = maxX
       }
@@ -74,22 +78,28 @@ const DesktopIcon = memo(function DesktopIcon({ icon, label, onClick, x = 0, y =
       }
     }
 
-    window.addEventListener('mousemove', handleMouseMove)
-    window.addEventListener('mouseup', handleMouseUp)
+    window.addEventListener('mousemove', handleMouseMove, { passive: true })
+    window.addEventListener('mouseup', handleMouseUp, { passive: true })
+    window.addEventListener('touchmove', handleMouseMove, { passive: true })
+    window.addEventListener('touchend', handleMouseUp, { passive: true })
 
     return () => {
       window.removeEventListener('mousemove', handleMouseMove)
       window.removeEventListener('mouseup', handleMouseUp)
+      window.removeEventListener('touchmove', handleMouseMove)
+      window.removeEventListener('touchend', handleMouseUp)
     }
-  }, [isDragging, dragOffset, onPositionChange])
+  }, [isDragging, dragOffset, onPositionChange, windowSize])
 
-  const handleMouseDown = (e: React.MouseEvent) => {
-    if (e.detail === 2) return
+  const handleMouseDown = (e: React.MouseEvent | React.TouchEvent) => {
+    if ('detail' in e && e.detail === 2) return
     if (iconRef.current) {
       const rect = iconRef.current.getBoundingClientRect()
+      const clientX = 'touches' in e ? e.touches[0].clientX : e.clientX
+      const clientY = 'touches' in e ? e.touches[0].clientY : e.clientY
       setDragOffset({
-        x: e.clientX - rect.left,
-        y: e.clientY - rect.top,
+        x: clientX - rect.left,
+        y: clientY - rect.top,
       })
       setIsDragging(true)
     }
@@ -116,6 +126,7 @@ const DesktopIcon = memo(function DesktopIcon({ icon, label, onClick, x = 0, y =
         transition: isDragging ? 'none' : 'background-color 0.2s',
       }}
       onMouseDown={handleMouseDown}
+      onTouchStart={handleMouseDown}
       onClick={(e) => {
         if (isDragging) {
           e.stopPropagation()
@@ -135,8 +146,8 @@ const DesktopIcon = memo(function DesktopIcon({ icon, label, onClick, x = 0, y =
     >
       <div
         style={{
-          width: window.innerWidth <= 480 ? '44px' : window.innerWidth <= 768 ? '50px' : '48px',
-          height: window.innerWidth <= 480 ? '44px' : window.innerWidth <= 768 ? '50px' : '48px',
+          width: windowSize.isMobile ? '44px' : windowSize.isTablet ? '50px' : '48px',
+          height: windowSize.isMobile ? '44px' : windowSize.isTablet ? '50px' : '48px',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',

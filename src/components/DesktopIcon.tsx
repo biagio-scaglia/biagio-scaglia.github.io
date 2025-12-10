@@ -105,6 +105,8 @@ const DesktopIcon = memo(function DesktopIcon({ icon, label, onClick, x = 0, y =
     }
   }
 
+  const iconSize = windowSize.isMobile ? 44 : windowSize.isTablet ? 50 : 48
+
   return (
     <div
       ref={iconRef}
@@ -120,10 +122,7 @@ const DesktopIcon = memo(function DesktopIcon({ icon, label, onClick, x = 0, y =
         cursor: isDragging ? 'grabbing' : 'pointer',
         padding: '4px',
         userSelect: 'none',
-        backgroundColor: isSelected ? 'rgba(255, 255, 255, 0.3)' : isHovered ? 'rgba(255, 255, 255, 0.15)' : 'transparent',
-        borderRadius: '4px',
         zIndex: isDragging ? 1000 : 1,
-        transition: isDragging ? 'none' : 'background-color 0.2s',
       }}
       onMouseDown={handleMouseDown}
       onTouchStart={handleMouseDown}
@@ -146,8 +145,8 @@ const DesktopIcon = memo(function DesktopIcon({ icon, label, onClick, x = 0, y =
     >
       <div
         style={{
-          width: windowSize.isMobile ? '44px' : windowSize.isTablet ? '50px' : '48px',
-          height: windowSize.isMobile ? '44px' : windowSize.isTablet ? '50px' : '48px',
+          width: `${iconSize}px`,
+          height: `${iconSize}px`,
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
@@ -155,6 +154,8 @@ const DesktopIcon = memo(function DesktopIcon({ icon, label, onClick, x = 0, y =
           padding: '2px',
           borderRadius: '50%',
           overflow: 'hidden',
+          backgroundColor: isSelected ? 'rgba(255, 255, 255, 0.3)' : isHovered ? 'rgba(255, 255, 255, 0.15)' : 'transparent',
+          transition: isDragging ? 'none' : 'background-color 0.2s',
         }}
       >
         {icon}

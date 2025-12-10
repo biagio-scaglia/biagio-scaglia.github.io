@@ -153,6 +153,8 @@ const DesktopIcon = memo(function DesktopIcon({ icon, label, onClick, x = 0, y =
           justifyContent: 'center',
           marginBottom: '4px',
           padding: '2px',
+          borderRadius: '50%',
+          overflow: 'hidden',
         }}
       >
         {icon}

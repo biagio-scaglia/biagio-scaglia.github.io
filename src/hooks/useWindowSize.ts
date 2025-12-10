@@ -26,12 +26,12 @@ export function useWindowSize(): WindowSize {
   })
 
   useEffect(() => {
-    let timeoutId: NodeJS.Timeout
+    let timeoutId: number
 
     const handleResize = () => {
       // Debounce per migliorare le performance
       clearTimeout(timeoutId)
-      timeoutId = setTimeout(() => {
+      timeoutId = window.setTimeout(() => {
         const width = window.innerWidth
         const height = window.innerHeight
         setWindowSize({

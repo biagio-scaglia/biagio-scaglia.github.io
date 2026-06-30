@@ -199,4 +199,7 @@ button, a, .desktop-icon, .window {
 
 .nudge-shake {
   animation: nudge-shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+  will-change: transform;
 }

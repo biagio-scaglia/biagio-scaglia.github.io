@@ -1,10 +1,43 @@
+# Robots.txt - Optimized for SEO, GEO (Generative Engine Optimization) & AEO (Answer Engine Optimization)
+# Project: Biagio Scaglia Portfolio
+# Website URL: https://biagio-scaglia.github.io/portfolio/
+# AI Guidance: LLM-specific structured profile is available at: https://biagio-scaglia.github.io/portfolio/llms.txt
+
 User-agent: *
 Allow: /
 
 # Sitemap
 Sitemap: https://biagio-scaglia.github.io/portfolio/sitemap.xml
 
-# Allow all search engines
+# Explicitly Allow AI & LLM Crawler Bots (GEO & AEO Optimization)
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: Meta-ExternalAgent
+Allow: /
+
+User-agent: Anthropic-ai
+Allow: /
+
+User-agent: Cohere-ai
+Allow: /
+
+# Traditional Search Engines
 User-agent: Googlebot
 Allow: /
 Crawl-delay: 0
@@ -37,6 +70,7 @@ User-agent: YandexBot
 Allow: /
 Crawl-delay: 1
 
+# Social Media Platforms Link Crawlers
 User-agent: facebookexternalhit
 Allow: /
 
@@ -49,13 +83,10 @@ Allow: /
 User-agent: WhatsApp
 Allow: /
 
+# Web Archivers
 User-agent: Applebot
 Allow: /
 Crawl-delay: 0
 
 User-agent: ia_archiver
 Allow: /
-
-# Disallow specific paths if needed (none currently)
-# Disallow: /private/
-

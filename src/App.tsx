@@ -28,6 +28,8 @@ import cestinoIcon from './assets/icone/cestino.png'
 import antivirusIcon from './assets/icone/antivirus.png'
 import calendarIcon from './assets/icone/calendar.png'
 import msnIcon from './assets/icone/msn.png'
+import bootupSoundFile from './assets/sound/bootup.mp3'
+import shutdownSoundFile from './assets/sound/windows-7-shutdown.mp3'
 import defaultBackground from './assets/sfondo.jpg'
 import './App.css'
 
@@ -344,11 +346,23 @@ function App() {
   const handleBootComplete = useCallback((name: string) => {
     setUserName(name)
     setShowBootScreen(false)
+
+    const bootSound = new Audio(bootupSoundFile)
+    bootSound.play().catch(e => console.log('Autoplay prevented:', e))
+
     // Piccolo delay per assicurarsi che il suono parta
     setTimeout(() => {
       setShowWelcomeModal(true)
     }, 200)
   }, [])
+
+  // Suono di spegnimento
+  useEffect(() => {
+    if (showShutdownScreen) {
+      const shutdownSound = new Audio(shutdownSoundFile)
+      shutdownSound.play().catch(e => console.log('Autoplay prevented:', e))
+    }
+  }, [showShutdownScreen])
 
   const handleRestart = useCallback(() => {
     // Reset di tutti gli stati

@@ -13,6 +13,7 @@ interface WindowProps {
   glassFrame?: boolean
   glassColor?: string
   icon?: ReactNode
+  className?: string
 }
 
 export default function Window({
@@ -27,6 +28,7 @@ export default function Window({
   glassFrame = false,
   glassColor,
   icon,
+  className = '',
 }: WindowProps) {
   const [position, setPosition] = useState(defaultPosition)
   const [isDragging, setIsDragging] = useState(false)
@@ -261,7 +263,7 @@ export default function Window({
   return (
     <div
       ref={windowRef}
-      className={`window active ${glassFrame ? 'glass' : ''}`}
+      className={`window active ${glassFrame ? 'glass' : ''} ${className}`}
       style={{
         width: displayWidth,
         height: displayHeight,

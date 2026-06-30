@@ -68,10 +68,10 @@ export default function MsnWindow({ onClose, onMinimize, icon }: MsnWindowProps)
   }
 
   return (
-    <div className={isNudging ? 'nudge-shake' : ''} style={{ width: '100%', height: '100%' }}>
-      <Window
-        title="MSN Messenger"
-        width={windowSize.isMobile ? Math.min(360, window.innerWidth - 20) : 420}
+    <Window
+      className={isNudging ? 'nudge-shake' : ''}
+      title="MSN Messenger"
+      width={windowSize.isMobile ? Math.min(360, window.innerWidth - 20) : 420}
         height={windowSize.isMobile ? Math.min(550, window.innerHeight - 100) : 600}
         defaultPosition={{
           x: windowSize.isMobile ? 10 : window.innerWidth / 2 - 210,
@@ -264,6 +264,5 @@ export default function MsnWindow({ onClose, onMinimize, icon }: MsnWindowProps)
           </div>
         </div>
       </Window>
-    </div>
   )
 }

@@ -184,6 +184,7 @@ export default function Window({
   }, [isResizing, resizeType, resizeStart])
 
   const handleMouseDown = useCallback((e: React.MouseEvent | React.TouchEvent) => {
+    if (windowSize.isMobile) return // Disabilita il drag su mobile!
     const target = e.target as HTMLElement
     if (target.closest('.title-bar-controls')) {
       return
@@ -283,13 +284,13 @@ export default function Window({
         role="banner"
         aria-label={`Finestra ${title}`}
       >
-        <div className="title-bar-text" style={{ display: 'flex', alignItems: 'center', gap: '8px', overflow: 'visible' }}>
+        <div className="title-bar-text" style={{ display: 'flex', alignItems: 'center', gap: '8px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', maxWidth: 'calc(100% - 85px)' }}>
           {icon && (
             <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '16px', height: '16px', flexShrink: 0, overflow: 'visible', position: 'relative', zIndex: 1 }}>
               {icon}
             </span>
           )}
-          <span style={{ flex: '0 0 auto' }}>{title}</span>
+          <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', flex: '1 1 auto' }}>{title}</span>
         </div>
         <div className="title-bar-controls">
           {onMinimize && (

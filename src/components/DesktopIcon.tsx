@@ -94,6 +94,7 @@ const DesktopIcon = memo(function DesktopIcon({ icon, label, onClick, x = 0, y =
   }, [isDragging, dragOffset, onPositionChange, windowSize])
 
   const handleMouseDown = (e: React.MouseEvent | React.TouchEvent) => {
+    if (windowSize.isMobile) return // Disabilita il drag su mobile!
     if ('detail' in e && e.detail === 2) return
     if (iconRef.current) {
       const rect = iconRef.current.getBoundingClientRect()

@@ -27,6 +27,7 @@ import portfolioIcon from './assets/icone/portfolio.png'
 import cestinoIcon from './assets/icone/cestino.png'
 import antivirusIcon from './assets/icone/antivirus.png'
 import calendarIcon from './assets/icone/calendar.png'
+import msnIcon from './assets/icone/msn.png'
 import defaultBackground from './assets/sfondo.jpg'
 import './App.css'
 
@@ -49,6 +50,7 @@ const Portfolio = lazy(() => import('./components/Portfolio'))
 const Cestino = lazy(() => import('./components/Cestino'))
 const AntiVirus = lazy(() => import('./components/AntiVirus'))
 const Calendar = lazy(() => import('./components/Calendar'))
+const MsnWindow = lazy(() => import('./components/MsnWindow'))
 
 // Carica dinamicamente tutti i file jpg dalla cartella sfondo per lo slideshow (lazy loading)
 const backgroundImages = import.meta.glob('./assets/sfondo/*.jpg', { eager: false }) as Record<string, () => Promise<{ default: string }>>
@@ -81,6 +83,7 @@ function App() {
     cestino: false,
     antivirus: false,
     calendar: false,
+    msn: false,
   })
   const [minimizedWindows, setMinimizedWindows] = useState<Set<keyof typeof openWindows>>(new Set())
   const [desktopBackground, setDesktopBackground] = useState(defaultBackground)
@@ -191,6 +194,7 @@ function App() {
         cestino: { x: 20, y: 500 },
         antivirus: { x: 100, y: 500 },
         calendar: { x: 20, y: 580 },
+        msn: { x: 100, y: 580 },
       }
     } else if (isTablet) {
       // Tablet: griglia 3 colonne
@@ -210,6 +214,7 @@ function App() {
         cestino: { x: 30, y: 390 },
         antivirus: { x: 130, y: 390 },
         calendar: { x: 230, y: 390 },
+        msn: { x: 30, y: 480 },
       }
     } else {
       // Desktop: orizzontale
@@ -229,6 +234,7 @@ function App() {
         cestino: { x: window.innerWidth - 100, y: window.innerHeight - 150 },
         antivirus: { x: 360, y: 130 },
         calendar: { x: 470, y: 130 },
+        msn: { x: 580, y: 130 },
       }
     }
   }, [])
@@ -369,6 +375,7 @@ function App() {
       cestino: false,
       antivirus: false,
       calendar: false,
+      msn: false,
     })
     setSelectedIcon(null)
     setDesktopBackground(defaultBackground)
@@ -586,6 +593,7 @@ function App() {
       cestino: 'Cestino',
       antivirus: 'Anti-Virus - Protezione Sistema',
       calendar: 'Calendario',
+      msn: 'MSN Messenger',
     }
     return titles[window] || 'Finestra'
   }, [])
@@ -855,6 +863,16 @@ function App() {
         onSelect={() => setSelectedIcon('calendar')}
         onPositionChange={(x, y) => handleIconPositionChange('calendar', x, y)}
       />
+      <DesktopIcon
+        icon={<img src={msnIcon} alt="MSN Messenger" style={{ width: window.innerWidth <= 480 ? '44px' : window.innerWidth <= 768 ? '50px' : '48px', height: window.innerWidth <= 480 ? '44px' : window.innerWidth <= 768 ? '50px' : '48px', objectFit: 'contain', filter: 'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3))' }} />}
+        label="MSN Messenger"
+        onClick={() => toggleWindow('msn')}
+        x={iconPositions.msn?.x || (window.innerWidth <= 480 ? 100 : window.innerWidth <= 768 ? 230 : 690)}
+        y={iconPositions.msn?.y || (window.innerWidth <= 480 ? 660 : window.innerWidth <= 768 ? 480 : 130)}
+        isSelected={selectedIcon === 'msn'}
+        onSelect={() => setSelectedIcon('msn')}
+        onPositionChange={(x, y) => handleIconPositionChange('msn', x, y)}
+      />
       {openWindows.about && !minimizedWindows.has('about') && (
         <Window
           title="Presentazione.txt"
@@ -997,6 +1015,16 @@ function App() {
             onMinimize={() => handleMinimize('images')}
             icon={<img src={immaginiIcon} alt="" style={{ width: '16px', height: '16px', objectFit: 'contain', display: 'block', visibility: 'visible', opacity: 1 }} />}
         />
+        </Suspense>
+      )}
+      
+      {openWindows.msn && !minimizedWindows.has('msn') && (
+        <Suspense fallback={<LoadingFallback />}>
+          <MsnWindow 
+            onClose={() => handleClose('msn')} 
+            onMinimize={() => handleMinimize('msn')}
+            icon={<img src={msnIcon} alt="" style={{ width: '16px', height: '16px', objectFit: 'contain', display: 'block', visibility: 'visible', opacity: 1 }} />}
+          />
         </Suspense>
       )}
       {openWindows.computer && !minimizedWindows.has('computer') && (
@@ -2046,6 +2074,7 @@ function App() {
               { id: 'cestino', label: 'Cestino', icon: cestinoIcon },
               { id: 'antivirus', label: 'Anti-Virus', icon: antivirusIcon },
               { id: 'calendar', label: 'Calendario', icon: calendarIcon },
+              { id: 'msn', label: 'MSN Messenger', icon: msnIcon },
               { id: 'desktopStartMenu', label: 'Start Menu', icon: taskbarIcon },
             ];
 

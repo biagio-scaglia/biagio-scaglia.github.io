@@ -19,6 +19,7 @@ import portfolioIcon from '../assets/icone/portfolio.png'
 import cestinoIcon from '../assets/icone/cestino.png'
 import antivirusIcon from '../assets/icone/antivirus.png'
 import calendarIcon from '../assets/icone/calendar.png'
+import msnIcon from '../assets/icone/msn.png'
 
 interface StartMenuProps {
   isOpen: boolean
@@ -68,6 +69,7 @@ export default function StartMenu({ isOpen, onClose, onOpenWindow, onShutdown }:
     { icon: 'image', iconSrc: cestinoIcon, label: 'Cestino', window: 'cestino' },
     { icon: 'image', iconSrc: antivirusIcon, label: 'Anti-Virus', window: 'antivirus' },
     { icon: 'image', iconSrc: calendarIcon, label: 'Calendario', window: 'calendar' },
+    { icon: 'image', iconSrc: msnIcon, label: 'MSN Messenger', window: 'msn' },
   ]
 
   const menuItems: Array<{ icon: string; iconSrc?: string; label: string; window: string }> = [
@@ -78,6 +80,7 @@ export default function StartMenu({ isOpen, onClose, onOpenWindow, onShutdown }:
     { icon: 'image', iconSrc: educationIcon, label: 'Formazione', window: 'education' },
     { icon: 'image', iconSrc: certificationsIcon, label: 'Certificazioni', window: 'certifications' },
     { icon: 'image', iconSrc: noteIcon, label: 'Note', window: 'note' },
+    { icon: 'image', iconSrc: msnIcon, label: 'MSN Messenger', window: 'msn' },
   ]
 
   const quickAccessItems: Array<{ icon: string; iconSrc?: string; label: string; window: string }> = [

@@ -181,3 +181,22 @@ button, a, .desktop-icon, .window {
 .circular-btn:hover {
   outline: none !important;
 }
+
+/* Animazione Trillo MSN */
+@keyframes nudge-shake {
+  0% { transform: translate(0, 0); }
+  10% { transform: translate(-10px, -10px); }
+  20% { transform: translate(10px, 10px); }
+  30% { transform: translate(-10px, 10px); }
+  40% { transform: translate(10px, -10px); }
+  50% { transform: translate(-10px, -10px); }
+  60% { transform: translate(10px, 10px); }
+  70% { transform: translate(-10px, 10px); }
+  80% { transform: translate(10px, -10px); }
+  90% { transform: translate(-10px, -10px); }
+  100% { transform: translate(0, 0); }
+}
+
+.nudge-shake {
+  animation: nudge-shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
+}

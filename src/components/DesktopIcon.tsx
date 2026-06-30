@@ -141,6 +141,10 @@ const DesktopIcon = memo(function DesktopIcon({ icon, label, onClick, x = 0, y =
         if (onSelect) {
           onSelect()
         }
+        // Su mobile/tablet, usa il tap singolo per aprire l'app invece del doppio click
+        if (windowSize.isMobile || windowSize.isTablet) {
+          onClick()
+        }
       }}
       onDoubleClick={onClick}
       onMouseEnter={() => setIsHovered(true)}

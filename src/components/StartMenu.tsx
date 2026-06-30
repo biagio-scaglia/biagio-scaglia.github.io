@@ -4,7 +4,6 @@ import infoIcon from '../assets/icone/info.png'
 import userIcon from '../assets/icone/user.png'
 import certificationsIcon from '../assets/icone/certificazioni.png'
 import folderIcon from '../assets/icone/cartella.png'
-import settingsIcon from '../assets/icone/impostazioni.png'
 import musicIcon from '../assets/icone/music.png'
 import workExperienceIcon from '../assets/icone/esperienze.png'
 import skillsIcon from '../assets/icone/competenze.png'
@@ -62,7 +61,6 @@ export default function StartMenu({ isOpen, onClose, onOpenWindow, onShutdown }:
     { icon: 'image', iconSrc: folderIcon, label: 'Documenti', window: 'documents' },
     { icon: 'image', iconSrc: immaginiIcon, label: 'Immagini', window: 'images' },
     { icon: 'image', iconSrc: musicIcon, label: 'Musica', window: 'music' },
-    { icon: 'image', iconSrc: settingsIcon, label: 'Impostazioni', window: 'settings' },
     { icon: 'image', iconSrc: linkedinIcon, label: 'LinkedIn', window: 'linkedin' },
     { icon: 'image', iconSrc: paintIcon, label: 'Paint', window: 'paint' },
     { icon: 'image', iconSrc: firefoxIcon, label: 'Firefox', window: 'browser' },
@@ -92,11 +90,11 @@ export default function StartMenu({ isOpen, onClose, onOpenWindow, onShutdown }:
   ]
 
   // Filtra le app in base alla ricerca
-  const filteredApps = searchQuery.trim() === '' 
-    ? [] 
-    : allApps.filter(app => 
-        app.label.toLowerCase().includes(searchQuery.toLowerCase())
-      )
+  const filteredApps = searchQuery.trim() === ''
+    ? []
+    : allApps.filter(app =>
+      app.label.toLowerCase().includes(searchQuery.toLowerCase())
+    )
 
   // Reset ricerca quando il menu si chiude
   useEffect(() => {
@@ -130,19 +128,19 @@ export default function StartMenu({ isOpen, onClose, onOpenWindow, onShutdown }:
       }}
     >
       {/* Barra di ricerca */}
-      <div style={{ 
-        padding: '12px 16px', 
+      <div style={{
+        padding: '12px 16px',
         borderBottom: '1px solid rgba(255, 255, 255, 0.2)',
         background: 'rgba(0, 0, 0, 0.2)'
       }}>
-        <div style={{ 
+        <div style={{
           position: 'relative',
           display: 'flex',
           alignItems: 'center',
           gap: '8px'
         }}>
-          <i className="fas fa-search" style={{ 
-            fontSize: '14px', 
+          <i className="fas fa-search" style={{
+            fontSize: '14px',
             color: 'rgba(255, 255, 255, 0.7)',
             position: 'absolute',
             left: '10px',
@@ -176,7 +174,7 @@ export default function StartMenu({ isOpen, onClose, onOpenWindow, onShutdown }:
             }}
           />
         </div>
-        
+
         {/* Risultati ricerca */}
         {searchQuery.trim() !== '' && filteredApps.length > 0 && (
           <div style={{
@@ -217,15 +215,15 @@ export default function StartMenu({ isOpen, onClose, onOpenWindow, onShutdown }:
                 }}
               >
                 {app.icon === 'image' && app.iconSrc ? (
-                  <img 
-                    src={app.iconSrc} 
-                    alt={app.label} 
-                    style={{ 
-                      width: '18px', 
+                  <img
+                    src={app.iconSrc}
+                    alt={app.label}
+                    style={{
+                      width: '18px',
                       height: '18px',
                       objectFit: 'contain',
                       display: 'block'
-                    }} 
+                    }}
                   />
                 ) : (
                   <i className={app.icon} style={{ fontSize: '18px', width: '28px', textAlign: 'center' }}></i>
@@ -235,7 +233,7 @@ export default function StartMenu({ isOpen, onClose, onOpenWindow, onShutdown }:
             ))}
           </div>
         )}
-        
+
         {searchQuery.trim() !== '' && filteredApps.length === 0 && (
           <div style={{
             marginTop: '8px',
@@ -277,24 +275,24 @@ export default function StartMenu({ isOpen, onClose, onOpenWindow, onShutdown }:
               onMouseEnter={(e) => {
                 e.currentTarget.style.background = 'linear-gradient(to bottom, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0.15) 100%)'
                 e.currentTarget.style.backdropFilter = 'blur(20px)'
-                ;(e.currentTarget.style as any).WebkitBackdropFilter = 'blur(20px)'
+                  ; (e.currentTarget.style as any).WebkitBackdropFilter = 'blur(20px)'
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.background = 'transparent'
                 e.currentTarget.style.backdropFilter = 'none'
-                ;(e.currentTarget.style as any).WebkitBackdropFilter = 'none'
+                  ; (e.currentTarget.style as any).WebkitBackdropFilter = 'none'
               }}
             >
               {item.icon === 'image' && item.iconSrc ? (
-                <img 
-                  src={item.iconSrc} 
-                  alt={item.label} 
-                  style={{ 
-                    width: windowSize.isMobile ? '20px' : '18px', 
+                <img
+                  src={item.iconSrc}
+                  alt={item.label}
+                  style={{
+                    width: windowSize.isMobile ? '20px' : '18px',
                     height: windowSize.isMobile ? '20px' : '18px',
                     objectFit: 'contain',
                     display: 'block'
-                  }} 
+                  }}
                 />
               ) : (
                 <i className={item.icon} style={{ fontSize: windowSize.isMobile ? '20px' : '18px', width: windowSize.isMobile ? '30px' : '28px', textAlign: 'center', display: 'flex', alignItems: 'center', justifyContent: 'center' }}></i>
@@ -343,15 +341,15 @@ export default function StartMenu({ isOpen, onClose, onOpenWindow, onShutdown }:
             }}
           >
             {item.icon === 'image' && item.iconSrc ? (
-              <img 
-                src={item.iconSrc} 
-                alt={item.label} 
-                style={{ 
-                  width: '18px', 
+              <img
+                src={item.iconSrc}
+                alt={item.label}
+                style={{
+                  width: '18px',
                   height: '18px',
                   objectFit: 'contain',
                   display: 'block'
-                }} 
+                }}
               />
             ) : (
               <i className={item.icon} style={{ fontSize: '18px', width: '28px', textAlign: 'center', display: 'flex', alignItems: 'center', justifyContent: 'center' }}></i>

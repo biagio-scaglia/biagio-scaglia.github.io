@@ -9,7 +9,6 @@ import LoadingFallback from './components/LoadingFallback'
 import TaskbarThumbnail from './components/TaskbarThumbnail'
 import taskbarIcon from './assets/icona taskbar.png'
 import folderIcon from './assets/icone/cartella.png'
-import settingsIcon from './assets/icone/impostazioni.png'
 import infoIcon from './assets/icone/info.png'
 import userIcon from './assets/icone/user.png'
 import certificationsIcon from './assets/icone/certificazioni.png'
@@ -44,7 +43,6 @@ const DocumentsWindow = lazy(() => import('./components/DocumentsWindow'))
 const ImagesWindow = lazy(() => import('./components/ImagesWindow'))
 const ComputerWindow = lazy(() => import('./components/ComputerWindow'))
 const MusicWindow = lazy(() => import('./components/MusicWindow'))
-const SettingsWindow = lazy(() => import('./components/SettingsWindow'))
 const PaintWindow = lazy(() => import('./components/PaintWindow'))
 const BrowserWindow = lazy(() => import('./components/BrowserWindow'))
 const Calculator = lazy(() => import('./components/Calculator'))
@@ -77,7 +75,6 @@ function App() {
     images: false,
     computer: false,
     music: false,
-    settings: false,
     paint: false,
     browser: false,
     calculator: false,
@@ -182,7 +179,6 @@ function App() {
         education: { x: 20, y: 180 },
         certifications: { x: 100, y: 180 },
         note: { x: 20, y: 260 },
-        settings: { x: 100, y: 260 },
         linkedin: { x: 20, y: 340 },
         paint: { x: 100, y: 340 },
         browser: { x: 20, y: 420 },
@@ -203,7 +199,6 @@ function App() {
         education: { x: 130, y: 120 },
         certifications: { x: 230, y: 120 },
         note: { x: 30, y: 210 },
-        settings: { x: 130, y: 210 },
         linkedin: { x: 230, y: 210 },
         paint: { x: 30, y: 300 },
         browser: { x: 130, y: 300 },
@@ -224,7 +219,6 @@ function App() {
         education: { x: 470, y: 30 },
         certifications: { x: 580, y: 30 },
         note: { x: 690, y: 30 },
-        settings: { x: 800, y: 30 },
         linkedin: { x: 910, y: 30 },
         paint: { x: 1020, y: 30 },
         browser: { x: 30, y: 130 },
@@ -367,7 +361,6 @@ function App() {
       images: false,
       computer: false,
       music: false,
-      settings: false,
       paint: false,
       browser: false,
       calculator: false,
@@ -586,7 +579,6 @@ function App() {
       images: 'Immagini - Sfondo Desktop',
       computer: 'Computer - Informazioni Sistema',
       music: 'Musica',
-      settings: 'Impostazioni - Accessibilità',
       paint: 'Paint',
       browser: 'Mozilla Firefox',
       calculator: 'Calcolatrice',
@@ -754,16 +746,6 @@ function App() {
         isSelected={selectedIcon === 'note'}
         onSelect={() => setSelectedIcon('note')}
         onPositionChange={(x, y) => handleIconPositionChange('note', x, y)}
-      />
-      <DesktopIcon
-        icon={<img src={settingsIcon} alt="Impostazioni" style={{ width: window.innerWidth <= 480 ? '44px' : window.innerWidth <= 768 ? '50px' : '48px', height: window.innerWidth <= 480 ? '44px' : window.innerWidth <= 768 ? '50px' : '48px', objectFit: 'contain', filter: 'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3))' }} />}
-        label="Impostazioni"
-        onClick={() => toggleWindow('settings')}
-        x={iconPositions.settings.x}
-        y={iconPositions.settings.y}
-        isSelected={selectedIcon === 'settings'}
-        onSelect={() => setSelectedIcon('settings')}
-        onPositionChange={(x, y) => handleIconPositionChange('settings', x, y)}
       />
       {iconPositions.linkedin && (
         <DesktopIcon
@@ -1027,17 +1009,6 @@ function App() {
           />
         </Suspense>
       )}
-      {openWindows.settings && !minimizedWindows.has('settings') && (
-        <Suspense fallback={<LoadingFallback />}>
-          <SettingsWindow 
-            onClose={() => handleClose('settings')} 
-            onMinimize={() => handleMinimize('settings')}
-            settings={accessibilitySettings}
-            onSettingsChange={setAccessibilitySettings}
-            icon={<img src={settingsIcon} alt="" style={{ width: '16px', height: '16px', objectFit: 'contain', display: 'block', visibility: 'visible', opacity: 1 }} />}
-          />
-        </Suspense>
-      )}
       {openWindows.paint && !minimizedWindows.has('paint') && (
         <Suspense fallback={<LoadingFallback />}>
           <PaintWindow 
@@ -1148,7 +1119,7 @@ function App() {
             width: '45px',
             height: '40px',
             borderRadius: '0',
-            boxShadow: showStartMenu || openWindows.about || openWindows.personalInfo || openWindows.workExperience || openWindows.skills || openWindows.education || openWindows.certifications || openWindows.note || openWindows.documents || openWindows.images || openWindows.computer || openWindows.music || openWindows.settings || openWindows.paint || openWindows.browser || openWindows.calculator || openWindows.portfolio || openWindows.solitaire || openWindows.cestino || openWindows.antivirus || openWindows.calendar
+            boxShadow: showStartMenu || openWindows.about || openWindows.personalInfo || openWindows.workExperience || openWindows.skills || openWindows.education || openWindows.certifications || openWindows.note || openWindows.documents || openWindows.images || openWindows.computer || openWindows.music || openWindows.paint || openWindows.browser || openWindows.calculator || openWindows.portfolio || openWindows.solitaire || openWindows.cestino || openWindows.antivirus || openWindows.calendar
               ? 'inset 0 2px 4px rgba(0, 0, 0, 0.3), 0 0 8px rgba(100, 150, 255, 0.4)'
               : 'inset 0 1px 0 rgba(255, 255, 255, 0.3), inset 0 -1px 0 rgba(0, 0, 0, 0.2)',
             transition: 'all 0.2s',
@@ -1643,50 +1614,6 @@ function App() {
           <img 
             src={computerIcon} 
             alt="Computer" 
-            style={{ 
-              width: '18px', 
-              height: '18px',
-              objectFit: 'contain',
-              display: 'block',
-              filter: 'drop-shadow(0 1px 2px rgba(0,0,0,0.3))'
-            }} 
-          />
-        </button>
-        <button
-          className={`taskbar-button ${isWindowActive('settings') ? 'is-active' : ''}`}
-          onClick={() => handleTaskbarClick('settings')}
-          onMouseEnter={(e) => handleTaskbarButtonHover('settings', e)}
-          onMouseLeave={handleTaskbarButtonLeave}
-          style={{
-            padding: '4px 12px',
-            fontSize: '11px',
-            border: 'none',
-            background: isWindowActive('settings')
-              ? 'linear-gradient(to bottom, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.3) 100%)'
-              : 'transparent',
-            backdropFilter: isWindowActive('settings') ? 'blur(25px)' : 'none',
-            WebkitBackdropFilter: isWindowActive('settings') ? 'blur(25px)' : 'none',
-            color: '#fff',
-            cursor: 'pointer',
-            fontWeight: isWindowActive('settings') ? 'bold' : 'normal',
-            minWidth: 'auto',
-            width: 'auto',
-            height: '36px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            gap: '6px',
-            borderRadius: '2px',
-            margin: '2px',
-            boxShadow: isWindowActive('settings')
-              ? 'inset 0 1px 0 rgba(255, 255, 255, 0.4), inset 0 -1px 0 rgba(0, 0, 0, 0.2), 0 0 6px rgba(100, 150, 255, 0.3)'
-              : 'none',
-            transition: 'all 0.2s',
-          }}
-        >
-          <img 
-            src={settingsIcon} 
-            alt="Impostazioni" 
             style={{ 
               width: '18px', 
               height: '18px',
@@ -2370,26 +2297,6 @@ function App() {
                 >
                   <img src={musicIcon} alt="Musica" style={{ width: '32px', height: '32px', objectFit: 'contain' }} />
                   <span style={{ fontSize: '10px', color: '#333', fontWeight: isWindowActive('music') ? 'bold' : 'normal' }}>Musica</span>
-                </button>
-                <button
-                  onClick={() => { toggleWindow('settings'); setShowFloatingMenu(false); }}
-                  style={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    gap: '5px',
-                    padding: '10px',
-                    background: isWindowActive('settings')
-                      ? 'rgba(100, 150, 255, 0.2)'
-                      : 'transparent',
-                    border: 'none',
-                    borderRadius: '8px',
-                    cursor: 'pointer',
-                    transition: 'all 0.2s',
-                  }}
-                >
-                  <img src={settingsIcon} alt="Impostazioni" style={{ width: '32px', height: '32px', objectFit: 'contain' }} />
-                  <span style={{ fontSize: '10px', color: '#333', fontWeight: isWindowActive('settings') ? 'bold' : 'normal' }}>Impostazioni</span>
                 </button>
                 <button
                   onClick={() => { toggleWindow('paint'); setShowFloatingMenu(false); }}

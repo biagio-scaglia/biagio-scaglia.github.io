@@ -11,7 +11,7 @@ interface MsnWindowProps {
 
 export default function MsnWindow({ onClose, onMinimize, icon }: MsnWindowProps) {
   const windowSize = useWindowSize()
-  const [messages, setMessages] = useState<{sender: string, text: string, time: string}[]>([
+  const [messages, setMessages] = useState<{ sender: string, text: string, time: string }[]>([
     { sender: 'Biagio', text: 'Ehi! Benvenuto sul mio MSN simulato! 👋', time: '12:00' }
   ])
   const [inputText, setInputText] = useState('')
@@ -38,16 +38,16 @@ export default function MsnWindow({ onClose, onMinimize, icon }: MsnWindowProps)
     if (!inputText.trim()) return
     const now = new Date()
     const time = `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`
-    
+
     setMessages(prev => [...prev, { sender: 'Tu', text: inputText, time }])
     setInputText('')
 
     // Finta risposta automatica
     setTimeout(() => {
       playSound()
-      setMessages(prev => [...prev, { 
-        sender: 'Biagio', 
-        text: 'Al momento sto scrivendo del codice, ma ti risponderò il prima possibile! 👨‍💻', 
+      setMessages(prev => [...prev, {
+        sender: 'Biagio',
+        text: 'Al momento sto scrivendo del codice, ma ti risponderò il prima possibile! 👨‍💻',
         time: `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`
       }])
     }, 1500)
@@ -60,7 +60,7 @@ export default function MsnWindow({ onClose, onMinimize, icon }: MsnWindowProps)
     const now = new Date()
     const time = `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`
     setMessages(prev => [...prev, { sender: 'Sistema', text: 'Hai inviato un trillo!', time }])
-    
+
     // Ferma l'animazione dopo 800ms
     setTimeout(() => {
       setIsNudging(false)
@@ -73,9 +73,9 @@ export default function MsnWindow({ onClose, onMinimize, icon }: MsnWindowProps)
         title="MSN Messenger"
         width={windowSize.isMobile ? Math.min(360, window.innerWidth - 20) : 420}
         height={windowSize.isMobile ? Math.min(550, window.innerHeight - 100) : 600}
-        defaultPosition={{ 
-          x: windowSize.isMobile ? 10 : window.innerWidth / 2 - 210, 
-          y: windowSize.isMobile ? 10 : window.innerHeight / 2 - 300 
+        defaultPosition={{
+          x: windowSize.isMobile ? 10 : window.innerWidth / 2 - 210,
+          y: windowSize.isMobile ? 10 : window.innerHeight / 2 - 300
         }}
         onClose={onClose}
         onMinimize={onMinimize}
@@ -133,7 +133,7 @@ export default function MsnWindow({ onClose, onMinimize, icon }: MsnWindowProps)
             fontSize: '13px'
           }}>
             {messages.map((msg, idx) => (
-              <div key={idx} style={{ 
+              <div key={idx} style={{
                 color: msg.sender === 'Sistema' ? '#d32f2f' : '#000',
                 fontWeight: msg.sender === 'Sistema' ? 'bold' : 'normal',
                 textAlign: msg.sender === 'Sistema' ? 'center' : 'left'
@@ -160,7 +160,7 @@ export default function MsnWindow({ onClose, onMinimize, icon }: MsnWindowProps)
             display: 'flex',
             gap: '5px'
           }}>
-            <button 
+            <button
               onClick={handleNudge}
               style={{
                 background: 'transparent',
@@ -185,7 +185,7 @@ export default function MsnWindow({ onClose, onMinimize, icon }: MsnWindowProps)
             >
               <span style={{ fontSize: '16px' }}>📳</span> <b>Invia trillo</b>
             </button>
-            <button 
+            <button
               style={{
                 background: 'transparent',
                 border: '1px solid transparent',

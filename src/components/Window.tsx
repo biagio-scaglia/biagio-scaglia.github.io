@@ -63,15 +63,15 @@ export default function Window({
       if (animationFrameId) {
         cancelAnimationFrame(animationFrameId)
       }
-      
+
       const clientX = 'touches' in e ? e.touches[0].clientX : e.clientX
       const clientY = 'touches' in e ? e.touches[0].clientY : e.clientY
-      
+
       animationFrameId = requestAnimationFrame(() => {
         // Limita la posizione entro i bordi dello schermo
         const maxX = windowSize.width - currentWidth
         const maxY = windowSize.height - (windowSize.isMobile ? 50 : 60) - currentHeight
-        
+
         setPosition({
           x: Math.max(0, Math.min(maxX, clientX - dragOffset.x)),
           y: Math.max(0, Math.min(maxY, clientY - dragOffset.y)),
@@ -111,7 +111,7 @@ export default function Window({
       if (animationFrameId) {
         cancelAnimationFrame(animationFrameId)
       }
-      
+
       animationFrameId = requestAnimationFrame(() => {
         const minWidth = 200
         const minHeight = 150
@@ -126,36 +126,36 @@ export default function Window({
         const deltaX = e.clientX - resizeStart.x
         const deltaY = e.clientY - resizeStart.y
 
-      // Resize da est (destra)
-      if (resizeType.includes('e')) {
-        newWidth = Math.max(minWidth, Math.min(maxWidth, resizeStart.width + deltaX))
-      }
-      // Resize da ovest (sinistra)
-      if (resizeType.includes('w')) {
-        const widthChange = resizeStart.width - deltaX
-        if (widthChange >= minWidth && resizeStart.left + deltaX >= 0) {
-          newWidth = widthChange
-          newLeft = resizeStart.left + deltaX
-        } else if (widthChange < minWidth) {
-          newWidth = minWidth
-          newLeft = resizeStart.left + resizeStart.width - minWidth
+        // Resize da est (destra)
+        if (resizeType.includes('e')) {
+          newWidth = Math.max(minWidth, Math.min(maxWidth, resizeStart.width + deltaX))
         }
-      }
-      // Resize da sud (basso)
-      if (resizeType.includes('s')) {
-        newHeight = Math.max(minHeight, Math.min(maxHeight, resizeStart.height + deltaY))
-      }
-      // Resize da nord (alto)
-      if (resizeType.includes('n')) {
-        const heightChange = resizeStart.height - deltaY
-        if (heightChange >= minHeight && resizeStart.top + deltaY >= 0) {
-          newHeight = heightChange
-          newTop = resizeStart.top + deltaY
-        } else if (heightChange < minHeight) {
-          newHeight = minHeight
-          newTop = resizeStart.top + resizeStart.height - minHeight
+        // Resize da ovest (sinistra)
+        if (resizeType.includes('w')) {
+          const widthChange = resizeStart.width - deltaX
+          if (widthChange >= minWidth && resizeStart.left + deltaX >= 0) {
+            newWidth = widthChange
+            newLeft = resizeStart.left + deltaX
+          } else if (widthChange < minWidth) {
+            newWidth = minWidth
+            newLeft = resizeStart.left + resizeStart.width - minWidth
+          }
         }
-      }
+        // Resize da sud (basso)
+        if (resizeType.includes('s')) {
+          newHeight = Math.max(minHeight, Math.min(maxHeight, resizeStart.height + deltaY))
+        }
+        // Resize da nord (alto)
+        if (resizeType.includes('n')) {
+          const heightChange = resizeStart.height - deltaY
+          if (heightChange >= minHeight && resizeStart.top + deltaY >= 0) {
+            newHeight = heightChange
+            newTop = resizeStart.top + deltaY
+          } else if (heightChange < minHeight) {
+            newHeight = minHeight
+            newTop = resizeStart.top + resizeStart.height - minHeight
+          }
+        }
 
         setCurrentWidth(newWidth)
         setCurrentHeight(newHeight)
@@ -251,10 +251,10 @@ export default function Window({
   }, [isMaximized, savedState, currentWidth, currentHeight, position, windowSize, onMaximize])
 
   // Calcola dimensioni responsive
-  const displayWidth = isMaximized 
-    ? windowSize.width - 4 
+  const displayWidth = isMaximized
+    ? windowSize.width - 4
     : (windowSize.isMobile ? '95vw' : windowSize.isTablet ? '90vw' : currentWidth)
-  const displayHeight = isMaximized 
+  const displayHeight = isMaximized
     ? windowSize.height - (windowSize.isMobile ? 50 : 60)
     : (windowSize.isMobile ? '85vh' : windowSize.isTablet ? '80vh' : currentHeight)
 
@@ -296,8 +296,8 @@ export default function Window({
           {onMinimize && (
             <button aria-label="Minimize" onClick={onMinimize} />
           )}
-          <button 
-            aria-label={isMaximized ? "Restore" : "Maximize"} 
+          <button
+            aria-label={isMaximized ? "Restore" : "Maximize"}
             onClick={handleMaximize}
             className={isMaximized ? "is-restore" : "is-maximize"}
           />
@@ -306,14 +306,14 @@ export default function Window({
           )}
         </div>
       </div>
-      <div 
-        className="window-body has-space" 
-        style={{ 
-          overflow: 'auto', 
-          maxHeight: windowSize.isMobile 
-            ? 'calc(85vh - 50px)' 
-            : windowSize.isTablet 
-              ? 'calc(80vh - 50px)' 
+      <div
+        className="window-body has-space"
+        style={{
+          overflow: 'auto',
+          maxHeight: windowSize.isMobile
+            ? 'calc(85vh - 50px)'
+            : windowSize.isTablet
+              ? 'calc(80vh - 50px)'
               : `${currentHeight - 50}px`,
           fontSize: windowSize.isMobile ? '12px' : windowSize.isTablet ? '13px' : 'inherit'
         }}

@@ -300,7 +300,7 @@ export default function Calendar({ onClose, onMinimize, icon }: CalendarProps) {
                       flexDirection: 'column',
                       alignItems: 'center',
                       justifyContent: 'center',
-                      borderRadius: '6px',
+                      borderRadius: '50%',
                       cursor: 'pointer',
                       fontSize: '12px',
                       fontWeight: isTodayDay || isSelectedDay || importantDate ? 'bold' : 'normal',

@@ -189,87 +189,161 @@ export default function Portfolio({ onClose, onMinimize, icon }: CalculatorProps
         display: 'flex', 
         flexDirection: 'column',
         height: '100%',
-        gap: windowSize.isMobile ? '10px' : '15px'
+        gap: windowSize.isMobile ? '10px' : '15px',
+        boxSizing: 'border-box',
+        background: '#edf2f7'
       }}>
         {!selectedProject ? (
           <>
             <h2 style={{ 
               marginTop: 0, 
-              fontSize: windowSize.isMobile ? '18px' : windowSize.isTablet ? '19px' : '20px',
-              marginBottom: '10px'
+              fontSize: windowSize.isMobile ? '16px' : '18px',
+              fontWeight: 'bold',
+              color: '#2b6cb0',
+              borderBottom: '1px solid #cbd5e0',
+              paddingBottom: '6px',
+              marginBottom: '5px'
             }}>
-              I Miei Progetti
+              <i className="fas fa-cubes" style={{ marginRight: '8px' }}></i> I Miei Progetti ({projects.length})
             </h2>
             
             <div style={{
               display: 'grid',
               gridTemplateColumns: windowSize.isMobile ? '1fr' : 'repeat(2, 1fr)',
-              gap: windowSize.isMobile ? '10px' : '15px',
+              gap: '12px',
               overflowY: 'auto',
               flex: 1,
-              paddingRight: windowSize.isMobile ? '5px' : '0'
+              paddingRight: '4px'
             }}>
               {projects.map((project) => (
                 <div
                   key={project.id}
                   onClick={() => handleProjectClick(project)}
-                  className="field-row"
                   style={{
-                    padding: '15px',
+                    background: '#fff',
+                    border: '1px solid #cbd5e0',
+                    borderRadius: '8px',
+                    padding: '12px',
                     cursor: 'pointer',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'space-between',
+                    boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03)',
+                    transition: 'all 0.2s ease',
+                    transform: 'translateY(0)'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.transform = 'translateY(-2px)'
+                    e.currentTarget.style.borderColor = '#90cdf4'
+                    e.currentTarget.style.boxShadow = '0 10px 15px -3px rgba(66, 153, 225, 0.15), 0 4px 6px -2px rgba(66, 153, 225, 0.1)'
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.transform = 'translateY(0)'
+                    e.currentTarget.style.borderColor = '#cbd5e0'
+                    e.currentTarget.style.boxShadow = '0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03)'
                   }}
                 >
-                  {project.image && (
-                    <img 
-                      src={project.image} 
-                      alt={project.name}
-                      loading="lazy"
-                      style={{
+                  <div>
+                    {/* Immagine di anteprima con contain fit */}
+                    {project.image ? (
+                      <div style={{
                         width: '100%',
-                        height: 'auto',
-                        maxHeight: windowSize.isMobile ? '120px' : '150px',
-                        objectFit: 'cover',
-                        borderRadius: '4px',
+                        height: '110px',
+                        borderRadius: '6px',
+                        background: '#f7fafc',
+                        border: '1px solid #edf2f7',
+                        overflow: 'hidden',
                         marginBottom: '10px',
-                        border: '1px solid #ddd'
-                      }}
-                    />
-                  )}
-                  <h3 style={{ 
-                    marginTop: 0, 
-                    marginBottom: '10px',
-                    fontSize: windowSize.isMobile ? '16px' : windowSize.isTablet ? '17px' : '18px',
-                    color: '#333'
-                  }}>
-                    {project.name}
-                  </h3>
-                  <p style={{ 
-                    fontSize: windowSize.isMobile ? '11px' : windowSize.isTablet ? '11.5px' : '12px',
-                    color: '#666',
-                    marginBottom: '10px',
-                    lineHeight: '1.5'
-                  }}>
-                    {project.description}
-                  </p>
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center'
+                      }}>
+                        <img 
+                          src={project.image} 
+                          alt={project.name}
+                          loading="lazy"
+                          style={{
+                            maxWidth: '100%',
+                            maxHeight: '100%',
+                            objectFit: 'contain',
+                            display: 'block'
+                          }}
+                        />
+                      </div>
+                    ) : (
+                      /* Placeholder Visuale per Progetti senza Immagine */
+                      <div style={{
+                        width: '100%',
+                        height: '110px',
+                        borderRadius: '6px',
+                        background: 'linear-gradient(135deg, #ebf8ff 0%, #cee3f8 100%)',
+                        border: '1px solid #bee3f8',
+                        marginBottom: '10px',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        color: '#2b6cb0',
+                        gap: '6px'
+                      }}>
+                        <i className="fas fa-laptop-code" style={{ fontSize: '28px' }}></i>
+                        <span style={{ fontSize: '9px', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Sorgente GitHub</span>
+                      </div>
+                    )}
+
+                    <h3 style={{ 
+                      marginTop: 0, 
+                      marginBottom: '6px',
+                      fontSize: '14px',
+                      fontWeight: 'bold',
+                      color: '#2d3748'
+                    }}>
+                      {project.name}
+                    </h3>
+                    <p style={{ 
+                      fontSize: '11px',
+                      color: '#4a5568',
+                      marginBottom: '12px',
+                      lineHeight: '1.4',
+                      height: '48px',
+                      overflow: 'hidden',
+                      textOverflow: 'ellipsis',
+                      display: '-webkit-box',
+                      WebkitLineClamp: 3,
+                      WebkitBoxOrient: 'vertical'
+                    }}>
+                      {project.description}
+                    </p>
+                  </div>
+
+                  {/* Badges Tecnologie */}
                   <div style={{ 
                     display: 'flex', 
                     flexWrap: 'wrap', 
-                    gap: windowSize.isMobile ? '4px' : '5px',
-                    marginTop: '10px'
+                    gap: '4px',
+                    marginTop: 'auto'
                   }}>
-                    {project.technologies.map((tech, index) => (
-                      <button
+                    {project.technologies.slice(0, 4).map((tech, index) => (
+                      <span
                         key={index}
-                        type="button"
                         style={{
-                          padding: windowSize.isMobile ? '3px 6px' : '4px 8px',
-                          fontSize: windowSize.isMobile ? '10px' : '11px',
+                          padding: '2px 6px',
+                          fontSize: '9px',
+                          fontWeight: '600',
+                          background: '#ebf8ff',
+                          color: '#2b6cb0',
+                          borderRadius: '4px',
+                          border: '1px solid #bee3f8'
                         }}
-                        disabled
                       >
                         {tech}
-                      </button>
+                      </span>
                     ))}
+                    {project.technologies.length > 4 && (
+                      <span style={{ padding: '2px 6px', fontSize: '9px', fontWeight: '600', background: '#edf2f7', color: '#4a5568', borderRadius: '4px' }}>
+                        +{project.technologies.length - 4}
+                      </span>
+                    )}
                   </div>
                 </div>
               ))}
@@ -277,86 +351,123 @@ export default function Portfolio({ onClose, onMinimize, icon }: CalculatorProps
           </>
         ) : (
           <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+            {/* Pulsante Torna indietro */}
             <button
               onClick={handleBack}
               style={{
-                marginBottom: '15px',
+                marginBottom: '10px',
                 alignSelf: 'flex-start',
+                padding: '4px 12px',
+                background: '#fff',
+                border: '1px solid #cbd5e0',
+                borderRadius: '4px',
+                fontSize: '11px',
+                fontWeight: '600',
+                color: '#4a5568',
+                cursor: 'pointer',
+                boxShadow: '0 1px 2px rgba(0,0,0,0.05)',
+                transition: 'all 0.15s'
               }}
+              onMouseEnter={(e) => e.currentTarget.style.background = '#edf2f7'}
+              onMouseLeave={(e) => e.currentTarget.style.background = '#fff'}
             >
-              ← Torna ai progetti
+              <i className="fas fa-arrow-left" style={{ marginRight: '5px' }}></i> Torna ai progetti
             </button>
 
-            <div style={{ flex: 1, overflowY: 'auto', paddingRight: windowSize.isMobile ? '5px' : '0' }}>
+            {/* Dettaglio Progetto */}
+            <div style={{ 
+              flex: 1, 
+              overflowY: 'auto', 
+              background: '#fff', 
+              borderRadius: '8px', 
+              border: '1px solid #cbd5e0',
+              padding: windowSize.isMobile ? '12px' : '20px',
+              boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.05)'
+            }}>
               <h2 style={{ 
                 marginTop: 0, 
-                fontSize: windowSize.isMobile ? '20px' : windowSize.isTablet ? '22px' : '24px',
-                marginBottom: '15px'
+                fontSize: '18px',
+                fontWeight: 'bold',
+                color: '#2d3748',
+                marginBottom: '12px'
               }}>
                 {selectedProject.name}
               </h2>
               
               {selectedProject.image && (
-                <img 
-                  src={selectedProject.image} 
-                  alt={selectedProject.name}
-                  loading="lazy"
-                  style={{
-                    width: '100%',
-                    height: 'auto',
-                    maxHeight: windowSize.isMobile ? '200px' : windowSize.isTablet ? '250px' : '300px',
-                    objectFit: 'contain',
-                    borderRadius: '4px',
-                    marginBottom: '20px',
-                    border: '1px solid #ddd',
-                    backgroundColor: '#f5f5f5'
-                  }}
-                />
+                <div style={{
+                  width: '100%',
+                  height: windowSize.isMobile ? '160px' : '260px',
+                  borderRadius: '8px',
+                  background: '#f7fafc',
+                  border: '1px solid #e2e8f0',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  marginBottom: '15px',
+                  overflow: 'hidden',
+                  padding: '10px',
+                  boxSizing: 'border-box'
+                }}>
+                  <img 
+                    src={selectedProject.image} 
+                    alt={selectedProject.name}
+                    loading="lazy"
+                    style={{
+                      maxWidth: '100%',
+                      maxHeight: '100%',
+                      objectFit: 'contain'
+                    }}
+                  />
+                </div>
               )}
               
               <p style={{ 
-                fontSize: windowSize.isMobile ? '13px' : windowSize.isTablet ? '13.5px' : '14px',
-                color: '#333',
+                fontSize: '13px',
+                color: '#4a5568',
                 lineHeight: '1.6',
-                marginBottom: '20px'
+                marginBottom: '15px'
               }}>
                 {selectedProject.description}
               </p>
 
-              <h3 style={{ 
-                fontSize: windowSize.isMobile ? '16px' : windowSize.isTablet ? '17px' : '18px',
-                marginBottom: '10px'
-              }}>
-                Tecnologie Utilizzate:
-              </h3>
-              
+              {/* Tecnologie */}
+              <h4 style={{ margin: '0 0 8px 0', fontSize: '12px', color: '#718096', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                Tecnologie Utilizzate
+              </h4>
               <div style={{ 
                 display: 'flex', 
                 flexWrap: 'wrap', 
-                gap: windowSize.isMobile ? '6px' : '8px',
+                gap: '6px',
                 marginBottom: '20px'
               }}>
                 {selectedProject.technologies.map((tech, index) => (
-                  <button
+                  <span
                     key={index}
-                    type="button"
                     style={{
-                      padding: windowSize.isMobile ? '5px 10px' : '6px 12px',
-                      fontSize: windowSize.isMobile ? '11px' : '12px',
+                      padding: '3px 8px',
+                      fontSize: '11px',
+                      fontWeight: '600',
+                      background: '#ebf8ff',
+                      color: '#2b6cb0',
+                      borderRadius: '4px',
+                      border: '1px solid #bee3f8'
                     }}
-                    disabled
                   >
                     {tech}
-                  </button>
+                  </span>
                 ))}
               </div>
 
+              {/* Links di Azione */}
               {(selectedProject.link || selectedProject.github) && (
                 <div style={{ 
                   display: 'flex', 
-                  gap: windowSize.isMobile ? '8px' : '10px',
+                  gap: '10px',
                   flexWrap: 'wrap',
-                  marginBottom: selectedProject.link ? '15px' : '0'
+                  marginBottom: '25px',
+                  borderTop: '1px solid #edf2f7',
+                  paddingTop: '15px'
                 }}>
                   {selectedProject.link && (
                     <a
@@ -364,11 +475,21 @@ export default function Portfolio({ onClose, onMinimize, icon }: CalculatorProps
                       target="_blank"
                       rel="noopener noreferrer"
                       style={{
-                        fontSize: windowSize.isMobile ? '12px' : windowSize.isTablet ? '13px' : '14px',
-                        display: 'inline-block',
+                        padding: '6px 14px',
+                        background: '#3182ce',
+                        border: '1px solid #3182ce',
+                        borderRadius: '4px',
+                        color: '#fff',
+                        fontSize: '12px',
+                        fontWeight: 'bold',
+                        textDecoration: 'none',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '6px',
+                        boxShadow: '0 2px 4px rgba(49, 130, 206, 0.2)'
                       }}
                     >
-                      <button type="button">🔗 Apri in nuova scheda</button>
+                      <i className="fas fa-external-link-alt"></i> Apri Progetto
                     </a>
                   )}
                   {selectedProject.github && (
@@ -377,32 +498,98 @@ export default function Portfolio({ onClose, onMinimize, icon }: CalculatorProps
                       target="_blank"
                       rel="noopener noreferrer"
                       style={{
-                        fontSize: windowSize.isMobile ? '12px' : windowSize.isTablet ? '13px' : '14px',
-                        display: 'inline-block',
+                        padding: '6px 14px',
+                        background: '#2d3748',
+                        border: '1px solid #2d3748',
+                        borderRadius: '4px',
+                        color: '#fff',
+                        fontSize: '12px',
+                        fontWeight: 'bold',
+                        textDecoration: 'none',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '6px',
+                        boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
                       }}
                     >
-                      <button type="button">📂 GitHub</button>
+                      <i className="fab fa-github"></i> Codice GitHub
                     </a>
                   )}
                 </div>
               )}
 
+              {/* Anteprima Web Browser Interattiva */}
               {selectedProject.link && (
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginTop: '15px' }}>
-                  <h3 style={{ fontSize: windowSize.isMobile ? '13px' : '14px', margin: '0 0 5px 0' }}>Anteprima Interattiva:</h3>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                  <h4 style={{ margin: '0 0 4px 0', fontSize: '12px', color: '#718096', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                    Anteprima Web Live
+                  </h4>
+                  
+                  {/* Browser Mockup Container */}
                   <div style={{
                     width: '100%',
-                    height: windowSize.isMobile ? '250px' : windowSize.isTablet ? '350px' : '400px',
-                    border: '2px inset #c0c0c0',
-                    background: '#fff',
-                    borderRadius: '4px',
-                    overflow: 'hidden'
+                    border: '1px solid #cbd5e0',
+                    borderRadius: '8px',
+                    overflow: 'hidden',
+                    boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.05)'
                   }}>
-                    <iframe
-                      src={selectedProject.link}
-                      title={selectedProject.name}
-                      style={{ width: '100%', height: '100%', border: 'none' }}
-                    />
+                    {/* Browser Address Bar Header */}
+                    <div style={{
+                      background: 'linear-gradient(to bottom, #edf2f7 0%, #e2e8f0 100%)',
+                      padding: '6px 10px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '10px',
+                      borderBottom: '1px solid #cbd5e0',
+                      userSelect: 'none'
+                    }}>
+                      {/* Semaforo Browser Controls */}
+                      <div style={{ display: 'flex', gap: '5px' }}>
+                        <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#fc8181' }} />
+                        <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#f6e05e' }} />
+                        <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#68d391' }} />
+                      </div>
+                      
+                      {/* Frecce Navigazione */}
+                      <div style={{ display: 'flex', gap: '8px', color: '#a0aec0', fontSize: '10px' }}>
+                        <i className="fas fa-arrow-left"></i>
+                        <i className="fas fa-arrow-right"></i>
+                        <i className="fas fa-redo"></i>
+                      </div>
+
+                      {/* Barra Indirizzo */}
+                      <div style={{
+                        flex: 1,
+                        background: '#fff',
+                        border: '1px solid #cbd5e0',
+                        borderRadius: '4px',
+                        padding: '2px 10px',
+                        fontSize: '11px',
+                        color: '#718096',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                        overflow: 'hidden'
+                      }}>
+                        <span style={{ textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap' }}>
+                          {selectedProject.link}
+                        </span>
+                        <i className="fas fa-lock" style={{ fontSize: '9px', color: '#48bb78', marginLeft: '5px' }}></i>
+                      </div>
+                    </div>
+
+                    {/* IFrame Area */}
+                    <div style={{
+                      width: '100%',
+                      height: windowSize.isMobile ? '250px' : windowSize.isTablet ? '350px' : '400px',
+                      background: '#fff'
+                    }}>
+                      <iframe
+                        src={selectedProject.link}
+                        title={selectedProject.name}
+                        style={{ width: '100%', height: '100%', border: 'none' }}
+                      />
+                    </div>
                   </div>
                 </div>
               )}

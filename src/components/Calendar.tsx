@@ -199,7 +199,7 @@ export default function Calendar({ onClose, onMinimize, icon }: CalendarProps) {
             paddingBottom: '8px',
             borderBottom: '1px solid #e2e8f0'
           }}>
-            <button 
+            <div 
               onClick={goToPreviousMonth} 
               style={{
                 width: '28px',
@@ -218,13 +218,13 @@ export default function Calendar({ onClose, onMinimize, icon }: CalendarProps) {
               onMouseLeave={(e) => e.currentTarget.style.background = '#fff'}
             >
               <i className="fas fa-chevron-left" style={{ fontSize: '11px', color: '#4a5568' }}></i>
-            </button>
+            </div>
             
             <h3 style={{ margin: 0, fontSize: '15px', color: '#2d3748', fontWeight: 'bold' }}>
               {monthNames[currentDate.getMonth()]} {currentDate.getFullYear()}
             </h3>
 
-            <button 
+            <div 
               onClick={goToNextMonth} 
               style={{
                 width: '28px',
@@ -243,7 +243,7 @@ export default function Calendar({ onClose, onMinimize, icon }: CalendarProps) {
               onMouseLeave={(e) => e.currentTarget.style.background = '#fff'}
             >
               <i className="fas fa-chevron-right" style={{ fontSize: '11px', color: '#4a5568' }}></i>
-            </button>
+            </div>
           </div>
 
           {/* Griglia Calendario */}

@@ -352,7 +352,7 @@ export default function Portfolio({ onClose, onMinimize, icon }: CalculatorProps
         ) : (
           <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
             {/* Pulsante Torna indietro */}
-            <button
+            <div
               onClick={handleBack}
               style={{
                 marginBottom: '10px',
@@ -366,13 +366,15 @@ export default function Portfolio({ onClose, onMinimize, icon }: CalculatorProps
                 color: '#4a5568',
                 cursor: 'pointer',
                 boxShadow: '0 1px 2px rgba(0,0,0,0.05)',
-                transition: 'all 0.15s'
+                transition: 'all 0.15s',
+                userSelect: 'none',
+                display: 'inline-block'
               }}
               onMouseEnter={(e) => e.currentTarget.style.background = '#edf2f7'}
               onMouseLeave={(e) => e.currentTarget.style.background = '#fff'}
             >
               <i className="fas fa-arrow-left" style={{ marginRight: '5px' }}></i> Torna ai progetti
-            </button>
+            </div>
 
             {/* Dettaglio Progetto */}
             <div style={{ 

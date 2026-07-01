@@ -383,8 +383,8 @@ export default function ImagesWindow({
         </div>
 
         {/* Pulsanti Azione */}
-        <div style={{ display: 'flex', gap: '10px', justifyContent: 'flex-end' }}>
-          <button onClick={onClose} style={{
+        <div style={{ display: 'flex', gap: '10px', justifyContent: 'flex-end', userSelect: 'none' }}>
+          <div onClick={onClose} style={{
             padding: '6px 16px',
             background: '#fff',
             border: '1px solid #cbd5e0',
@@ -393,12 +393,14 @@ export default function ImagesWindow({
             fontWeight: '600',
             color: '#4a5568',
             cursor: 'pointer',
-            transition: 'all 0.15s'
+            transition: 'all 0.15s',
+            textAlign: 'center',
+            display: 'inline-block'
           }} onMouseEnter={(e) => e.currentTarget.style.background = '#edf2f7'} onMouseLeave={(e) => e.currentTarget.style.background = '#fff'}>
             Annulla
-          </button>
+          </div>
           
-          <button onClick={handleApply} style={{
+          <div onClick={handleApply} style={{
             padding: '6px 18px',
             background: '#3182ce',
             border: '1px solid #3182ce',
@@ -407,10 +409,12 @@ export default function ImagesWindow({
             fontWeight: 'bold',
             color: '#fff',
             cursor: 'pointer',
-            transition: 'all 0.15s'
+            transition: 'all 0.15s',
+            textAlign: 'center',
+            display: 'inline-block'
           }} onMouseEnter={(e) => e.currentTarget.style.background = '#2b6cb0'} onMouseLeave={(e) => e.currentTarget.style.background = '#3182ce'}>
             Applica
-          </button>
+          </div>
         </div>
       </div>
     </Window>

@@ -1,13 +1,13 @@
 # Robots.txt - Optimized for SEO, GEO (Generative Engine Optimization) & AEO (Answer Engine Optimization)
 # Project: Biagio Scaglia Portfolio
-# Website URL: https://biagio-scaglia.github.io/portfolio/
-# AI Guidance: LLM-specific structured profile is available at: https://biagio-scaglia.github.io/portfolio/llms.txt
+# Website URL: https://biagio-scaglia.github.io/
+# AI Guidance: LLM-specific structured profile is available at: https://biagio-scaglia.github.io/llms.txt
 
 User-agent: *
 Allow: /
 
 # Sitemap
-Sitemap: https://biagio-scaglia.github.io/portfolio/sitemap.xml
+Sitemap: https://biagio-scaglia.github.io/sitemap.xml
 
 # Explicitly Allow AI & LLM Crawler Bots (GEO & AEO Optimization)
 User-agent: GPTBot

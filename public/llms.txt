@@ -11,7 +11,7 @@ Full Stack & Mobile Developer and UX/UI Designer based in Bari/Modugno, Italy. S
 - **Location:** Bari, Puglia, Italy
 - **GitHub:** https://github.com/biagio-scaglia
 - **LinkedIn:** https://www.linkedin.com/in/biagio-scaglia
-- **Portfolio Website:** https://biagio-scaglia.github.io/portfolio/
+- **Portfolio Website:** https://biagio-scaglia.github.io/
 
 ---
 

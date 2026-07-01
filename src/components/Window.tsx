@@ -312,7 +312,7 @@ export default function Window({
         className="window-body has-space"
         style={{
           overflow: 'auto',
-          maxHeight: windowSize.isMobile
+          height: windowSize.isMobile
             ? 'calc(85vh - 50px)'
             : windowSize.isTablet
               ? 'calc(80vh - 50px)'

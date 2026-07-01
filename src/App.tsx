@@ -298,6 +298,15 @@ function App() {
     })
   }, [minimizedWindows])
 
+  const handleMinimize = useCallback((window: keyof typeof openWindows) => {
+    setMinimizedWindows((prev) => {
+      const newMin = new Set(prev)
+      newMin.add(window)
+      return newMin
+    })
+    // La finestra rimane "aperta" ma viene nascosta
+  }, [])
+
   const handleTaskbarClick = useCallback((window: keyof typeof openWindows) => {
     // Se la finestra è minimizzata, riaprila
     if (minimizedWindows.has(window)) {
@@ -309,22 +318,14 @@ function App() {
       setOpenWindows((prev) => ({ ...prev, [window]: true }))
       return
     }
-    // Se la finestra è già aperta e attiva, non fare nulla (rimane aperta)
+    // Se la finestra è già aperta e attiva, minimizzala (comportamento standard di Windows)
     if (openWindows[window] && !minimizedWindows.has(window)) {
+      handleMinimize(window)
       return
     }
     // Se la finestra è chiusa, aprila
     setOpenWindows((prev) => ({ ...prev, [window]: true }))
-  }, [minimizedWindows, openWindows])
-
-  const handleMinimize = useCallback((window: keyof typeof openWindows) => {
-    setMinimizedWindows((prev) => {
-      const newMin = new Set(prev)
-      newMin.add(window)
-      return newMin
-    })
-    // La finestra rimane "aperta" ma viene nascosta
-  }, [])
+  }, [minimizedWindows, openWindows, handleMinimize])
 
 
   // Helper per verificare se una finestra è attiva (aperta e non minimizzata)
@@ -889,240 +890,278 @@ function App() {
                 onPositionChange={(x, y) => handleIconPositionChange('msn', x, y)}
               />
             )}
-            {openWindows.about && !minimizedWindows.has('about') && (
-              <Window
-                title="Presentazione.txt"
-                width={650}
-                height={450}
-                defaultPosition={{ x: 50, y: 50 }}
-                onClose={() => handleClose('about')}
-                onMinimize={() => handleMinimize('about')}
-                icon={<img src={infoIcon} alt="" style={{ width: '16px', height: '16px', objectFit: 'contain', display: 'block', visibility: 'visible', opacity: 1 }} />}
-              >
-                <Suspense fallback={<LoadingFallback />}>
-                  <About />
-                </Suspense>
-              </Window>
+            {openWindows.about && (
+              <div style={{ display: minimizedWindows.has('about') ? 'none' : 'block' }}>
+                <Window
+                  title="Presentazione.txt"
+                  width={650}
+                  height={450}
+                  defaultPosition={{ x: 50, y: 50 }}
+                  onClose={() => handleClose('about')}
+                  onMinimize={() => handleMinimize('about')}
+                  icon={<img src={infoIcon} alt="" style={{ width: '16px', height: '16px', objectFit: 'contain', display: 'block', visibility: 'visible', opacity: 1 }} />}
+                >
+                  <Suspense fallback={<LoadingFallback />}>
+                    <About />
+                  </Suspense>
+                </Window>
+              </div>
             )}
 
-            {openWindows.personalInfo && !minimizedWindows.has('personalInfo') && (
-              <Window
-                title="Informazioni Personali.txt"
-                width={600}
-                height={500}
-                defaultPosition={{ x: 200, y: 100 }}
-                onClose={() => handleClose('personalInfo')}
-                onMinimize={() => handleMinimize('personalInfo')}
-                icon={<img src={userIcon} alt="" style={{ width: '16px', height: '16px', objectFit: 'contain', display: 'block', visibility: 'visible', opacity: 1 }} />}
-              >
-                <Suspense fallback={<LoadingFallback />}>
-                  <PersonalInfo />
-                </Suspense>
-              </Window>
+            {openWindows.personalInfo && (
+              <div style={{ display: minimizedWindows.has('personalInfo') ? 'none' : 'block' }}>
+                <Window
+                  title="Informazioni Personali.txt"
+                  width={600}
+                  height={500}
+                  defaultPosition={{ x: 200, y: 100 }}
+                  onClose={() => handleClose('personalInfo')}
+                  onMinimize={() => handleMinimize('personalInfo')}
+                  icon={<img src={userIcon} alt="" style={{ width: '16px', height: '16px', objectFit: 'contain', display: 'block', visibility: 'visible', opacity: 1 }} />}
+                >
+                  <Suspense fallback={<LoadingFallback />}>
+                    <PersonalInfo />
+                  </Suspense>
+                </Window>
+              </div>
             )}
 
-            {openWindows.workExperience && !minimizedWindows.has('workExperience') && (
-              <Window
-                title="Esperienze Lavorative.txt"
-                width={700}
-                height={600}
-                defaultPosition={{ x: 300, y: 150 }}
-                onClose={() => handleClose('workExperience')}
-                onMinimize={() => handleMinimize('workExperience')}
-                icon={<img src={workExperienceIcon} alt="" style={{ width: '16px', height: '16px', objectFit: 'contain', display: 'block', visibility: 'visible', opacity: 1 }} />}
-              >
-                <Suspense fallback={<LoadingFallback />}>
-                  <WorkExperience />
-                </Suspense>
-              </Window>
+            {openWindows.workExperience && (
+              <div style={{ display: minimizedWindows.has('workExperience') ? 'none' : 'block' }}>
+                <Window
+                  title="Esperienze Lavorative.txt"
+                  width={700}
+                  height={600}
+                  defaultPosition={{ x: 300, y: 150 }}
+                  onClose={() => handleClose('workExperience')}
+                  onMinimize={() => handleMinimize('workExperience')}
+                  icon={<img src={workExperienceIcon} alt="" style={{ width: '16px', height: '16px', objectFit: 'contain', display: 'block', visibility: 'visible', opacity: 1 }} />}
+                >
+                  <Suspense fallback={<LoadingFallback />}>
+                    <WorkExperience />
+                  </Suspense>
+                </Window>
+              </div>
             )}
 
-            {openWindows.skills && !minimizedWindows.has('skills') && (
-              <Window
-                title="Competenze.txt"
-                width={650}
-                height={500}
-                defaultPosition={{ x: 150, y: 200 }}
-                onClose={() => handleClose('skills')}
-                onMinimize={() => handleMinimize('skills')}
-                icon={<img src={skillsIcon} alt="" style={{ width: '16px', height: '16px', objectFit: 'contain', display: 'block', visibility: 'visible', opacity: 1 }} />}
-              >
-                <Suspense fallback={<LoadingFallback />}>
-                  <Skills />
-                </Suspense>
-              </Window>
+            {openWindows.skills && (
+              <div style={{ display: minimizedWindows.has('skills') ? 'none' : 'block' }}>
+                <Window
+                  title="Competenze.txt"
+                  width={650}
+                  height={500}
+                  defaultPosition={{ x: 150, y: 200 }}
+                  onClose={() => handleClose('skills')}
+                  onMinimize={() => handleMinimize('skills')}
+                  icon={<img src={skillsIcon} alt="" style={{ width: '16px', height: '16px', objectFit: 'contain', display: 'block', visibility: 'visible', opacity: 1 }} />}
+                >
+                  <Suspense fallback={<LoadingFallback />}>
+                    <Skills />
+                  </Suspense>
+                </Window>
+              </div>
             )}
 
-            {openWindows.education && !minimizedWindows.has('education') && (
-              <Window
-                title="Formazione.txt"
-                width={600}
-                height={500}
-                defaultPosition={{ x: 400, y: 100 }}
-                onClose={() => handleClose('education')}
-                onMinimize={() => handleMinimize('education')}
-                icon={<img src={educationIcon} alt="" style={{ width: '16px', height: '16px', objectFit: 'contain', display: 'block', visibility: 'visible', opacity: 1 }} />}
-              >
-                <Suspense fallback={<LoadingFallback />}>
-                  <Education />
-                </Suspense>
-              </Window>
+            {openWindows.education && (
+              <div style={{ display: minimizedWindows.has('education') ? 'none' : 'block' }}>
+                <Window
+                  title="Formazione.txt"
+                  width={600}
+                  height={500}
+                  defaultPosition={{ x: 400, y: 100 }}
+                  onClose={() => handleClose('education')}
+                  onMinimize={() => handleMinimize('education')}
+                  icon={<img src={educationIcon} alt="" style={{ width: '16px', height: '16px', objectFit: 'contain', display: 'block', visibility: 'visible', opacity: 1 }} />}
+                >
+                  <Suspense fallback={<LoadingFallback />}>
+                    <Education />
+                  </Suspense>
+                </Window>
+              </div>
             )}
 
-            {openWindows.certifications && !minimizedWindows.has('certifications') && (
-              <Window
-                title="Certificazioni.txt"
-                width={600}
-                height={600}
-                defaultPosition={{ x: 250, y: 250 }}
-                onClose={() => handleClose('certifications')}
-                onMinimize={() => handleMinimize('certifications')}
-                icon={<img src={certificationsIcon} alt="" style={{ width: '16px', height: '16px', objectFit: 'contain', display: 'block', visibility: 'visible', opacity: 1 }} />}
-              >
-                <Suspense fallback={<LoadingFallback />}>
-                  <Certifications />
-                </Suspense>
-              </Window>
+            {openWindows.certifications && (
+              <div style={{ display: minimizedWindows.has('certifications') ? 'none' : 'block' }}>
+                <Window
+                  title="Certificazioni.txt"
+                  width={600}
+                  height={600}
+                  defaultPosition={{ x: 250, y: 250 }}
+                  onClose={() => handleClose('certifications')}
+                  onMinimize={() => handleMinimize('certifications')}
+                  icon={<img src={certificationsIcon} alt="" style={{ width: '16px', height: '16px', objectFit: 'contain', display: 'block', visibility: 'visible', opacity: 1 }} />}
+                >
+                  <Suspense fallback={<LoadingFallback />}>
+                    <Certifications />
+                  </Suspense>
+                </Window>
+              </div>
             )}
 
-            {openWindows.note && !minimizedWindows.has('note') && (
-              <Window
-                title="Note - Form Contatti"
-                width={700}
-                height={700}
-                defaultPosition={{ x: 350, y: 100 }}
-                onClose={() => handleClose('note')}
-                onMinimize={() => handleMinimize('note')}
-                glassFrame={true}
-                glassColor="#4a9eff"
-                icon={<img src={noteIcon} alt="" style={{ width: '16px', height: '16px', objectFit: 'contain', display: 'block', visibility: 'visible', opacity: 1 }} />}
-              >
+            {openWindows.note && (
+              <div style={{ display: minimizedWindows.has('note') ? 'none' : 'block' }}>
+                <Window
+                  title="Note - Form Contatti"
+                  width={700}
+                  height={700}
+                  defaultPosition={{ x: 350, y: 100 }}
+                  onClose={() => handleClose('note')}
+                  onMinimize={() => handleMinimize('note')}
+                  glassFrame={true}
+                  glassColor="#4a9eff"
+                  icon={<img src={noteIcon} alt="" style={{ width: '16px', height: '16px', objectFit: 'contain', display: 'block', visibility: 'visible', opacity: 1 }} />}
+                >
+                  <Suspense fallback={<LoadingFallback />}>
+                    <Note />
+                  </Suspense>
+                </Window>
+              </div>
+            )}
+            {openWindows.documents && (
+              <div style={{ display: minimizedWindows.has('documents') ? 'none' : 'block' }}>
                 <Suspense fallback={<LoadingFallback />}>
-                  <Note />
+                  <DocumentsWindow
+                    onClose={() => handleClose('documents')}
+                    onMinimize={() => handleMinimize('documents')}
+                    icon={<img src={folderIcon} alt="" style={{ width: '16px', height: '16px', objectFit: 'contain', display: 'block', visibility: 'visible', opacity: 1 }} />}
+                  />
                 </Suspense>
-              </Window>
+              </div>
             )}
-            {openWindows.documents && !minimizedWindows.has('documents') && (
-              <Suspense fallback={<LoadingFallback />}>
-                <DocumentsWindow
-                  onClose={() => handleClose('documents')}
-                  onMinimize={() => handleMinimize('documents')}
-                  icon={<img src={folderIcon} alt="" style={{ width: '16px', height: '16px', objectFit: 'contain', display: 'block', visibility: 'visible', opacity: 1 }} />}
-                />
-              </Suspense>
-            )}
-            {openWindows.images && !minimizedWindows.has('images') && (
-              <Suspense fallback={<LoadingFallback />}>
-                <ImagesWindow
-                  onClose={() => handleClose('images')}
-                  onBackgroundChange={(background: string, type?: 'image' | 'video') => {
-                    setDesktopBackground(background)
-                    setDesktopBackgroundType(type || (background.endsWith('.mp4') ? 'video' : 'image'))
-                    // Se è un video, assicurati che riparta
-                    if ((type || (background.endsWith('.mp4') ? 'video' : 'image')) === 'video' && desktopVideoRef.current) {
-                      desktopVideoRef.current.load()
-                      desktopVideoRef.current.play().catch(() => { })
-                    }
-                  }}
-                  currentBackground={desktopBackground}
-                  isSlideshowEnabled={isSlideshowEnabled}
-                  slideshowIntervalSeconds={slideshowIntervalSeconds}
-                  onSlideshowChange={handleSlideshowChange}
-                  onMinimize={() => handleMinimize('images')}
-                  icon={<img src={immaginiIcon} alt="" style={{ width: '16px', height: '16px', objectFit: 'contain', display: 'block', visibility: 'visible', opacity: 1 }} />}
-                />
-              </Suspense>
+            {openWindows.images && (
+              <div style={{ display: minimizedWindows.has('images') ? 'none' : 'block' }}>
+                <Suspense fallback={<LoadingFallback />}>
+                  <ImagesWindow
+                    onClose={() => handleClose('images')}
+                    onBackgroundChange={(background: string, type?: 'image' | 'video') => {
+                      setDesktopBackground(background)
+                      setDesktopBackgroundType(type || (background.endsWith('.mp4') ? 'video' : 'image'))
+                      // Se è un video, assicurati che riparta
+                      if ((type || (background.endsWith('.mp4') ? 'video' : 'image')) === 'video' && desktopVideoRef.current) {
+                        desktopVideoRef.current.load()
+                        desktopVideoRef.current.play().catch(() => { })
+                      }
+                    }}
+                    currentBackground={desktopBackground}
+                    isSlideshowEnabled={isSlideshowEnabled}
+                    slideshowIntervalSeconds={slideshowIntervalSeconds}
+                    onSlideshowChange={handleSlideshowChange}
+                    onMinimize={() => handleMinimize('images')}
+                    icon={<img src={immaginiIcon} alt="" style={{ width: '16px', height: '16px', objectFit: 'contain', display: 'block', visibility: 'visible', opacity: 1 }} />}
+                  />
+                </Suspense>
+              </div>
             )}
 
-             {openWindows.msn && !minimizedWindows.has('msn') && windowWidth > 480 && (
-              <Suspense fallback={<LoadingFallback />}>
-                <MsnWindow
-                  onClose={() => handleClose('msn')}
-                  onMinimize={() => handleMinimize('msn')}
-                  icon={<img src={msnIcon} alt="" style={{ width: '16px', height: '16px', objectFit: 'contain', display: 'block', visibility: 'visible', opacity: 1 }} />}
-                />
-              </Suspense>
+             {openWindows.msn && windowWidth > 480 && (
+              <div style={{ display: minimizedWindows.has('msn') ? 'none' : 'block' }}>
+                <Suspense fallback={<LoadingFallback />}>
+                  <MsnWindow
+                    onClose={() => handleClose('msn')}
+                    onMinimize={() => handleMinimize('msn')}
+                    icon={<img src={msnIcon} alt="" style={{ width: '16px', height: '16px', objectFit: 'contain', display: 'block', visibility: 'visible', opacity: 1 }} />}
+                  />
+                </Suspense>
+              </div>
             )}
-            {openWindows.computer && !minimizedWindows.has('computer') && (
-              <Suspense fallback={<LoadingFallback />}>
-                <ComputerWindow
-                  onClose={() => handleClose('computer')}
-                  onMinimize={() => handleMinimize('computer')}
-                  icon={<img src={computerIcon} alt="" style={{ width: '16px', height: '16px', objectFit: 'contain', display: 'block', visibility: 'visible', opacity: 1 }} />}
-                />
-              </Suspense>
+            {openWindows.computer && (
+              <div style={{ display: minimizedWindows.has('computer') ? 'none' : 'block' }}>
+                <Suspense fallback={<LoadingFallback />}>
+                  <ComputerWindow
+                    onClose={() => handleClose('computer')}
+                    onMinimize={() => handleMinimize('computer')}
+                    icon={<img src={computerIcon} alt="" style={{ width: '16px', height: '16px', objectFit: 'contain', display: 'block', visibility: 'visible', opacity: 1 }} />}
+                  />
+                </Suspense>
+              </div>
             )}
-            {openWindows.music && !minimizedWindows.has('music') && (
-              <Suspense fallback={<LoadingFallback />}>
-                <MusicWindow
-                  onClose={() => handleClose('music')}
-                  onMinimize={() => handleMinimize('music')}
-                  icon={<img src={musicIcon} alt="" style={{ width: '16px', height: '16px', objectFit: 'contain', display: 'block', visibility: 'visible', opacity: 1 }} />}
-                />
-              </Suspense>
+            {openWindows.music && (
+              <div style={{ display: minimizedWindows.has('music') ? 'none' : 'block' }}>
+                <Suspense fallback={<LoadingFallback />}>
+                  <MusicWindow
+                    onClose={() => handleClose('music')}
+                    onMinimize={() => handleMinimize('music')}
+                    icon={<img src={musicIcon} alt="" style={{ width: '16px', height: '16px', objectFit: 'contain', display: 'block', visibility: 'visible', opacity: 1 }} />}
+                  />
+                </Suspense>
+              </div>
             )}
-            {openWindows.paint && !minimizedWindows.has('paint') && (
-              <Suspense fallback={<LoadingFallback />}>
-                <PaintWindow
-                  onClose={() => handleClose('paint')}
-                  onMinimize={() => handleMinimize('paint')}
-                  icon={<img src={paintIcon} alt="" style={{ width: '16px', height: '16px', objectFit: 'contain', display: 'block', visibility: 'visible', opacity: 1 }} />}
-                />
-              </Suspense>
+            {openWindows.paint && (
+              <div style={{ display: minimizedWindows.has('paint') ? 'none' : 'block' }}>
+                <Suspense fallback={<LoadingFallback />}>
+                  <PaintWindow
+                    onClose={() => handleClose('paint')}
+                    onMinimize={() => handleMinimize('paint')}
+                    icon={<img src={paintIcon} alt="" style={{ width: '16px', height: '16px', objectFit: 'contain', display: 'block', visibility: 'visible', opacity: 1 }} />}
+                  />
+                </Suspense>
+              </div>
             )}
-            {openWindows.browser && !minimizedWindows.has('browser') && (
-              <Suspense fallback={<LoadingFallback />}>
-                <BrowserWindow
-                  onClose={() => handleClose('browser')}
-                  onMinimize={() => handleMinimize('browser')}
-                  icon={<img src={firefoxIcon} alt="" style={{ width: '16px', height: '16px', objectFit: 'contain', display: 'block', visibility: 'visible', opacity: 1 }} />}
-                />
-              </Suspense>
+            {openWindows.browser && (
+              <div style={{ display: minimizedWindows.has('browser') ? 'none' : 'block' }}>
+                <Suspense fallback={<LoadingFallback />}>
+                  <BrowserWindow
+                    onClose={() => handleClose('browser')}
+                    onMinimize={() => handleMinimize('browser')}
+                    icon={<img src={firefoxIcon} alt="" style={{ width: '16px', height: '16px', objectFit: 'contain', display: 'block', visibility: 'visible', opacity: 1 }} />}
+                  />
+                </Suspense>
+              </div>
             )}
-            {openWindows.calculator && !minimizedWindows.has('calculator') && (
-              <Suspense fallback={<LoadingFallback />}>
-                <Calculator
-                  onClose={() => handleClose('calculator')}
-                  onMinimize={() => handleMinimize('calculator')}
-                  icon={<img src={calculatorIcon} alt="" style={{ width: '16px', height: '16px', objectFit: 'contain', display: 'block', visibility: 'visible', opacity: 1 }} />}
-                />
-              </Suspense>
+            {openWindows.calculator && (
+              <div style={{ display: minimizedWindows.has('calculator') ? 'none' : 'block' }}>
+                <Suspense fallback={<LoadingFallback />}>
+                  <Calculator
+                    onClose={() => handleClose('calculator')}
+                    onMinimize={() => handleMinimize('calculator')}
+                    icon={<img src={calculatorIcon} alt="" style={{ width: '16px', height: '16px', objectFit: 'contain', display: 'block', visibility: 'visible', opacity: 1 }} />}
+                  />
+                </Suspense>
+              </div>
             )}
-            {openWindows.portfolio && !minimizedWindows.has('portfolio') && (
-              <Suspense fallback={<LoadingFallback />}>
-                <Portfolio
-                  onClose={() => handleClose('portfolio')}
-                  onMinimize={() => handleMinimize('portfolio')}
-                  icon={<img src={portfolioIcon} alt="" style={{ width: '16px', height: '16px', objectFit: 'contain', display: 'block', visibility: 'visible', opacity: 1 }} />}
-                />
-              </Suspense>
+            {openWindows.portfolio && (
+              <div style={{ display: minimizedWindows.has('portfolio') ? 'none' : 'block' }}>
+                <Suspense fallback={<LoadingFallback />}>
+                  <Portfolio
+                    onClose={() => handleClose('portfolio')}
+                    onMinimize={() => handleMinimize('portfolio')}
+                    icon={<img src={portfolioIcon} alt="" style={{ width: '16px', height: '16px', objectFit: 'contain', display: 'block', visibility: 'visible', opacity: 1 }} />}
+                  />
+                </Suspense>
+              </div>
             )}
-            {openWindows.cestino && !minimizedWindows.has('cestino') && (
-              <Suspense fallback={<LoadingFallback />}>
-                <Cestino
-                  onClose={() => handleClose('cestino')}
-                  onMinimize={() => handleMinimize('cestino')}
-                  icon={<img src={cestinoIcon} alt="" style={{ width: '16px', height: '16px', objectFit: 'contain', display: 'block', visibility: 'visible', opacity: 1 }} />}
-                />
-              </Suspense>
+            {openWindows.cestino && (
+              <div style={{ display: minimizedWindows.has('cestino') ? 'none' : 'block' }}>
+                <Suspense fallback={<LoadingFallback />}>
+                  <Cestino
+                    onClose={() => handleClose('cestino')}
+                    onMinimize={() => handleMinimize('cestino')}
+                    icon={<img src={cestinoIcon} alt="" style={{ width: '16px', height: '16px', objectFit: 'contain', display: 'block', visibility: 'visible', opacity: 1 }} />}
+                  />
+                </Suspense>
+              </div>
             )}
-            {openWindows.antivirus && !minimizedWindows.has('antivirus') && (
-              <Suspense fallback={<LoadingFallback />}>
-                <AntiVirus
-                  onClose={() => handleClose('antivirus')}
-                  onMinimize={() => handleMinimize('antivirus')}
-                  icon={<img src={antivirusIcon} alt="" style={{ width: '16px', height: '16px', objectFit: 'contain', display: 'block', visibility: 'visible', opacity: 1 }} />}
-                />
-              </Suspense>
+            {openWindows.antivirus && (
+              <div style={{ display: minimizedWindows.has('antivirus') ? 'none' : 'block' }}>
+                <Suspense fallback={<LoadingFallback />}>
+                  <AntiVirus
+                    onClose={() => handleClose('antivirus')}
+                    onMinimize={() => handleMinimize('antivirus')}
+                    icon={<img src={antivirusIcon} alt="" style={{ width: '16px', height: '16px', objectFit: 'contain', display: 'block', visibility: 'visible', opacity: 1 }} />}
+                  />
+                </Suspense>
+              </div>
             )}
-            {openWindows.calendar && !minimizedWindows.has('calendar') && (
-              <Suspense fallback={<LoadingFallback />}>
-                <Calendar
-                  onClose={() => handleClose('calendar')}
-                  onMinimize={() => handleMinimize('calendar')}
-                  icon={<img src={calendarIcon} alt="" style={{ width: '16px', height: '16px', objectFit: 'contain', display: 'block', visibility: 'visible', opacity: 1 }} />}
-                />
-              </Suspense>
+            {openWindows.calendar && (
+              <div style={{ display: minimizedWindows.has('calendar') ? 'none' : 'block' }}>
+                <Suspense fallback={<LoadingFallback />}>
+                  <Calendar
+                    onClose={() => handleClose('calendar')}
+                    onMinimize={() => handleMinimize('calendar')}
+                    icon={<img src={calendarIcon} alt="" style={{ width: '16px', height: '16px', objectFit: 'contain', display: 'block', visibility: 'visible', opacity: 1 }} />}
+                  />
+                </Suspense>
+              </div>
             )}
           </div>
 

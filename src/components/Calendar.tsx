@@ -23,6 +23,14 @@ const importantDates: ImportantDate[] = [
   { date: new Date(2023, 5, 30), title: 'Fine I.I.S.S. Tommaso Fiore', description: 'Voto: 85/100', type: 'education' },
   
   // Lavoro
+  { date: new Date(2026, 1, 1), title: 'Inizio Prisma Srl', description: 'Full Stack Developer (.NET / React)', type: 'work' },
+  { date: new Date(2026, 4, 1), title: 'Inizio Biagio Scaglia Dev', description: 'Freelance Web & Mobile Developer', type: 'work' },
+  { date: new Date(2026, 3, 1), title: 'Inizio Pokémon Go - Raid Italia', description: 'Telegram Bot Developer', type: 'work' },
+  { date: new Date(2026, 5, 30), title: 'Fine Pokémon Go - Raid Italia', description: 'Telegram Bot Developer', type: 'work' },
+  { date: new Date(2025, 11, 1), title: 'Inizio Yumeverse Games', description: 'Sviluppatore Web (Frontend)', type: 'work' },
+  { date: new Date(2026, 5, 30), title: 'Fine Yumeverse Games', description: 'Sviluppatore Web (Frontend)', type: 'work' },
+  { date: new Date(2025, 8, 1), title: 'Inizio sgamapp', description: 'Sviluppatore Applicazioni Mobili', type: 'work' },
+  { date: new Date(2026, 1, 28), title: 'Fine sgamapp', description: 'Sviluppatore Applicazioni Mobili', type: 'work' },
   { date: new Date(2025, 7, 1), title: 'Inizio PASSBARI', description: 'Sviluppatore di Software', type: 'work' },
   { date: new Date(2025, 7, 31), title: 'Fine PASSBARI', description: 'Sviluppatore di Software', type: 'work' },
   { date: new Date(2024, 5, 3), title: 'Inizio Consorzio Artemide', description: 'Consulente AI', type: 'work' },

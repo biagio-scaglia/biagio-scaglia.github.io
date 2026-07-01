@@ -8,8 +8,8 @@ interface BrowserWindowProps {
 }
 
 export default function BrowserWindow({ onClose, onMinimize, icon }: BrowserWindowProps) {
-  const [url, setUrl] = useState('https://biagio-scaglia.github.io/portfolio/')
-  const [currentUrl, setCurrentUrl] = useState('https://biagio-scaglia.github.io/portfolio/')
+  const [url, setUrl] = useState('https://biagio-scaglia.github.io/')
+  const [currentUrl, setCurrentUrl] = useState('https://biagio-scaglia.github.io/')
   const [windowWidth, setWindowWidth] = useState(window.innerWidth)
 
   const isEmbeddable = (targetUrl: string) => {
@@ -39,7 +39,7 @@ export default function BrowserWindow({ onClose, onMinimize, icon }: BrowserWind
   }
 
   const quickLinks = [
-    { name: 'Portfolio 🔗', url: 'https://biagio-scaglia.github.io/portfolio/', isExternal: false },
+    { name: 'Portfolio 🔗', url: 'https://biagio-scaglia.github.io/', isExternal: false },
     { name: 'Google', url: 'https://www.google.com', isExternal: false },
     { name: 'GitHub', url: 'https://github.com/biagio-scaglia', isExternal: true },
     { name: 'Mozilla', url: 'https://www.mozilla.org', isExternal: false },

@@ -35,8 +35,8 @@ export default function Portfolio({ onClose, onMinimize, icon }: CalculatorProps
       name: 'Portfolio Windows 7',
       description: 'Portfolio interattivo che simula l\'interfaccia di Windows 7, realizzato con React e TypeScript. Include animazioni, effetti glass e un sistema di finestre completo.',
       technologies: ['React', 'TypeScript', 'CSS', '7.css'],
-      github: 'https://github.com/biagio-scaglia/portfolio',
-      link: 'https://biagio-scaglia.github.io/portfolio/',
+      github: 'https://github.com/biagio-scaglia/biagio-scaglia.github.io',
+      link: 'https://biagio-scaglia.github.io/',
     },
     {
       id: 2,

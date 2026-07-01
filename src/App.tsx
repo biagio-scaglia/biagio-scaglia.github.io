@@ -197,6 +197,7 @@ function App() {
         antivirus: { x: 100, y: 500 },
         calendar: { x: 20, y: 580 },
         msn: { x: 100, y: 580 },
+        documents: { x: 20, y: 660 },
       }
     } else if (isTablet) {
       // Tablet: griglia 3 colonne
@@ -217,6 +218,7 @@ function App() {
         antivirus: { x: 130, y: 390 },
         calendar: { x: 230, y: 390 },
         msn: { x: 30, y: 480 },
+        documents: { x: 130, y: 480 },
       }
     } else {
       // Desktop: orizzontale
@@ -237,6 +239,7 @@ function App() {
         antivirus: { x: 360, y: 130 },
         calendar: { x: 470, y: 130 },
         msn: { x: 580, y: 130 },
+        documents: { x: 690, y: 130 },
       }
     }
   }, [])
@@ -798,6 +801,18 @@ function App() {
                 isSelected={selectedIcon === 'linkedin'}
                 onSelect={() => setSelectedIcon('linkedin')}
                 onPositionChange={(x, y) => handleIconPositionChange('linkedin', x, y)}
+              />
+            )}
+            {iconPositions.documents && (
+              <DesktopIcon
+                icon={<img src={folderIcon} alt="Documenti" style={{ width: window.innerWidth <= 480 ? '44px' : window.innerWidth <= 768 ? '50px' : '48px', height: window.innerWidth <= 480 ? '44px' : window.innerWidth <= 768 ? '50px' : '48px', objectFit: 'contain', filter: 'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3))' }} />}
+                label="Documenti"
+                onClick={() => toggleWindow('documents')}
+                x={iconPositions.documents.x}
+                y={iconPositions.documents.y}
+                isSelected={selectedIcon === 'documents'}
+                onSelect={() => setSelectedIcon('documents')}
+                onPositionChange={(x, y) => handleIconPositionChange('documents', x, y)}
               />
             )}
             {iconPositions.paint && (

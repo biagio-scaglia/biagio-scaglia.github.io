@@ -559,3 +559,46 @@ button:hover:not(:active) {
     max-width: 800px;
   }
 }
+
+/* Custom buttons inside taskbar thumbnail to override 7.css defaults */
+.thumbnail-btn-minimize {
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0.15) 100%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.35) !important;
+  color: #fff !important;
+  box-shadow: none !important;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.5) !important;
+  transition: all 0.2s ease !important;
+}
+.thumbnail-btn-minimize:hover {
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0.25) 100%) !important;
+  border-color: rgba(255, 255, 255, 0.5) !important;
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.25) !important;
+}
+
+.thumbnail-btn-close {
+  background: linear-gradient(to bottom, rgba(220, 50, 50, 0.55) 0%, rgba(180, 30, 30, 0.65) 100%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.35) !important;
+  color: #fff !important;
+  box-shadow: none !important;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.5) !important;
+  transition: all 0.2s ease !important;
+}
+.thumbnail-btn-close:hover {
+  background: linear-gradient(to bottom, rgba(240, 60, 60, 0.75) 0%, rgba(200, 30, 30, 0.85) 100%) !important;
+  border-color: rgba(255, 255, 255, 0.5) !important;
+  box-shadow: 0 0 10px rgba(220, 50, 50, 0.5) !important;
+}
+
+.thumbnail-btn-restore {
+  background: linear-gradient(to bottom, rgba(100, 150, 255, 0.55) 0%, rgba(70, 120, 220, 0.65) 100%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.35) !important;
+  color: #fff !important;
+  box-shadow: none !important;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.5) !important;
+  transition: all 0.2s ease !important;
+}
+.thumbnail-btn-restore:hover {
+  background: linear-gradient(to bottom, rgba(120, 170, 255, 0.65) 0%, rgba(90, 140, 240, 0.75) 100%) !important;
+  border-color: rgba(255, 255, 255, 0.5) !important;
+  box-shadow: 0 0 8px rgba(100, 150, 255, 0.35) !important;
+}

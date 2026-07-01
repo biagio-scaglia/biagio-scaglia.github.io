@@ -125,23 +125,14 @@ export default function TaskbarThumbnail({
                 e.stopPropagation()
                 onMinimize()
               }}
+              className="thumbnail-btn-minimize"
               style={{
                 flex: 1,
                 padding: '6px 12px',
                 fontSize: '10px',
-                background: 'linear-gradient(to bottom, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.2) 100%)',
-                border: '1px solid rgba(255, 255, 255, 0.3)',
-                borderRadius: '4px',
-                color: '#fff',
-                cursor: 'pointer',
                 backdropFilter: 'blur(10px)',
                 WebkitBackdropFilter: 'blur(10px)',
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.background = 'linear-gradient(to bottom, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.3) 100%)'
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.background = 'linear-gradient(to bottom, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.2) 100%)'
+                cursor: 'pointer',
               }}
             >
               <i className="fas fa-window-minimize" style={{ marginRight: '4px' }}></i>
@@ -152,23 +143,14 @@ export default function TaskbarThumbnail({
                 e.stopPropagation()
                 onClose()
               }}
+              className="thumbnail-btn-close"
               style={{
                 flex: 1,
                 padding: '6px 12px',
                 fontSize: '10px',
-                background: 'linear-gradient(to bottom, rgba(220, 50, 50, 0.6) 0%, rgba(180, 30, 30, 0.7) 100%)',
-                border: '1px solid rgba(255, 255, 255, 0.3)',
-                borderRadius: '4px',
-                color: '#fff',
-                cursor: 'pointer',
                 backdropFilter: 'blur(10px)',
                 WebkitBackdropFilter: 'blur(10px)',
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.background = 'linear-gradient(to bottom, rgba(240, 70, 70, 0.7) 0%, rgba(200, 50, 50, 0.8) 100%)'
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.background = 'linear-gradient(to bottom, rgba(220, 50, 50, 0.6) 0%, rgba(180, 30, 30, 0.7) 100%)'
+                cursor: 'pointer',
               }}
             >
               <i className="fas fa-times" style={{ marginRight: '4px' }}></i>
@@ -181,24 +163,15 @@ export default function TaskbarThumbnail({
               e.stopPropagation()
               onOpen()
             }}
+            className="thumbnail-btn-restore"
             style={{
               width: '100%',
               padding: '8px 16px',
               fontSize: '11px',
-              background: 'linear-gradient(to bottom, rgba(100, 150, 255, 0.6) 0%, rgba(70, 120, 220, 0.7) 100%)',
-              border: '1px solid rgba(255, 255, 255, 0.3)',
-              borderRadius: '4px',
-              color: '#fff',
-              cursor: 'pointer',
               backdropFilter: 'blur(10px)',
               WebkitBackdropFilter: 'blur(10px)',
               fontWeight: 'bold',
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.background = 'linear-gradient(to bottom, rgba(120, 170, 255, 0.7) 0%, rgba(90, 140, 240, 0.8) 100%)'
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.background = 'linear-gradient(to bottom, rgba(100, 150, 255, 0.6) 0%, rgba(70, 120, 220, 0.7) 100%)'
+              cursor: 'pointer',
             }}
           >
             <i className="fas fa-window-restore" style={{ marginRight: '6px' }}></i>

@@ -9,6 +9,8 @@ interface BootScreenProps {
   onComplete: (userName: string) => void
 }
 
+type BiosTabType = 'main' | 'advanced' | 'security' | 'boot' | 'exit'
+
 export default function BootScreen({ onComplete }: BootScreenProps) {
   const [bootStage, setBootStage] = useState<'cmd' | 'bios' | 'gui' | 'logon' | 'welcome'>('cmd')
   
@@ -17,6 +19,9 @@ export default function BootScreen({ onComplete }: BootScreenProps) {
   const [showPrompt, setShowPrompt] = useState(false)
   const [showBiosPrompt, setShowBiosPrompt] = useState(true)
   const [biosCountdown, setBiosCountdown] = useState(2.0)
+  
+  // Tab attiva del BIOS
+  const [activeTab, setActiveTab] = useState<BiosTabType>('main')
   
   // Orario BIOS in tempo reale
   const [biosTime, setBiosTime] = useState(new Date())
@@ -65,6 +70,14 @@ export default function BootScreen({ onComplete }: BootScreenProps) {
     '',
     'Disk check skipped by user.',
     'Redirecting to GUI Boot Loader...'
+  ]
+
+  const biosTabs: Array<{ id: BiosTabType; label: string }> = [
+    { id: 'main', label: 'Main' },
+    { id: 'advanced', label: 'Advanced' },
+    { id: 'security', label: 'Security' },
+    { id: 'boot', label: 'Boot' },
+    { id: 'exit', label: 'Exit' }
   ]
 
   // Inizializza l'audio con Howler
@@ -121,6 +134,7 @@ export default function BootScreen({ onComplete }: BootScreenProps) {
     return () => clearInterval(cTimer)
   }, [bootStage, showBiosPrompt])
 
+  // Ascolta F2 / CANC per entrare nel BIOS o ESC per uscirne, o le frecce per cambiare tab
   useEffect(() => {
     const handleGlobalKeys = (e: KeyboardEvent) => {
       if (bootStage === 'cmd' && showBiosPrompt) {
@@ -130,6 +144,18 @@ export default function BootScreen({ onComplete }: BootScreenProps) {
       } else if (bootStage === 'bios') {
         if (e.key === 'Escape') {
           exitBios()
+        } else if (e.key === 'ArrowRight') {
+          setActiveTab((prev) => {
+            const idx = biosTabs.findIndex(t => t.id === prev)
+            const nextIdx = (idx + 1) % biosTabs.length
+            return biosTabs[nextIdx].id
+          })
+        } else if (e.key === 'ArrowLeft') {
+          setActiveTab((prev) => {
+            const idx = biosTabs.findIndex(t => t.id === prev)
+            const nextIdx = (idx - 1 + biosTabs.length) % biosTabs.length
+            return biosTabs[nextIdx].id
+          })
         }
       }
     }
@@ -348,7 +374,7 @@ export default function BootScreen({ onComplete }: BootScreenProps) {
           height: 100%;
           display: flex;
           flex-direction: column;
-          justify-content: flex-start;
+          justifyContent: flex-start;
           text-align: left;
           box-sizing: border-box;
           overflow-y: auto;
@@ -400,6 +426,20 @@ export default function BootScreen({ onComplete }: BootScreenProps) {
           margin-bottom: 12px;
         }
 
+        .bios-nav-tab {
+          padding: 2px 10px;
+          cursor: pointer;
+          font-weight: bold;
+          transition: all 0.1s ease;
+        }
+
+        .bios-option-row {
+          display: flex;
+          justify-content: space-between;
+          max-width: 450px;
+          padding: 2px 0;
+        }
+
         @media (max-width: 480px) {
           .cmd-terminal {
             padding: 12px;
@@ -419,6 +459,10 @@ export default function BootScreen({ onComplete }: BootScreenProps) {
             border-width: 2px;
           }
           .bios-header {
+            font-size: 11px;
+          }
+          .bios-nav-tab {
+            padding: 2px 4px;
             font-size: 11px;
           }
         }
@@ -491,55 +535,176 @@ export default function BootScreen({ onComplete }: BootScreenProps) {
               APTIO SETUP UTILITY - COPYRIGHT (C) 2026 BIAGIO SCAGLIA
             </div>
             
+            {/* Navigazione delle tab del BIOS */}
             <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid #fff', paddingBottom: '4px', fontSize: '12px', marginBottom: '15px' }}>
-              <span>Main</span>
-              <span>Advanced</span>
-              <span>Security</span>
-              <span>Boot</span>
-              <span>Exit</span>
+              {biosTabs.map((tab) => (
+                <div
+                  key={tab.id}
+                  onClick={() => setActiveTab(tab.id)}
+                  className="bios-nav-tab"
+                  style={{
+                    background: activeTab === tab.id ? '#ffffff' : 'transparent',
+                    color: activeTab === tab.id ? '#0000aa' : '#ffffff'
+                  }}
+                >
+                  {tab.label}
+                </div>
+              ))}
             </div>
 
+            {/* Area Contenuto Dinamico delle Tab */}
             <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '13px' }}>
-              <div style={{ color: '#ffff55', fontWeight: 'bold', marginBottom: '4px' }}>System Information:</div>
               
-              <div style={{ display: 'flex', justifyContent: 'space-between', maxWidth: '400px' }}>
-                <span>System Time:</span>
-                <span style={{ color: '#55ffff' }}>{biosTime.toLocaleTimeString()}</span>
-              </div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', maxWidth: '400px' }}>
-                <span>System Date:</span>
-                <span style={{ color: '#55ffff' }}>{biosTime.toLocaleDateString('it-IT')}</span>
-              </div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', maxWidth: '400px' }}>
-                <span>BIOS Version:</span>
-                <span>BS-7.04.26 (Aero)</span>
-              </div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', maxWidth: '400px' }}>
-                <span>CPU Type:</span>
-                <span>Intel Core i7-4770K @ 3.50GHz</span>
-              </div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', maxWidth: '400px' }}>
-                <span>System Memory:</span>
-                <span>16384 MB (DDR3 Dual Channel)</span>
-              </div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', maxWidth: '400px' }}>
-                <span>SATA Port 1:</span>
-                <span>SSD SATA3 512GB (Healthy)</span>
-              </div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', maxWidth: '400px' }}>
-                <span>Current OS:</span>
-                <span style={{ color: '#55ff55' }}>Portfolio OS v1.0 (Windows 7 Mode)</span>
-              </div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', maxWidth: '400px' }}>
-                <span>Owner/Developer:</span>
-                <span>Biagio Scaglia</span>
-              </div>
+              {/* TAB 1: MAIN */}
+              {activeTab === 'main' && (
+                <>
+                  <div style={{ color: '#ffff55', fontWeight: 'bold', marginBottom: '4px' }}>System Information:</div>
+                  <div className="bios-option-row">
+                    <span>System Time:</span>
+                    <span style={{ color: '#55ffff' }}>{biosTime.toLocaleTimeString()}</span>
+                  </div>
+                  <div className="bios-option-row">
+                    <span>System Date:</span>
+                    <span style={{ color: '#55ffff' }}>{biosTime.toLocaleDateString('it-IT')}</span>
+                  </div>
+                  <div className="bios-option-row">
+                    <span>BIOS Version:</span>
+                    <span>BS-7.04.26 (Aero)</span>
+                  </div>
+                  <div className="bios-option-row">
+                    <span>CPU Type:</span>
+                    <span>Intel Core i7-4770K @ 3.50GHz</span>
+                  </div>
+                  <div className="bios-option-row">
+                    <span>System Memory:</span>
+                    <span>16384 MB (DDR3 Dual Channel)</span>
+                  </div>
+                  <div className="bios-option-row">
+                    <span>SATA Port 1:</span>
+                    <span>SSD SATA3 512GB (Healthy)</span>
+                  </div>
+                  <div className="bios-option-row">
+                    <span>Current OS:</span>
+                    <span style={{ color: '#55ff55' }}>Portfolio OS v1.0 (Windows 7 Mode)</span>
+                  </div>
+                  <div className="bios-option-row">
+                    <span>Owner/Developer:</span>
+                    <span>Biagio Scaglia</span>
+                  </div>
+                </>
+              )}
+
+              {/* TAB 2: ADVANCED */}
+              {activeTab === 'advanced' && (
+                <>
+                  <div style={{ color: '#ffff55', fontWeight: 'bold', marginBottom: '4px' }}>Advanced Settings:</div>
+                  <div className="bios-option-row">
+                    <span>Fast Boot Support:</span>
+                    <span style={{ color: '#55ff55' }}>[Enabled]</span>
+                  </div>
+                  <div className="bios-option-row">
+                    <span>Aero Glass Window Effect:</span>
+                    <span style={{ color: '#55ff55' }}>[Enabled]</span>
+                  </div>
+                  <div className="bios-option-row">
+                    <span>Intel Virtualization Technology:</span>
+                    <span style={{ color: '#55ff55' }}>[Enabled]</span>
+                  </div>
+                  <div className="bios-option-row">
+                    <span>USB Legacy Support:</span>
+                    <span style={{ color: '#55ff55' }}>[Enabled]</span>
+                  </div>
+                  <div className="bios-option-row">
+                    <span>Audio Engine Startup:</span>
+                    <span style={{ color: '#55ff55' }}>[Active]</span>
+                  </div>
+                  <div className="bios-option-row">
+                    <span>Recycle Bin Alert Sounds:</span>
+                    <span style={{ color: '#55ff55' }}>[On]</span>
+                  </div>
+                </>
+              )}
+
+              {/* TAB 3: SECURITY */}
+              {activeTab === 'security' && (
+                <>
+                  <div style={{ color: '#ffff55', fontWeight: 'bold', marginBottom: '4px' }}>Security Settings:</div>
+                  <div className="bios-option-row">
+                    <span>Supervisor Password:</span>
+                    <span style={{ color: '#ff5555' }}>[Not Installed]</span>
+                  </div>
+                  <div className="bios-option-row">
+                    <span>User Password:</span>
+                    <span style={{ color: '#ff5555' }}>[Not Installed]</span>
+                  </div>
+                  <div className="bios-option-row">
+                    <span>Secure Boot State:</span>
+                    <span style={{ color: '#55ff55' }}>[Enabled]</span>
+                  </div>
+                  <div className="bios-option-row">
+                    <span>TPM 2.0 Device Security:</span>
+                    <span style={{ color: '#55ff55' }}>[Active & Available]</span>
+                  </div>
+                </>
+              )}
+
+              {/* TAB 4: BOOT */}
+              {activeTab === 'boot' && (
+                <>
+                  <div style={{ color: '#ffff55', fontWeight: 'bold', marginBottom: '4px' }}>Boot Priority Order:</div>
+                  <div className="bios-option-row" style={{ color: '#55ffff' }}>
+                    <span>1st Boot Device:</span>
+                    <span>SSD SATA3 512GB (OS Volume)</span>
+                  </div>
+                  <div className="bios-option-row">
+                    <span>2nd Boot Device:</span>
+                    <span>USB Hard Drive</span>
+                  </div>
+                  <div className="bios-option-row">
+                    <span>3rd Boot Device:</span>
+                    <span>CD/DVD-ROM Drive</span>
+                  </div>
+                  <div className="bios-option-row">
+                    <span>4th Boot Device:</span>
+                    <span>Network Boot (PXE)</span>
+                  </div>
+                </>
+              )}
+
+              {/* TAB 5: EXIT */}
+              {activeTab === 'exit' && (
+                <>
+                  <div style={{ color: '#ffff55', fontWeight: 'bold', marginBottom: '4px' }}>Exit Options:</div>
+                  <div 
+                    onClick={exitBios} 
+                    style={{ cursor: 'pointer', padding: '4px 0', color: '#55ffff' }}
+                    onMouseEnter={(e) => e.currentTarget.style.textDecoration = 'underline'}
+                    onMouseLeave={(e) => e.currentTarget.style.textDecoration = 'none'}
+                  >
+                    &gt; Save Changes and Exit System Setup
+                  </div>
+                  <div 
+                    onClick={exitBios} 
+                    style={{ cursor: 'pointer', padding: '4px 0' }}
+                    onMouseEnter={(e) => e.currentTarget.style.textDecoration = 'underline'}
+                    onMouseLeave={(e) => e.currentTarget.style.textDecoration = 'none'}
+                  >
+                    &gt; Discard Changes and Exit Setup
+                  </div>
+                  <div 
+                    style={{ cursor: 'pointer', padding: '4px 0', opacity: 0.6 }}
+                  >
+                    &gt; Load Setup Default Values
+                  </div>
+                </>
+              )}
+
             </div>
 
             {/* Menu di Aiuto e Tasto di Uscita */}
             <div style={{ borderTop: '1px solid #fff', paddingTop: '10px', fontSize: '11px', marginTop: '15px' }}>
               <div style={{ color: '#ffff55', marginBottom: '8px' }}>
-                F1: Help | Esc: Exit Setup & Save | F10: Save & Exit
+                F1: Help | Esc: Exit Setup & Save | F10: Save & Exit | ←/→: Switch Tabs
               </div>
               <div style={{ display: 'flex', gap: '10px' }}>
                 <div 

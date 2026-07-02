@@ -1,91 +1,55 @@
 # Biagio Scaglia - Portfolio & CV
 
-Interactive Windows 7-style portfolio and professional CV.
+> Interactive Windows 7-style portfolio and professional CV.
 
-## Profile
+This site is an interactive portfolio simulating a Windows 7 environment. It showcases the professional profile, skills, work experience, education, and projects of Biagio Scaglia, a Full Stack & Mobile Developer and UX/UI Designer based in Bari/Modugno, Italy.
+
+Here is the detailed developer profile and resume information:
+
+---
+
+**Profile**
 Full Stack & Mobile Developer and UX/UI Designer based in Bari/Modugno, Italy. Specialized in creating scalable web and mobile applications with clean code, modern architectures, and polished user experiences.
 
-## Core Information
-- **Full Name:** Biagio Scaglia
-- **Role:** Software Developer & UX/UI Designer
-- **Location:** Bari, Puglia, Italy
-- **GitHub:** https://github.com/biagio-scaglia
-- **LinkedIn:** https://www.linkedin.com/in/biagio-scaglia
-- **Portfolio Website:** https://biagio-scaglia.github.io/
+**Core Information**
+- Full Name: Biagio Scaglia
+- Role: Software Developer & UX/UI Designer
+- Location: Bari, Puglia, Italy
+
+**Technical Stack**
+- Programming Languages: TypeScript, JavaScript, Python, Java, PHP, C# (.NET)
+- Frontend & Mobile: React, React Native, Flutter, Astro, HTML5, CSS3, Bootstrap, TailwindCSS, Angular, Vue
+- Backend & Database: .NET (C#), Express (Node.js), Laravel (PHP), MySQL, JSON
+- Design & Tools: Figma, Canva, Git, GitHub
+
+**Work Experience**
+- Freelance Web & Mobile Developer (Biagio Scaglia Dev - Autonomo | May 2026 - Present): Building digital products, custom solutions, and mobile apps with Flutter (e.g. Vellum app on Google Play Store).
+- Full Stack Developer (.NET / React) (Prisma Srl | Feb 2026 - Present): Developing modern, scalable web applications using .NET for the backend and React for the frontend.
+- Telegram Bot Developer (Pokémon Go - Raid Italia | Apr 2026 - Jun 2026): Programmed and optimized custom automation bots using Python.
+- Sviluppatore Web (Frontend Developer) (Yumeverse Games | Dec 2025 - Jun 2026): Created interactive landing pages using Astro and JavaScript.
+- Sviluppatore Applicazioni Mobili (sgamapp | Sep 2025 - Feb 2026): Built web/mobile apps to reduce the digital gap for JOB&Orienta event.
+- Sviluppatore di Software (PASSBARI | Aug 2025 - Aug 2025): Developed and optimized responsive web and mobile applications.
+- Consulente AI (Consorzio Artemide | Jun 2024 - Dec 2024): Implemented AI-driven marketing strategies and campaigns.
+
+**Education & Certifications**
+- ITS Academy Apulia Digital Maker: Corso di specializzazione tecnica in Web & Mobile Development.
+- Pre Security (SEC0) Certificate: TryHackMe (April 2026 - April 2029) | Credential ID: 69cea1adeb170aea55e91ffd
+- Pre Security Certificate: TryHackMe (April 2026 - April 2029) | Credential ID: THM-E8TJBPYZM8
+- Cybersecurity Essential: Cisco (January 2022)
+- Wordpress Development / SEO / JavaScript, HTML, CSS: Programming Hub (2023)
+- Web & Python Development Professional Certifications: IMTF (2024)
 
 ---
 
-## Technical Stack
+## Online Profiles
 
-### Programming Languages
-- TypeScript, JavaScript, Python, Java, PHP, C# (.NET)
+- [Portfolio Website](https://biagio-scaglia.github.io/) - The live interactive Windows 7 Portfolio OS simulation.
+- [GitHub Profile](https://github.com/biagio-scaglia) - Developer's GitHub repository and contributions.
+- [LinkedIn Profile](https://www.linkedin.com/in/biagio-scaglia) - Developer's professional networking profile.
 
-### Frontend & Mobile
-- React, React Native, Flutter, Astro, HTML5, CSS3, Bootstrap, TailwindCSS, Angular, Vue
+## Projects & Links
 
-### Backend & Database
-- .NET (C#), Express (Node.js), Laravel (PHP), MySQL, JSON
-
-### Design & Tools
-- Figma, Canva, Git, GitHub
-
----
-
-## Work Experience
-
-### Freelance Web & Mobile Developer
-**Biagio Scaglia Dev - Autonomo** | *Maggio 2026 - Presente*
-- Building digital products and custom solutions from scratch.
-- Developed mobile apps with Flutter for Android and web apps with modern frontend and backend tech.
-- Created the Vellum app on Google Play Store.
-
-### Full Stack Developer (.NET / React)
-**Prisma Srl - A tempo pieno** | *Febbraio 2026 - Presente*
-- Developing modern, scalable web applications using .NET for the backend and React for the frontend.
-- Integrating REST APIs and managing database architectures.
-
-### Telegram Bot Developer
-**Pokémon Go - Raid Italia - Remote** | *Aprile 2026 - Giugno 2026*
-- Programmed and optimized custom automation bots using Python.
-- Designed multi-channel content categorization, automated deals forwarding, and interactive telegram UI buttons.
-
-### Sviluppatore Web (Frontend Developer)
-**Yumeverse Games - Remote** | *Dicembre 2025 - Giugno 2026*
-- Created interactive, high-performance landing pages using Astro and JavaScript for an indie game studio.
-
-### Sviluppatore Applicazioni Mobili
-**sgamapp - A tempo pieno** | *Settembre 2025 - Febbraio 2026*
-- Built sgamapp web and mobile applications for the JOB&Orienta event in Verona, aiming to reduce the digital gap.
-
-### Sviluppatore di Software
-**PASSBARI - Modugno, Italia** | *Agosto 2025 - Agosto 2025*
-- Developed and optimized responsive web and mobile applications.
-
-### Consulente AI
-**Consorzio Artemide - Bari, Italia** | *Giugno 2024 - Dicembre 2024*
-- Implemented marketing strategies and managed technical AI-driven marketing campaigns.
-
----
-
-## Education & Certifications
-
-### Certifications
-- **Pre Security (SEC0) Certificate** – TryHackMe (April 2026 - April 2029) | Credential ID: `69cea1adeb170aea55e91ffd`
-- **Pre Security Certificate** – TryHackMe (April 2026 - April 2029) | Credential ID: `THM-E8TJBPYZM8`
-- **Cybersecurity Essential** – Cisco (January 2022)
-- **Wordpress Development** – Programming Hub (December 2023)
-- **SEO** – Programming Hub (November 2023)
-- **JavaScript, HTML, CSS** – Programming Hub (2023)
-- **Web Development Professional Certification** – Institute of Management, Technology & Finance (February 2024)
-- **Python Development Professional Certification** – Institute of Management, Technology & Finance (January 2024)
-
-### Education
-- **ITS Academy Apulia Digital Maker** – Corso di specializzazione tecnica in Web & Mobile Development.
-
----
-
-## Notable Projects
-- **Vellum:** Custom Android application built with Flutter. (URL: https://play.google.com/store/apps/details?id=com.biagioscaglia.vellum)
-- **sgamapp:** Web/mobile application reducing the digital gap for vulnerable users, featured at JOB&Orienta in Verona.
-- **Raid Italia Bot:** Automated deals engine and Telegram bot built with Python.
-- **Yumeverse Games Landing Page:** Interactive frontend site created with Astro.
+- [Vellum on Google Play Store](https://play.google.com/store/apps/details?id=com.biagioscaglia.vellum) - Custom Android application built with Flutter.
+- [sgamapp](https://biagio-scaglia.github.io/) - Web/mobile application reducing the digital gap for vulnerable users.
+- [Raid Italia Bot](https://github.com/biagio-scaglia) - Automated deals engine and Telegram bot built with Python.
+- [Yumeverse Games Landing Page](https://biagio-scaglia.github.io/) - Interactive frontend site created with Astro.

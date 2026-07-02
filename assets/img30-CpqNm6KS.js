@@ -1,0 +1,1 @@
+var e=`/assets/img30-DGWZImeX.jpg`;export{e as default};

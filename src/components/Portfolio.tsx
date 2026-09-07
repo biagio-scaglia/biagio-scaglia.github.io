@@ -32,6 +32,27 @@ export default function Portfolio({ onClose, onMinimize, icon }: CalculatorProps
   const projects: Project[] = [
     {
       id: 1,
+      name: 'HomuraJS (homura-js)',
+      description: 'Motore di gestione dello stato time-travel non distruttivo e DAG (Directed Acyclic Graph) history engine per JavaScript, React, Vue e WordPress. Consente cronologie ramificate, undo/redo multidimensionale, snapshot persistenti e tracciamento immutabile degli stati applicativi.',
+      technologies: ['JavaScript', 'TypeScript', 'State Management', 'DAG Engine', 'Time-Travel', 'React', 'Vue', 'Open Source'],
+      github: 'https://github.com/biagio-scaglia/homura-js',
+    },
+    {
+      id: 2,
+      name: 'Moon Inferno (moon-inferno)',
+      description: 'Framework UI React accessibility-first con estetica retro/cyberpunk e laboratori interattivi di apprendimento gamificati per padroneggiare HTML e CSS tramite un\'avventura RPG. Include componenti UI modulari, design system retro ed engine di validazione.',
+      technologies: ['React', 'TypeScript', 'UI Framework', 'Accessibility', 'Retro UI', 'Gamification', 'CSS', 'Open Source'],
+      github: 'https://github.com/biagio-scaglia/moon-inferno',
+    },
+    {
+      id: 3,
+      name: 'Yumia (yumia-md)',
+      description: 'Linguaggio visivo dichiarativo e design compiler che tratta i documenti visivi come codice. Compila e trasforma intenti semantici in formato Markdown esteso in presentazioni PowerPoint native (.pptx) modificabili, PDF vettoriali e slide deck HTML5.',
+      technologies: ['TypeScript', 'Compiler', 'Markdown', 'AST', 'PowerPoint (.pptx)', 'Design Systems', 'CLI', 'Open Source'],
+      github: 'https://github.com/biagio-scaglia/yumia-md',
+    },
+    {
+      id: 4,
       name: 'Portfolio Windows 7',
       description: 'Portfolio interattivo che simula l\'interfaccia di Windows 7, realizzato con React e TypeScript. Include animazioni, effetti glass e un sistema di finestre completo.',
       technologies: ['React', 'TypeScript', 'CSS', '7.css'],
@@ -39,14 +60,14 @@ export default function Portfolio({ onClose, onMinimize, icon }: CalculatorProps
       link: 'https://biagio-scaglia.github.io/',
     },
     {
-      id: 2,
+      id: 5,
       name: 'SGAMApp - App Mobile',
       description: 'Applicazione mobile sviluppata con React Native per utenti fragili, focalizzata su navigazione semplificata e accessibilità. Include funzionalità di supporto per persone con disabilità e interfaccia user-friendly.',
       technologies: ['React Native', 'TypeScript', 'Expo', 'Accessibility'],
       github: 'https://github.com/biagio-scaglia/sgama-mobile',
     },
     {
-      id: 3,
+      id: 6,
       name: 'Smash Group',
       description: 'Applicazione mobile per la community di giocatori di Super Smash Bros. Include sistema CRUD completo, backend in Express, gestione utenti e funzionalità social per i giocatori.',
       technologies: ['React Native', 'Expo', 'Express', 'Node.js', 'CRUD'],
@@ -54,7 +75,7 @@ export default function Portfolio({ onClose, onMinimize, icon }: CalculatorProps
       image: smashImage,
     },
     {
-      id: 4,
+      id: 7,
       name: 'PizzaDex',
       description: 'App mobile ispirata al mondo Pokémon per la gestione di una pizzeria. Sviluppata con React Native, combina il gameplay dei Pokédex con funzionalità per ordinare e gestire pizze.',
       technologies: ['React Native', 'TypeScript', 'Mobile App'],
@@ -62,7 +83,7 @@ export default function Portfolio({ onClose, onMinimize, icon }: CalculatorProps
       image: pizzadexImage,
     },
     {
-      id: 5,
+      id: 8,
       name: 'Dev Swipe',
       description: 'Applicazione web ispirata a Tinder ma dedicata agli sviluppatori. Permette di scoprire e matchare con linguaggi di programmazione, framework e tecnologie. Sviluppata con Angular e TypeScript.',
       technologies: ['Angular', 'TypeScript', 'Web App'],
@@ -71,7 +92,7 @@ export default function Portfolio({ onClose, onMinimize, icon }: CalculatorProps
       image: swipeImage,
     },
     {
-      id: 6,
+      id: 9,
       name: 'Cats Angular',
       description: 'Sito web per un centro di adozione felini sviluppato con Angular. Include galleria di gatti disponibili, informazioni sulle adozioni e sistema di gestione per il centro.',
       technologies: ['Angular', 'TypeScript', 'Web Design'],
@@ -80,7 +101,7 @@ export default function Portfolio({ onClose, onMinimize, icon }: CalculatorProps
       image: catsImage,
     },
     {
-      id: 7,
+      id: 10,
       name: 'Raidou Angular',
       description: 'Sito web tematico dedicato alla serie Devil Summoner: Raidou Kuzunoha. Sviluppato con Angular per esplorare lo styling e il design ispirato alla serie.',
       technologies: ['Angular', 'TypeScript', 'Web Design'],
@@ -89,7 +110,7 @@ export default function Portfolio({ onClose, onMinimize, icon }: CalculatorProps
       image: raidouImage,
     },
     {
-      id: 8,
+      id: 11,
       name: 'Angular PS2',
       description: 'Sito web tematico dedicato alla PlayStation 2. Progetto Angular focalizzato sullo styling e il design ispirato alla console e ai suoi giochi iconici.',
       technologies: ['Angular', 'TypeScript', 'Web Design'],
@@ -98,7 +119,7 @@ export default function Portfolio({ onClose, onMinimize, icon }: CalculatorProps
       image: ps2Image,
     },
     {
-      id: 9,
+      id: 12,
       name: 'Persona Angular',
       description: 'Sito web tematico dedicato alla serie Persona. Sviluppato con Angular per esplorare lo styling e creare un\'esperienza visiva ispirata al mondo di Persona.',
       technologies: ['Angular', 'TypeScript', 'Web Design'],
@@ -107,21 +128,21 @@ export default function Portfolio({ onClose, onMinimize, icon }: CalculatorProps
       image: personaImage,
     },
     {
-      id: 10,
+      id: 13,
       name: 'FakeNews Check',
       description: 'Sistema di verifica notizie che utilizza Qwen 3 8B (tramite Ollama) e web scraping per verificare l\'autenticità delle notizie confrontandole con fonti affidabili italiane. Include verifica automatica, analisi intelligente con estrazione automatica di parole chiave e confronto multi-fonte per maggiore affidabilità.',
       technologies: ['Python', 'Flask', 'React', 'Ollama', 'Qwen 3 8B', 'BeautifulSoup', 'Web Scraping', 'AI'],
       github: 'https://github.com/biagio-scaglia/fakenews-check',
     },
     {
-      id: 11,
+      id: 14,
       name: 'Nintendo AI Game Advisor',
       description: 'Sistema intelligente di raccomandazione giochi Nintendo basato su AI, con API REST e app Flutter mobile. Include AI-powered recommendations, chat interattiva, ricerca intelligente con sistema RAG, integrazione Fandom per scraping completo, estrazione automatica immagini personaggi, sintesi AI e supporto per 42 giochi Nintendo con database completo.',
       technologies: ['Python', 'Flask', 'Flutter', 'Dart', 'Ollama', 'RAG', 'Web Scraping', 'AI', 'REST API', 'Mobile App'],
       github: 'https://github.com/biagio-scaglia/Nintendo-AI',
     },
     {
-      id: 12,
+      id: 15,
       name: 'Istiocitosi a Cellule di Langerhans - Guida Educativa',
       description: 'Sito web educativo in React/TypeScript sull\'Istiocitosi a Cellule di Langerhans (ICL), malattia rara che colpisce principalmente i bambini. Include 8 sezioni informative (Home, Proteine Coinvolte, Sintomi, Diagnostica, Trattamenti, Statistiche, Prevenzione, Fonti) con design responsive, animazioni Framer Motion, effetti glassmorphism e icone SVG mediche. Tutti i contenuti sono organizzati in JSON per facilità di gestione.',
       technologies: ['React', 'TypeScript', 'Vite', 'Framer Motion', 'React Router', 'Radix UI Icons', 'GitHub Pages'],
@@ -129,14 +150,14 @@ export default function Portfolio({ onClose, onMinimize, icon }: CalculatorProps
       link: 'https://biagio-scaglia.github.io/biologia/',
     },
     {
-      id: 13,
+      id: 16,
       name: 'biag-interest',
       description: 'Un\'app Flutter moderna ispirata a Pinterest per esplorare e salvare immagini da Safebooru. Include design Pinterest-style con UI moderna, gestione immagini avanzata con caricamento progressivo (Preview → Sample → Full quality), ricerca potente con autocomplete intelligente, sistema di salvataggio con drag & drop, organizzazione in bacheche personalizzate, profilo utente completo con CRUD, infinite scroll ottimizzato e proxy server Node.js per risolvere problemi CORS e caching.',
       technologies: ['Flutter', 'Dart', 'Riverpod', 'Dio', 'SharedPreferences', 'Node.js', 'Express', 'Mobile App'],
       github: 'https://github.com/biagio-scaglia/biag-interest',
     },
     {
-      id: 14,
+      id: 17,
       name: 'Monster Hunter Compendium',
       description: 'Applicazione Flutter modulare e scalabile per esplorare il database completo di Monster Hunter World. Include informazioni su mostri, armi, armature, oggetti, skill, location, eventi e molto altro utilizzando l\'API mhw-db.com. Architettura feature-based con componenti modulari (GradientCard, ShimmerLoader, RareBadge), design system completo con palette Monster Hunter, supporto dark/light mode, animazioni fluide, caching intelligente e navigazione intuitiva con hub centrale.',
       technologies: ['Flutter', 'Dart', 'Provider', 'HTTP', 'Google Fonts', 'Shimmer', 'Cached Network Image', 'Mobile App'],

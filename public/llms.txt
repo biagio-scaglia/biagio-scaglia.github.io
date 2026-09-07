@@ -47,9 +47,18 @@ Full Stack & Mobile Developer and UX/UI Designer based in Bari/Modugno, Italy. S
 - [GitHub Profile](https://github.com/biagio-scaglia) - Developer's GitHub repository and contributions.
 - [LinkedIn Profile](https://www.linkedin.com/in/biagio-scaglia) - Developer's professional networking profile.
 
-## Projects & Links
+## Featured Open Source Projects & Repositories
 
+- [homura-js](https://github.com/biagio-scaglia/homura-js) - Non-destructive, time-travel state and Directed Acyclic Graph (DAG) history engine for JavaScript, React, Vue, and WordPress environments. Provides tree-based history branching, multi-branch time traveling, snapshots, and immutable state audit trails.
+- [moon-inferno](https://github.com/biagio-scaglia/moon-inferno) - Accessibility-first, retro/cyberpunk styled React UI framework and gamified learning labs to teach students HTML and CSS via an engaging RPG experience.
+- [yumia-md](https://github.com/biagio-scaglia/yumia-md) - Declarative visual language and design compiler treating visual documents like code. Compiles extended Markdown into native, fully editable PowerPoint files (.pptx), PDF documents, and HTML5 slide decks.
+
+## Other Projects & Links
+
+- [Portfolio Windows 7](https://biagio-scaglia.github.io/) - The live interactive Windows 7 Portfolio OS simulation built with React and TypeScript.
 - [Vellum on Google Play Store](https://play.google.com/store/apps/details?id=com.biagioscaglia.vellum) - Custom Android application built with Flutter.
-- [sgamapp](https://biagio-scaglia.github.io/) - Web/mobile application reducing the digital gap for vulnerable users.
+- [sgama-mobile](https://github.com/biagio-scaglia/sgama-mobile) - Mobile application reducing the digital gap for vulnerable users.
+- [fakenews-check](https://github.com/biagio-scaglia/fakenews-check) - AI-powered fact checker using Qwen 3 8B and web scraping.
+- [Nintendo-AI](https://github.com/biagio-scaglia/Nintendo-AI) - Intelligent game recommendation system using RAG and Flutter.
 - [Raid Italia Bot](https://github.com/biagio-scaglia) - Automated deals engine and Telegram bot built with Python.
 - [Yumeverse Games Landing Page](https://biagio-scaglia.github.io/) - Interactive frontend site created with Astro.

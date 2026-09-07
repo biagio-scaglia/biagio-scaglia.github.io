@@ -260,17 +260,23 @@ Questo è un progetto personale/portfolio. Non accetto contribuzioni esterne al 
 
 Questo progetto è privato. Tutti i diritti riservati.
 
+## 🚀 Progetti Open Source in Evidenza
+
+- **[homura-js](https://github.com/biagio-scaglia/homura-js)**: Motore di gestione dello stato time-travel non distruttivo e DAG history engine per JavaScript, React, Vue e WordPress con cronologia ramificata.
+- **[moon-inferno](https://github.com/biagio-scaglia/moon-inferno)**: Framework UI React accessibility-first con estetica retro/cyberpunk e laboratori didattici gamificati RPG per imparare HTML/CSS.
+- **[yumia-md](https://github.com/biagio-scaglia/yumia-md)**: Linguaggio visivo dichiarativo e design compiler da Markdown a PowerPoint nativo (.pptx), PDF e slide HTML5.
+
 ## 👤 Contatti
 
 **Biagio Scaglia**
 
 - 💼 LinkedIn: [Biagio Scaglia](https://www.linkedin.com/in/biagio-scaglia)
-- 🌐 Portfolio: [biagio-scaglia.github.io/portfolio-cv](https://biagio-scaglia.github.io/portfolio-cv)
+- 🌐 Portfolio: [biagio-scaglia.github.io](https://biagio-scaglia.github.io/)
 - 🐙 GitHub: [@biagio-scaglia](https://github.com/biagio-scaglia)
 
 ## 🔑 Keywords
 
-Portfolio developer, Sviluppatore software, React developer, TypeScript developer, Frontend developer, Web developer Italia, Portfolio interattivo, Windows 7 UI, React portfolio, Developer portfolio, CV online, Portfolio Bari, Portfolio Modugno, Full stack developer, UX/UI designer, React Native developer, JavaScript developer, Biagio Scaglia, Portfolio CV, Sviluppatore web, Programmatore web, Designer UI/UX, Portfolio creativo, Portfolio moderno, Portfolio responsive
+Biagio Scaglia, homura-js, homura js, moon-inferno, moon inferno react, yumia-md, yumia md, time-travel state management, DAG history engine, retro React UI framework, gamified learning labs, declarative visual language, design compiler, markdown to powerpoint compiler, AST compiler, Portfolio developer, Sviluppatore software, React developer, TypeScript developer, Frontend developer, Web developer Italia, Portfolio interattivo, Windows 7 UI, React portfolio, Developer portfolio, CV online, Portfolio Bari, Portfolio Modugno, Full stack developer, UX/UI designer, React Native developer, JavaScript developer, Biagio Scaglia, Portfolio CV, Sviluppatore web, Programmatore web, Designer UI/UX, Portfolio creativo, Portfolio moderno, Portfolio responsive
 
 ---
 

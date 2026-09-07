@@ -156,9 +156,9 @@ export default function ImagesWindow({
   return (
     <Window
       title="Immagini - Cambio Sfondo"
-      width={700}
-      height={500}
-      defaultPosition={{ x: 150, y: 100 }}
+      width={windowWidth <= 480 ? Math.min(400, window.innerWidth - 20) : windowWidth <= 768 ? Math.min(650, window.innerWidth - 40) : 700}
+      height={windowWidth <= 480 ? Math.min(500, window.innerHeight - 100) : windowWidth <= 768 ? Math.min(560, window.innerHeight - 80) : 530}
+      defaultPosition={{ x: windowWidth <= 480 ? 10 : windowWidth <= 768 ? 20 : 150, y: windowWidth <= 480 ? 10 : windowWidth <= 768 ? 20 : 100 }}
       onClose={onClose}
       onMinimize={onMinimize}
       icon={icon}

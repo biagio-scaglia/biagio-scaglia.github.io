@@ -106,8 +106,8 @@ export default function Skills() {
         <div style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
           {/* Frontend */}
           <div>
-            <h4 style={{ margin: '0 0 8px 0', fontSize: '12px', color: '#4a5568', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
-              💻 Frontend Development
+            <h4 style={{ margin: '0 0 8px 0', fontSize: '12px', color: '#4a5568', textTransform: 'uppercase', letterSpacing: '0.5px', display: 'flex', alignItems: 'center', gap: '6px' }}>
+              <i className="fas fa-laptop-code" style={{ color: '#3182ce' }}></i> Frontend Development
             </h4>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
               {frontendSkills.map((skill) => (
@@ -117,7 +117,7 @@ export default function Skills() {
                   onMouseEnter={() => setHoveredSkill(skill)}
                   onMouseLeave={() => setHoveredSkill(null)}
                 >
-                  <span style={{ fontSize: '8px', color: '#3182ce' }}>🔵</span> {skill}
+                  <i className="fas fa-code" style={{ fontSize: '10px', color: '#3182ce' }}></i> {skill}
                 </div>
               ))}
             </div>
@@ -125,8 +125,8 @@ export default function Skills() {
 
           {/* Backend */}
           <div>
-            <h4 style={{ margin: '0 0 8px 0', fontSize: '12px', color: '#4a5568', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
-              ⚙️ Backend & Database
+            <h4 style={{ margin: '0 0 8px 0', fontSize: '12px', color: '#4a5568', textTransform: 'uppercase', letterSpacing: '0.5px', display: 'flex', alignItems: 'center', gap: '6px' }}>
+              <i className="fas fa-server" style={{ color: '#dd6b20' }}></i> Backend & Database
             </h4>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
               {backendSkills.map((skill) => (
@@ -136,7 +136,7 @@ export default function Skills() {
                   onMouseEnter={() => setHoveredSkill(skill)}
                   onMouseLeave={() => setHoveredSkill(null)}
                 >
-                  <span style={{ fontSize: '8px', color: '#dd6b20' }}>🟠</span> {skill}
+                  <i className="fas fa-database" style={{ fontSize: '10px', color: '#dd6b20' }}></i> {skill}
                 </div>
               ))}
             </div>
@@ -144,8 +144,8 @@ export default function Skills() {
 
           {/* Mobile & Strumenti */}
           <div>
-            <h4 style={{ margin: '0 0 8px 0', fontSize: '12px', color: '#4a5568', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
-              📱 Mobile & Strumenti
+            <h4 style={{ margin: '0 0 8px 0', fontSize: '12px', color: '#4a5568', textTransform: 'uppercase', letterSpacing: '0.5px', display: 'flex', alignItems: 'center', gap: '6px' }}>
+              <i className="fas fa-mobile-alt" style={{ color: '#805ad5' }}></i> Mobile & Strumenti
             </h4>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
               {mobileAndTools.map((skill) => (
@@ -155,7 +155,7 @@ export default function Skills() {
                   onMouseEnter={() => setHoveredSkill(skill)}
                   onMouseLeave={() => setHoveredSkill(null)}
                 >
-                  <span style={{ fontSize: '8px', color: '#805ad5' }}>🟣</span> {skill}
+                  <i className="fas fa-tools" style={{ fontSize: '10px', color: '#805ad5' }}></i> {skill}
                 </div>
               ))}
             </div>
@@ -182,7 +182,7 @@ export default function Skills() {
               onMouseEnter={() => setHoveredSkill(skill)}
               onMouseLeave={() => setHoveredSkill(null)}
             >
-              <span style={{ fontSize: '8px', color: '#38a169' }}>🟢</span> {skill}
+              <i className="fas fa-check" style={{ fontSize: '10px', color: '#38a169' }}></i> {skill}
             </div>
           ))}
         </div>

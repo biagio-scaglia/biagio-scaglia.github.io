@@ -74,21 +74,21 @@ export default function Cestino({ onClose, onMinimize, icon }: CestinoProps) {
           : `${(Math.random() * 5000 + 100).toFixed(0)} KB`
         
         const icons = {
-          txt: '📄',
-          doc: '📝',
-          pdf: '📕',
-          jpg: '🖼️',
-          png: '🖼️',
-          mp3: '🎵',
-          mp4: '🎬',
-          zip: '📦',
-          exe: '⚙️',
-          xls: '📊',
-          folder: '📁'
+          txt: 'fas fa-file-alt text-blue',
+          doc: 'fas fa-file-word text-blue',
+          pdf: 'fas fa-file-pdf text-red',
+          jpg: 'fas fa-file-image text-green',
+          png: 'fas fa-file-image text-green',
+          mp3: 'fas fa-file-audio text-purple',
+          mp4: 'fas fa-file-video text-orange',
+          zip: 'fas fa-file-archive text-yellow',
+          exe: 'fas fa-cog text-gray',
+          xls: 'fas fa-file-excel text-green',
+          folder: 'fas fa-folder text-yellow'
         }
         
         const fileExt = name.split('.').pop()?.toLowerCase() || 'txt'
-        const fileIcon = isFolder ? icons.folder : (icons[fileExt as keyof typeof icons] || '📄')
+        const fileIcon = isFolder ? icons.folder : (icons[fileExt as keyof typeof icons] || 'fas fa-file-alt text-blue')
         
         items.push({
           id: i,
@@ -187,13 +187,11 @@ export default function Cestino({ onClose, onMinimize, icon }: CestinoProps) {
             alignItems: 'center',
             justifyContent: 'center',
             flexDirection: 'column',
-            color: '#999',
+            color: '#a0aec0',
             fontSize: windowWidth <= 480 ? '14px' : '16px'
           }}>
-            <div style={{ fontSize: windowWidth <= 480 ? '48px' : '64px', marginBottom: '10px' }}>
-              🗑️
-            </div>
-            <p>Il cestino è vuoto</p>
+            <i className="fas fa-trash-alt" style={{ fontSize: windowWidth <= 480 ? '44px' : '56px', color: '#cbd5e0', marginBottom: '12px' }}></i>
+            <p style={{ margin: 0 }}>Il cestino è vuoto</p>
           </div>
         ) : (
           <div style={{
@@ -224,12 +222,14 @@ export default function Cestino({ onClose, onMinimize, icon }: CestinoProps) {
                 }}
               >
                 <div style={{
-                  fontSize: windowWidth <= 480 ? '20px' : '24px',
                   marginRight: '10px',
-                  width: '30px',
-                  textAlign: 'center'
+                  width: '28px',
+                  textAlign: 'center',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center'
                 }}>
-                  {file.icon}
+                  <i className={file.icon} style={{ fontSize: windowWidth <= 480 ? '16px' : '18px', color: file.type === 'folder' ? '#d69e2e' : '#3182ce' }}></i>
                 </div>
                 <div style={{ flex: 1, minWidth: 0 }}>
                   <div style={{

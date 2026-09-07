@@ -682,15 +682,18 @@ function App() {
           className="desktop-pattern"
           style={{
             width: '100vw',
-            height: '100vh',
+            height: '100dvh',
+            minHeight: '100dvh',
             backgroundImage: desktopBackgroundType === 'image' && desktopBackground.startsWith('linear-gradient')
               ? desktopBackground
               : desktopBackgroundType === 'image' ? `url(${desktopBackground})` : 'none',
             backgroundSize: desktopBackground.startsWith('linear-gradient') ? 'auto' : 'cover',
-            backgroundPosition: 'center',
+            backgroundPosition: 'center center',
+            backgroundAttachment: 'fixed',
             backgroundRepeat: 'no-repeat',
             position: 'relative',
             overflow: 'hidden',
+            transition: 'background-image 0.4s ease-in-out',
           }}
           onClick={handleDesktopClick}
         >

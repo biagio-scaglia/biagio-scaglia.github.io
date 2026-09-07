@@ -39,7 +39,7 @@ export default function BrowserWindow({ onClose, onMinimize, icon }: BrowserWind
   }
 
   const quickLinks = [
-    { name: 'Portfolio 🔗', url: 'https://biagio-scaglia.github.io/', isExternal: false },
+    { name: 'Portfolio', url: 'https://biagio-scaglia.github.io/', isExternal: false },
     { name: 'Google', url: 'https://www.google.com', isExternal: false },
     { name: 'GitHub', url: 'https://github.com/biagio-scaglia', isExternal: true },
     { name: 'Mozilla', url: 'https://www.mozilla.org', isExternal: false },
@@ -82,10 +82,14 @@ export default function BrowserWindow({ onClose, onMinimize, icon }: BrowserWind
                 border: '1px solid #c0c0c0',
                 cursor: 'pointer',
                 fontSize: windowWidth <= 480 ? '11px' : '12px',
-                whiteSpace: 'nowrap'
+                whiteSpace: 'nowrap',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '4px'
               }}
             >
-              {windowWidth <= 480 ? '🔄' : '🔄 Aggiorna'}
+              <i className="fas fa-sync-alt" style={{ fontSize: '11px' }}></i>
+              {windowWidth <= 480 ? '' : ' Aggiorna'}
             </button>
             <input
               type="text"
@@ -110,10 +114,13 @@ export default function BrowserWindow({ onClose, onMinimize, icon }: BrowserWind
                 border: '1px solid #c0c0c0',
                 cursor: 'pointer',
                 fontSize: windowWidth <= 480 ? '11px' : '12px',
-                whiteSpace: 'nowrap'
+                whiteSpace: 'nowrap',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '4px'
               }}
             >
-              Vai →
+              Vai <i className="fas fa-arrow-right" style={{ fontSize: '10px' }}></i>
             </button>
           </div>
 
@@ -143,11 +150,15 @@ export default function BrowserWindow({ onClose, onMinimize, icon }: BrowserWind
                   cursor: 'pointer',
                   fontSize: windowWidth <= 480 ? '10px' : '11px',
                   borderRadius: '2px',
-                  fontWeight: link.isExternal ? 'bold' : 'normal'
+                  fontWeight: link.isExternal ? 'bold' : 'normal',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '4px'
                 }}
                 title={link.isExternal ? `Apri ${link.name} in una nuova scheda` : `Mostra ${link.name}`}
               >
-                {link.name} {link.isExternal && '🔗'}
+                {link.name}
+                {link.isExternal && <i className="fas fa-external-link-alt" style={{ fontSize: '9px', opacity: 0.8 }}></i>}
               </button>
             ))}
           </div>
@@ -185,57 +196,60 @@ export default function BrowserWindow({ onClose, onMinimize, icon }: BrowserWind
               height: '100%',
               textAlign: 'center'
             }}>
-              <div>
-                <div style={{ fontSize: windowWidth <= 480 ? '48px' : '64px', marginBottom: '20px' }}>
-                  🦊
-                </div>
-                <h2 style={{ 
-                  fontSize: windowWidth <= 480 ? '18px' : '24px', 
-                  marginBottom: '10px',
-                  color: '#333'
-                }}>
-                  Mozilla Firefox
-                </h2>
-                <p style={{ 
-                  fontSize: windowWidth <= 480 ? '12px' : '14px', 
-                  color: '#666',
-                  marginBottom: '20px'
-                }}>
-                  Browser simulato
+              <div style={{ marginBottom: '16px' }}>
+                <i className="fab fa-firefox-browser" style={{ fontSize: windowWidth <= 480 ? '48px' : '64px', color: '#e66000' }}></i>
+              </div>
+              <h2 style={{ 
+                fontSize: windowWidth <= 480 ? '18px' : '24px', 
+                marginBottom: '10px',
+                color: '#333'
+              }}>
+                Mozilla Firefox
+              </h2>
+              <p style={{ 
+                fontSize: windowWidth <= 480 ? '12px' : '14px', 
+                color: '#666',
+                marginBottom: '20px'
+              }}>
+                Browser simulato
+              </p>
+              <div style={{ 
+                padding: '15px',
+                background: '#f0f0f0',
+                borderRadius: '4px',
+                fontSize: windowWidth <= 480 ? '11px' : '12px',
+                color: '#333',
+                maxWidth: '500px',
+                margin: '0 auto'
+              }}>
+                <p style={{ margin: '0 0 10px 0' }}>
+                  <strong>URL corrente:</strong>
                 </p>
-                <div style={{ 
-                  padding: '15px',
-                  background: '#f0f0f0',
-                  borderRadius: '4px',
-                  fontSize: windowWidth <= 480 ? '11px' : '12px',
-                  color: '#333',
-                  maxWidth: '500px',
-                  margin: '0 auto'
+                <p style={{ 
+                  margin: 0, 
+                  wordBreak: 'break-all',
+                  fontFamily: 'monospace',
+                  color: '#0078d4'
                 }}>
-                  <p style={{ margin: '0 0 10px 0' }}>
-                    <strong>URL corrente:</strong>
-                  </p>
-                  <p style={{ 
-                    margin: 0, 
-                    wordBreak: 'break-all',
-                    fontFamily: 'monospace',
-                    color: '#0078d4'
-                  }}>
-                    {currentUrl}
-                  </p>
-                </div>
-                <div style={{ 
-                  marginTop: '30px',
-                  padding: '15px',
-                  background: '#fff3cd',
-                  borderRadius: '4px',
-                  fontSize: windowWidth <= 480 ? '11px' : '12px',
-                  color: '#856404',
-                  maxWidth: '500px',
-                  margin: '30px auto 0'
-                }}>
-                  ⚠️ Questo è un browser simulato. Non è possibile navigare su siti reali che bloccano il caricamento in iframe.
-                </div>
+                  {currentUrl}
+                </p>
+              </div>
+              <div style={{ 
+                marginTop: '30px',
+                padding: '12px 15px',
+                background: '#fff3cd',
+                borderRadius: '4px',
+                fontSize: windowWidth <= 480 ? '11px' : '12px',
+                color: '#856404',
+                maxWidth: '500px',
+                margin: '30px auto 0',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px',
+                textAlign: 'left'
+              }}>
+                <i className="fas fa-exclamation-triangle" style={{ color: '#d69e2e', flexShrink: 0 }}></i>
+                <span>Questo è un browser simulato. Non è possibile navigare su siti reali che bloccano il caricamento in iframe.</span>
               </div>
             </div>
           )}

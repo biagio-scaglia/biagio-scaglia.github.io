@@ -140,11 +140,11 @@ export default function Calendar({ onClose, onMinimize, icon }: CalendarProps) {
 
   const getTypeIcon = (type: string) => {
     switch (type) {
-      case 'work': return '💼'
-      case 'education': return '🎓'
-      case 'certification': return '🏆'
-      case 'personal': return '⭐'
-      default: return '📅'
+      case 'work': return <i className="fas fa-briefcase" style={{ color: '#0078d4' }}></i>
+      case 'education': return <i className="fas fa-graduation-cap" style={{ color: '#107c10' }}></i>
+      case 'certification': return <i className="fas fa-award" style={{ color: '#ff8c00' }}></i>
+      case 'personal': return <i className="fas fa-star" style={{ color: '#e81123' }}></i>
+      default: return <i className="fas fa-calendar-alt" style={{ color: '#666' }}></i>
     }
   }
 

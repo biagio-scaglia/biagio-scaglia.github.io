@@ -85,8 +85,8 @@ export default function About() {
         borderRadius: '6px',
         padding: '15px',
       }}>
-        <h4 style={{ margin: '0 0 10px 0', fontSize: '14px', color: '#2b6cb0', display: 'flex', alignItems: 'center', gap: '6px' }}>
-          <span>🌐</span> Informazioni e Lingue
+        <h4 style={{ margin: '0 0 10px 0', fontSize: '14px', color: '#2b6cb0', display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <i className="fas fa-globe-europe" style={{ color: '#2b6cb0' }}></i> Informazioni e Lingue
         </h4>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '13px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
@@ -99,10 +99,10 @@ export default function About() {
                 borderRadius: '4px',
                 display: 'flex',
                 alignItems: 'center',
-                gap: '4px',
+                gap: '6px',
                 fontSize: '12px'
               }}>
-                🇮🇹 Italiano <span style={{ color: '#718096', fontSize: '11px' }}>(Madrelingua)</span>
+                <i className="fas fa-language" style={{ color: '#38a169', fontSize: '12px' }}></i> Italiano <span style={{ color: '#718096', fontSize: '11px' }}>(Madrelingua)</span>
               </span>
               <span style={{
                 background: '#fff',
@@ -111,10 +111,10 @@ export default function About() {
                 borderRadius: '4px',
                 display: 'flex',
                 alignItems: 'center',
-                gap: '4px',
+                gap: '6px',
                 fontSize: '12px'
               }}>
-                🇬🇧 Inglese <span style={{ color: '#2b6cb0', fontWeight: 'bold', fontSize: '11px' }}>(B2)</span>
+                <i className="fas fa-language" style={{ color: '#3182ce', fontSize: '12px' }}></i> Inglese <span style={{ color: '#2b6cb0', fontWeight: 'bold', fontSize: '11px' }}>(B2)</span>
               </span>
             </div>
           </div>

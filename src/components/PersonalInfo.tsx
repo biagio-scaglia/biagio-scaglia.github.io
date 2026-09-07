@@ -45,18 +45,20 @@ export default function PersonalInfo() {
           <img src={bsLogo} alt="Biagio Scaglia" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
         </div>
         <div style={{ fontWeight: 'bold', fontSize: '15px', color: '#2d3748' }}>Biagio Scaglia</div>
-        <div style={{ fontSize: '11px', color: '#718096', marginTop: '2px', fontWeight: '500' }}>Full Stack Developer</div>
         <div style={{
           fontSize: '10px',
-          color: '#3182ce',
+          color: '#2b6cb0',
           background: '#ebf8ff',
           border: '1px solid #bee3f8',
           padding: '2px 8px',
           borderRadius: '10px',
           marginTop: '8px',
-          fontWeight: 'bold'
+          fontWeight: 'bold',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '5px'
         }}>
-          Online 🟢
+          Online <span style={{ display: 'inline-block', width: '7px', height: '7px', borderRadius: '50%', backgroundColor: '#38a169', boxShadow: '0 0 4px #38a169' }}></span>
         </div>
       </div>
 

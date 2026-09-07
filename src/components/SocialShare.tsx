@@ -64,7 +64,7 @@ export default function SocialShare({ url = window.location.href, title = 'Portf
         }}
       >
         <span>Condividi</span>
-        <span style={{ fontSize: '10px' }}>▼</span>
+        <i className="fas fa-chevron-down" style={{ fontSize: '9px', opacity: 0.7 }}></i>
       </button>
 
       {/* Tooltip */}
@@ -100,20 +100,20 @@ export default function SocialShare({ url = window.location.href, title = 'Portf
             minWidth: '180px',
           }}
         >
-          <li role="menuitem" tabIndex={0} onClick={() => handleShare('twitter')} onKeyDown={(e) => e.key === 'Enter' && handleShare('twitter')}>
-            <span style={{ marginRight: '8px', fontSize: '16px' }}>🐦</span>
+          <li role="menuitem" tabIndex={0} onClick={() => handleShare('twitter')} onKeyDown={(e) => e.key === 'Enter' && handleShare('twitter')} style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <i className="fab fa-x-twitter" style={{ width: '16px', color: '#000' }}></i>
             X (Twitter)
           </li>
-          <li role="menuitem" tabIndex={0} onClick={() => handleShare('facebook')} onKeyDown={(e) => e.key === 'Enter' && handleShare('facebook')}>
-            <span style={{ marginRight: '8px', fontSize: '16px' }}>📘</span>
+          <li role="menuitem" tabIndex={0} onClick={() => handleShare('facebook')} onKeyDown={(e) => e.key === 'Enter' && handleShare('facebook')} style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <i className="fab fa-facebook" style={{ width: '16px', color: '#1877f2' }}></i>
             Facebook
           </li>
-          <li role="menuitem" tabIndex={0} onClick={() => handleShare('linkedin')} onKeyDown={(e) => e.key === 'Enter' && handleShare('linkedin')}>
-            <span style={{ marginRight: '8px', fontSize: '16px' }}>💼</span>
+          <li role="menuitem" tabIndex={0} onClick={() => handleShare('linkedin')} onKeyDown={(e) => e.key === 'Enter' && handleShare('linkedin')} style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <i className="fab fa-linkedin" style={{ width: '16px', color: '#0a66c2' }}></i>
             LinkedIn
           </li>
-          <li role="menuitem" tabIndex={0} onClick={() => handleShare('github')} onKeyDown={(e) => e.key === 'Enter' && handleShare('github')}>
-            <span style={{ marginRight: '8px', fontSize: '16px' }}>🔧</span>
+          <li role="menuitem" tabIndex={0} onClick={() => handleShare('github')} onKeyDown={(e) => e.key === 'Enter' && handleShare('github')} style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <i className="fab fa-github" style={{ width: '16px', color: '#24292e' }}></i>
             GitHub
           </li>
         </ul>

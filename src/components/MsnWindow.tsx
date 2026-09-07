@@ -12,7 +12,7 @@ interface MsnWindowProps {
 export default function MsnWindow({ onClose, onMinimize, icon }: MsnWindowProps) {
   const windowSize = useWindowSize()
   const [messages, setMessages] = useState<{ sender: string, text: string, time: string }[]>([
-    { sender: 'Biagio', text: 'Ehi! Benvenuto sul mio MSN simulato! 👋', time: '12:00' }
+    { sender: 'Biagio', text: 'Ehi! Benvenuto sul mio MSN simulato!', time: '12:00' }
   ])
   const [inputText, setInputText] = useState('')
   const [isNudging, setIsNudging] = useState(false)
@@ -47,7 +47,7 @@ export default function MsnWindow({ onClose, onMinimize, icon }: MsnWindowProps)
       playSound()
       setMessages(prev => [...prev, {
         sender: 'Biagio',
-        text: 'Al momento sto scrivendo del codice, ma ti risponderò il prima possibile! 👨‍💻',
+        text: 'Al momento sto scrivendo del codice, ma ti risponderò il prima possibile!',
         time: `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`
       }])
     }, 1500)
@@ -115,7 +115,7 @@ export default function MsnWindow({ onClose, onMinimize, icon }: MsnWindowProps)
                 Biagio Scaglia <span style={{ color: '#008000', fontSize: '12px' }}>(Disponibile)</span>
               </div>
               <div style={{ color: '#555', fontSize: '12px', fontStyle: 'italic', marginTop: '4px' }}>
-                "Sviluppando il futuro, un blocco di codice alla volta. 🚀"
+                "Sviluppando il futuro, un blocco di codice alla volta."
               </div>
             </div>
           </div>
@@ -183,7 +183,7 @@ export default function MsnWindow({ onClose, onMinimize, icon }: MsnWindowProps)
                 e.currentTarget.style.background = 'transparent'
               }}
             >
-              <span style={{ fontSize: '16px' }}>📳</span> <b>Invia trillo</b>
+              <i className="fas fa-bell" style={{ fontSize: '13px', color: '#e53e3e' }}></i> <b>Invia trillo</b>
             </button>
             <button
               style={{
@@ -200,7 +200,7 @@ export default function MsnWindow({ onClose, onMinimize, icon }: MsnWindowProps)
                 color: '#00477e'
               }}
             >
-              <span style={{ fontSize: '16px' }}>😊</span> Emoticon
+              <i className="far fa-smile" style={{ fontSize: '13px', color: '#d69e2e' }}></i> Emoticon
             </button>
           </div>
 

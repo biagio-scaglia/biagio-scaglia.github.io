@@ -216,10 +216,13 @@ export default function PaintWindow({ onClose, onMinimize, icon }: PaintWindowPr
                 border: '1px solid #c0c0c0',
                 cursor: 'pointer',
                 fontSize: windowWidth <= 480 ? '11px' : '12px',
-                fontWeight: tool === 'pen' ? 'bold' : 'normal'
+                fontWeight: tool === 'pen' ? 'bold' : 'normal',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '6px'
               }}
             >
-              ✏️ Penna
+              <i className="fas fa-pencil-alt"></i> Penna
             </button>
             <button
               onClick={() => setTool('eraser')}
@@ -230,10 +233,13 @@ export default function PaintWindow({ onClose, onMinimize, icon }: PaintWindowPr
                 border: '1px solid #c0c0c0',
                 cursor: 'pointer',
                 fontSize: windowWidth <= 480 ? '11px' : '12px',
-                fontWeight: tool === 'eraser' ? 'bold' : 'normal'
+                fontWeight: tool === 'eraser' ? 'bold' : 'normal',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '6px'
               }}
             >
-              🧹 Gomma
+              <i className="fas fa-eraser"></i> Gomma
             </button>
           </div>
 
@@ -283,10 +289,13 @@ export default function PaintWindow({ onClose, onMinimize, icon }: PaintWindowPr
                 background: '#e0e0e0',
                 border: '1px solid #c0c0c0',
                 cursor: 'pointer',
-                fontSize: windowWidth <= 480 ? '11px' : '12px'
+                fontSize: windowWidth <= 480 ? '11px' : '12px',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '6px'
               }}
             >
-              🗑️ Pulisci
+              <i className="fas fa-trash-alt"></i> Pulisci
             </button>
             <button
               onClick={downloadImage}
@@ -295,10 +304,13 @@ export default function PaintWindow({ onClose, onMinimize, icon }: PaintWindowPr
                 background: '#e0e0e0',
                 border: '1px solid #c0c0c0',
                 cursor: 'pointer',
-                fontSize: windowWidth <= 480 ? '11px' : '12px'
+                fontSize: windowWidth <= 480 ? '11px' : '12px',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '6px'
               }}
             >
-              💾 Salva
+              <i className="fas fa-save"></i> Salva
             </button>
           </div>
         </div>
@@ -363,14 +375,17 @@ export default function PaintWindow({ onClose, onMinimize, icon }: PaintWindowPr
 
         {/* Istruzioni */}
         <div style={{ 
-          padding: '8px',
+          padding: '8px 12px',
           background: '#f0f0f0',
           borderRadius: '4px',
           fontSize: windowWidth <= 480 ? '10px' : '11px',
           color: '#666',
-          fontStyle: 'italic'
+          fontStyle: 'italic',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '8px'
         }}>
-          💡 Suggerimento: Usa il mouse per disegnare. Cambia strumento, colore e dimensione dalla barra degli strumenti.
+          <i className="fas fa-lightbulb" style={{ color: '#d69e2e' }}></i> Suggerimento: Usa il mouse o il touch per disegnare. Cambia strumento, colore e dimensione dalla barra degli strumenti.
         </div>
       </div>
     </Window>

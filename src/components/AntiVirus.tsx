@@ -149,8 +149,19 @@ export default function AntiVirus({ onClose, onMinimize, icon }: AntiVirusProps)
           alignItems: 'center',
           gap: '15px'
         }}>
-          <div style={{ fontSize: windowWidth <= 480 ? '32px' : '40px' }}>
-            {isProtected ? '✅' : '⚠️'}
+          <div style={{
+            width: windowWidth <= 480 ? '36px' : '44px',
+            height: windowWidth <= 480 ? '36px' : '44px',
+            borderRadius: '50%',
+            background: isProtected ? '#28a745' : '#dc3545',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            color: '#fff',
+            fontSize: windowWidth <= 480 ? '18px' : '22px',
+            boxShadow: '0 2px 5px rgba(0,0,0,0.15)'
+          }}>
+            {isProtected ? <i className="fas fa-shield-alt"></i> : <i className="fas fa-exclamation-triangle"></i>}
           </div>
           <div style={{ flex: 1 }}>
             <h3 style={{ margin: 0, fontSize: windowWidth <= 480 ? '16px' : '18px', color: isProtected ? '#155724' : '#721c24' }}>
@@ -281,13 +292,11 @@ export default function AntiVirus({ onClose, onMinimize, icon }: AntiVirusProps)
             alignItems: 'center',
             justifyContent: 'center',
             flexDirection: 'column',
-            color: '#999',
+            color: '#a0aec0',
             fontSize: windowWidth <= 480 ? '14px' : '16px'
           }}>
-            <div style={{ fontSize: windowWidth <= 480 ? '48px' : '64px', marginBottom: '10px' }}>
-              🛡️
-            </div>
-            <p>Nessuna scansione effettuata</p>
+            <i className="fas fa-shield-alt" style={{ fontSize: windowWidth <= 480 ? '44px' : '56px', color: '#cbd5e0', marginBottom: '12px' }}></i>
+            <p style={{ margin: 0 }}>Nessuna scansione effettuata</p>
             <p style={{ fontSize: windowWidth <= 480 ? '11px' : '12px', marginTop: '5px' }}>
               Clicca su "Avvia Scansione" per verificare il sistema
             </p>

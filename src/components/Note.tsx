@@ -82,11 +82,14 @@ export default function Note() {
         color: '#666', 
         marginBottom: '16px',
         fontStyle: 'italic',
-        padding: '8px',
+        padding: '8px 12px',
         background: '#f0f0f0',
-        borderRadius: '4px'
+        borderRadius: '4px',
+        display: 'flex',
+        alignItems: 'center',
+        gap: '8px'
       }}>
-        ⚠️ Questo form è solo simulativo e non invia messaggi reali.
+        <i className="fas fa-exclamation-triangle" style={{ color: '#d69e2e' }}></i> Questo form è solo simulativo e non invia messaggi reali.
       </p>
       
       <form onSubmit={handleSubmit}>
@@ -163,9 +166,12 @@ export default function Note() {
             borderRadius: '4px',
             marginBottom: '16px',
             color: '#155724',
-            fontSize: '12px'
+            fontSize: '12px',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '8px'
           }}>
-            ✓ Messaggio inviato con successo! (Simulazione)
+            <i className="fas fa-check-circle" style={{ color: '#28a745' }}></i> Messaggio inviato con successo! (Simulazione)
           </div>
         )}
 
@@ -178,9 +184,12 @@ export default function Note() {
             borderRadius: '4px',
             marginBottom: '16px',
             color: '#721c24',
-            fontSize: '12px'
+            fontSize: '12px',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '8px'
           }}>
-            ✗ Errore nell'invio del messaggio. Riprova più tardi.
+            <i className="fas fa-times-circle" style={{ color: '#dc3545' }}></i> Errore nell'invio del messaggio. Riprova più tardi.
           </div>
         )}
 

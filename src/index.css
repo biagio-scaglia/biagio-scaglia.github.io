@@ -90,14 +90,6 @@ textarea {
     font-size: clamp(11px, 2vw, 12px);
   }
   
-  h1, h2, h3 {
-    font-size: clamp(14px, 4vw, 18px) !important;
-  }
-  
-  p, span, div {
-    font-size: clamp(11px, 3vw, 13px) !important;
-  }
-  
   /* Ottimizzazioni touch */
   button, a {
     touch-action: manipulation;
@@ -108,14 +100,6 @@ textarea {
 @media (max-width: 480px) {
   body {
     font-size: clamp(10px, 2.5vw, 11px);
-  }
-  
-  h1, h2, h3 {
-    font-size: clamp(12px, 4vw, 16px) !important;
-  }
-  
-  p, span, div {
-    font-size: clamp(10px, 3vw, 12px) !important;
   }
   
   /* Migliora la leggibilità su mobile - Cross-browser */

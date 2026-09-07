@@ -14,8 +14,8 @@ export default function WelcomeModal({ onClose, userName = 'Guest' }: WelcomeMod
       title: 'Benvenuto nel mio Portfolio',
       content: (
         <>
-          <h2 style={{ marginTop: 0, fontSize: 'clamp(16px, 4vw, 18px)', marginBottom: '16px' }}>
-            Ciao, {userName}! 👋
+          <h2 style={{ marginTop: 0, fontSize: 'clamp(16px, 4vw, 18px)', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+            Ciao, {userName}! <i className="fas fa-hand-sparkles" style={{ color: '#d69e2e', fontSize: '16px' }}></i>
           </h2>
           <div style={{ lineHeight: '1.7', fontSize: 'clamp(12px, 3vw, 13px)' }}>
             <p>
@@ -37,11 +37,11 @@ export default function WelcomeModal({ onClose, userName = 'Guest' }: WelcomeMod
           <h2 style={{ marginTop: 0, fontSize: 'clamp(16px, 4vw, 18px)', marginBottom: '16px' }}>Come usare il portfolio</h2>
           <div style={{ lineHeight: '1.7', fontSize: 'clamp(12px, 3vw, 13px)' }}>
             <p>Puoi esplorare il desktop cliccando sulle icone per aprire le varie sezioni:</p>
-            <ul style={{ marginTop: '12px', paddingLeft: '20px' }}>
-              <li><strong>📄 Presentazione</strong> - Chi sono e cosa faccio</li>
-              <li><strong>👤 Info Personali</strong> - I miei contatti e dettagli</li>
-              <li><strong>💼 Esperienze</strong> - Il mio percorso lavorativo</li>
-              <li><strong>⚡ Competenze</strong> - Le mie skills tecniche e soft skills</li>
+            <ul style={{ marginTop: '12px', paddingLeft: '20px', listStyleType: 'none' }}>
+              <li style={{ marginBottom: '6px' }}><i className="fas fa-file-alt" style={{ color: '#3182ce', width: '18px' }}></i> <strong>Presentazione</strong> - Chi sono e cosa faccio</li>
+              <li style={{ marginBottom: '6px' }}><i className="fas fa-user" style={{ color: '#3182ce', width: '18px' }}></i> <strong>Info Personali</strong> - I miei contatti e dettagli</li>
+              <li style={{ marginBottom: '6px' }}><i className="fas fa-briefcase" style={{ color: '#dd6b20', width: '18px' }}></i> <strong>Esperienze</strong> - Il mio percorso lavorativo</li>
+              <li style={{ marginBottom: '6px' }}><i className="fas fa-bolt" style={{ color: '#d69e2e', width: '18px' }}></i> <strong>Competenze</strong> - Le mie skills tecniche e soft skills</li>
             </ul>
           </div>
         </>
@@ -53,10 +53,10 @@ export default function WelcomeModal({ onClose, userName = 'Guest' }: WelcomeMod
         <>
           <h2 style={{ marginTop: 0, fontSize: 'clamp(16px, 4vw, 18px)', marginBottom: '16px' }}>Altre sezioni disponibili</h2>
           <div style={{ lineHeight: '1.7', fontSize: 'clamp(12px, 3vw, 13px)' }}>
-            <ul style={{ marginTop: '12px', paddingLeft: '20px' }}>
-              <li><strong>🎓 Formazione</strong> - Il mio background educativo</li>
-              <li><strong>🏆 Certificazioni</strong> - Le mie certificazioni</li>
-              <li><strong>📝 Note</strong> - Form contatti per scrivermi</li>
+            <ul style={{ marginTop: '12px', paddingLeft: '20px', listStyleType: 'none' }}>
+              <li style={{ marginBottom: '6px' }}><i className="fas fa-graduation-cap" style={{ color: '#805ad5', width: '18px' }}></i> <strong>Formazione</strong> - Il mio background educativo</li>
+              <li style={{ marginBottom: '6px' }}><i className="fas fa-award" style={{ color: '#d69e2e', width: '18px' }}></i> <strong>Certificazioni</strong> - Le mie certificazioni</li>
+              <li style={{ marginBottom: '6px' }}><i className="fas fa-sticky-note" style={{ color: '#e53e3e', width: '18px' }}></i> <strong>Note</strong> - Form contatti per scrivermi</li>
             </ul>
             <p style={{ marginTop: '16px', fontStyle: 'italic', color: '#666' }}>
               Clicca su "Inizia" per iniziare l'esplorazione del portfolio!

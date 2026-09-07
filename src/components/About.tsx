@@ -25,19 +25,20 @@ export default function About() {
         borderBottom: '1px solid rgba(0, 0, 0, 0.1)',
       }}>
         <div style={{
-          width: '70px',
-          height: '70px',
+          width: '74px',
+          height: '74px',
           borderRadius: '50%',
-          border: '3px solid #fff',
-          boxShadow: '0 2px 10px rgba(0,0,0,0.15), 0 0 0 1px #b0c4de',
-          background: 'linear-gradient(135deg, #e6f2ff 0%, #cce6ff 100%)',
+          border: '3px solid rgba(255, 255, 255, 0.9)',
+          boxShadow: '0 4px 14px rgba(0, 168, 255, 0.3), 0 0 0 1px rgba(0, 136, 204, 0.25), inset 0 0 10px rgba(255, 255, 255, 0.5)',
+          background: 'radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.8) 0%, rgba(200, 235, 255, 0.4) 50%, rgba(140, 200, 240, 0.2) 100%)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
           overflow: 'hidden',
-          flexShrink: 0
+          flexShrink: 0,
+          padding: '2px'
         }}>
-          <img src={bsLogo} alt="Avatar" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+          <img src={bsLogo} alt="Avatar" style={{ width: '100%', height: '100%', objectFit: 'contain', filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.15))' }} />
         </div>
         <div style={{ textAlign: isMobile ? 'center' : 'left' }}>
           <h2 style={{ margin: '0 0 4px 0', fontSize: '20px', fontWeight: 'bold', color: '#1a365d' }}>Biagio Scaglia</h2>

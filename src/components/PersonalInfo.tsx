@@ -30,19 +30,20 @@ export default function PersonalInfo() {
       <div className="personal-info-avatar-card">
         {/* Cornice lucida stile Windows 7 */}
         <div style={{
-          width: '90px',
-          height: '90px',
-          border: '4px solid #fff',
-          borderRadius: '4px',
-          boxShadow: '0 3px 8px rgba(0,0,0,0.25), 0 0 0 1px #cbd5e0',
-          background: 'linear-gradient(135deg, #f6f8fa 0%, #e1e4e8 100%)',
+          width: '92px',
+          height: '92px',
+          borderRadius: '50%',
+          border: '3px solid rgba(255, 255, 255, 0.9)',
+          boxShadow: '0 4px 14px rgba(0, 168, 255, 0.35), 0 0 0 1px rgba(0, 136, 204, 0.3), inset 0 0 12px rgba(255, 255, 255, 0.6)',
+          background: 'radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.8) 0%, rgba(200, 235, 255, 0.4) 50%, rgba(140, 200, 240, 0.2) 100%)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
           overflow: 'hidden',
-          marginBottom: '12px'
+          marginBottom: '12px',
+          padding: '2px'
         }}>
-          <img src={bsLogo} alt="Biagio Scaglia" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+          <img src={bsLogo} alt="Biagio Scaglia" style={{ width: '100%', height: '100%', objectFit: 'contain', filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.15))' }} />
         </div>
         <div style={{ fontWeight: 'bold', fontSize: '15px', color: '#2d3748' }}>Biagio Scaglia</div>
         <div style={{
